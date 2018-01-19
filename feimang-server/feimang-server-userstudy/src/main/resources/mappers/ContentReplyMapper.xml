@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.ContentReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.ContentReply" >
+    <constructor >
+      <idArg column="ReplyID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ReviewID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Touid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ReplyContent" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ReplyCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="LikeCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ReplyID, ReviewID, Fromuid, Touid, ReplyContent, ReplyCount, LikeCount, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_content_reply
+    where ReplyID = #{replyid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_content_reply
+    where ReplyID = #{replyid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.ContentReply" >
+    insert into fm_content_reply (ReplyID, ReviewID, Fromuid, 
+      Touid, ReplyContent, ReplyCount, 
+      LikeCount, CreateTime)
+    values (#{replyid,jdbcType=BIGINT}, #{reviewid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{touid,jdbcType=BIGINT}, #{replycontent,jdbcType=VARCHAR}, #{replycount,jdbcType=INTEGER}, 
+      #{likecount,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.ContentReply" >
+    insert into fm_content_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyid != null" >
+        ReplyID,
+      </if>
+      <if test="reviewid != null" >
+        ReviewID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="touid != null" >
+        Touid,
+      </if>
+      <if test="replycontent != null" >
+        ReplyContent,
+      </if>
+      <if test="replycount != null" >
+        ReplyCount,
+      </if>
+      <if test="likecount != null" >
+        LikeCount,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyid != null" >
+        #{replyid,jdbcType=BIGINT},
+      </if>
+      <if test="reviewid != null" >
+        #{reviewid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="touid != null" >
+        #{touid,jdbcType=BIGINT},
+      </if>
+      <if test="replycontent != null" >
+        #{replycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="replycount != null" >
+        #{replycount,jdbcType=INTEGER},
+      </if>
+      <if test="likecount != null" >
+        #{likecount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.ContentReply" >
+    update fm_content_reply
+    <set >
+      <if test="reviewid != null" >
+        ReviewID = #{reviewid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="touid != null" >
+        Touid = #{touid,jdbcType=BIGINT},
+      </if>
+      <if test="replycontent != null" >
+        ReplyContent = #{replycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="replycount != null" >
+        ReplyCount = #{replycount,jdbcType=INTEGER},
+      </if>
+      <if test="likecount != null" >
+        LikeCount = #{likecount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ReplyID = #{replyid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.ContentReply" >
+    update fm_content_reply
+    set ReviewID = #{reviewid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      Touid = #{touid,jdbcType=BIGINT},
+      ReplyContent = #{replycontent,jdbcType=VARCHAR},
+      ReplyCount = #{replycount,jdbcType=INTEGER},
+      LikeCount = #{likecount,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where ReplyID = #{replyid,jdbcType=BIGINT}
+  </update>
+</mapper>

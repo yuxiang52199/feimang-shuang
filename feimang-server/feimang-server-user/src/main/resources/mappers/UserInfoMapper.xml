@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.user.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.user.pojo.UserInfo" >
+    <constructor >
+      <idArg column="UserID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UserName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserPass" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MD5UserPass" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="NickName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Signature" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="StudyName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="StudySummary" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserHead" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Sex" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="UserLocation" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Country" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Provinces" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="City" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Area" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BookCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="FansCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AttentionCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AttenTagCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AccountType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PrivateType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="FansStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AttenUserRecBook" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SystemFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PrivateFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ReviewFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AtUserFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AttenBookFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ScoreFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ImgFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MachineType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="version" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ThirdUserID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="LastLoginTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UserStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="GenerateStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BgImg" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UserID, UserName, UserPass, MD5UserPass, NickName, Phone, Signature, StudyName, StudySummary, 
+    UserHead, Sex, UserLocation, Country, Provinces, City, Area, BookCount, FansCount, 
+    AttentionCount, AttenTagCount, AccountType, PrivateType, FansStatus, AttenUserRecBook, 
+    SystemFlg, PrivateFlg, ReviewFlg, AtUserFlg, AttenBookFlg, ScoreFlg, ImgFlg, MachineType, 
+    version, ThirdUserID, LastLoginTime, CreateTime, UserStatus, GenerateStatus, BgImg
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_userinfo
+    where UserID = #{userid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_userinfo
+    where UserID = #{userid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.user.pojo.UserInfo" >
+    insert into fm_userinfo (UserID, UserName, UserPass, 
+      MD5UserPass, NickName, Phone, 
+      Signature, StudyName, StudySummary, 
+      UserHead, Sex, UserLocation, 
+      Country, Provinces, City, 
+      Area, BookCount, FansCount, 
+      AttentionCount, AttenTagCount, AccountType, 
+      PrivateType, FansStatus, AttenUserRecBook, 
+      SystemFlg, PrivateFlg, ReviewFlg, 
+      AtUserFlg, AttenBookFlg, ScoreFlg, 
+      ImgFlg, MachineType, version, 
+      ThirdUserID, LastLoginTime, CreateTime, 
+      UserStatus, GenerateStatus, BgImg
+      )
+    values (#{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{userpass,jdbcType=VARCHAR}, 
+      #{md5userpass,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{signature,jdbcType=VARCHAR}, #{studyname,jdbcType=VARCHAR}, #{studysummary,jdbcType=VARCHAR}, 
+      #{userhead,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{userlocation,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{provinces,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{bookcount,jdbcType=INTEGER}, #{fanscount,jdbcType=INTEGER}, 
+      #{attentioncount,jdbcType=INTEGER}, #{attentagcount,jdbcType=INTEGER}, #{accounttype,jdbcType=INTEGER}, 
+      #{privatetype,jdbcType=INTEGER}, #{fansstatus,jdbcType=INTEGER}, #{attenuserrecbook,jdbcType=INTEGER}, 
+      #{systemflg,jdbcType=INTEGER}, #{privateflg,jdbcType=INTEGER}, #{reviewflg,jdbcType=INTEGER}, 
+      #{atuserflg,jdbcType=INTEGER}, #{attenbookflg,jdbcType=INTEGER}, #{scoreflg,jdbcType=INTEGER}, 
+      #{imgflg,jdbcType=INTEGER}, #{machinetype,jdbcType=INTEGER}, #{version,jdbcType=VARCHAR}, 
+      #{thirduserid,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{userstatus,jdbcType=INTEGER}, #{generatestatus,jdbcType=INTEGER}, #{bgimg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.user.pojo.UserInfo" >
+    insert into fm_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="userpass != null" >
+        UserPass,
+      </if>
+      <if test="md5userpass != null" >
+        MD5UserPass,
+      </if>
+      <if test="nickname != null" >
+        NickName,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="signature != null" >
+        Signature,
+      </if>
+      <if test="studyname != null" >
+        StudyName,
+      </if>
+      <if test="studysummary != null" >
+        StudySummary,
+      </if>
+      <if test="userhead != null" >
+        UserHead,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="userlocation != null" >
+        UserLocation,
+      </if>
+      <if test="country != null" >
+        Country,
+      </if>
+      <if test="provinces != null" >
+        Provinces,
+      </if>
+      <if test="city != null" >
+        City,
+      </if>
+      <if test="area != null" >
+        Area,
+      </if>
+      <if test="bookcount != null" >
+        BookCount,
+      </if>
+      <if test="fanscount != null" >
+        FansCount,
+      </if>
+      <if test="attentioncount != null" >
+        AttentionCount,
+      </if>
+      <if test="attentagcount != null" >
+        AttenTagCount,
+      </if>
+      <if test="accounttype != null" >
+        AccountType,
+      </if>
+      <if test="privatetype != null" >
+        PrivateType,
+      </if>
+      <if test="fansstatus != null" >
+        FansStatus,
+      </if>
+      <if test="attenuserrecbook != null" >
+        AttenUserRecBook,
+      </if>
+      <if test="systemflg != null" >
+        SystemFlg,
+      </if>
+      <if test="privateflg != null" >
+        PrivateFlg,
+      </if>
+      <if test="reviewflg != null" >
+        ReviewFlg,
+      </if>
+      <if test="atuserflg != null" >
+        AtUserFlg,
+      </if>
+      <if test="attenbookflg != null" >
+        AttenBookFlg,
+      </if>
+      <if test="scoreflg != null" >
+        ScoreFlg,
+      </if>
+      <if test="imgflg != null" >
+        ImgFlg,
+      </if>
+      <if test="machinetype != null" >
+        MachineType,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="thirduserid != null" >
+        ThirdUserID,
+      </if>
+      <if test="lastlogintime != null" >
+        LastLoginTime,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="userstatus != null" >
+        UserStatus,
+      </if>
+      <if test="generatestatus != null" >
+        GenerateStatus,
+      </if>
+      <if test="bgimg != null" >
+        BgImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpass != null" >
+        #{userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="md5userpass != null" >
+        #{md5userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="studyname != null" >
+        #{studyname,jdbcType=VARCHAR},
+      </if>
+      <if test="studysummary != null" >
+        #{studysummary,jdbcType=VARCHAR},
+      </if>
+      <if test="userhead != null" >
+        #{userhead,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="userlocation != null" >
+        #{userlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="provinces != null" >
+        #{provinces,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="bookcount != null" >
+        #{bookcount,jdbcType=INTEGER},
+      </if>
+      <if test="fanscount != null" >
+        #{fanscount,jdbcType=INTEGER},
+      </if>
+      <if test="attentioncount != null" >
+        #{attentioncount,jdbcType=INTEGER},
+      </if>
+      <if test="attentagcount != null" >
+        #{attentagcount,jdbcType=INTEGER},
+      </if>
+      <if test="accounttype != null" >
+        #{accounttype,jdbcType=INTEGER},
+      </if>
+      <if test="privatetype != null" >
+        #{privatetype,jdbcType=INTEGER},
+      </if>
+      <if test="fansstatus != null" >
+        #{fansstatus,jdbcType=INTEGER},
+      </if>
+      <if test="attenuserrecbook != null" >
+        #{attenuserrecbook,jdbcType=INTEGER},
+      </if>
+      <if test="systemflg != null" >
+        #{systemflg,jdbcType=INTEGER},
+      </if>
+      <if test="privateflg != null" >
+        #{privateflg,jdbcType=INTEGER},
+      </if>
+      <if test="reviewflg != null" >
+        #{reviewflg,jdbcType=INTEGER},
+      </if>
+      <if test="atuserflg != null" >
+        #{atuserflg,jdbcType=INTEGER},
+      </if>
+      <if test="attenbookflg != null" >
+        #{attenbookflg,jdbcType=INTEGER},
+      </if>
+      <if test="scoreflg != null" >
+        #{scoreflg,jdbcType=INTEGER},
+      </if>
+      <if test="imgflg != null" >
+        #{imgflg,jdbcType=INTEGER},
+      </if>
+      <if test="machinetype != null" >
+        #{machinetype,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="thirduserid != null" >
+        #{thirduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userstatus != null" >
+        #{userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="generatestatus != null" >
+        #{generatestatus,jdbcType=INTEGER},
+      </if>
+      <if test="bgimg != null" >
+        #{bgimg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.user.pojo.UserInfo" >
+    update fm_userinfo
+    <set >
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpass != null" >
+        UserPass = #{userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="md5userpass != null" >
+        MD5UserPass = #{md5userpass,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        NickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        Signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="studyname != null" >
+        StudyName = #{studyname,jdbcType=VARCHAR},
+      </if>
+      <if test="studysummary != null" >
+        StudySummary = #{studysummary,jdbcType=VARCHAR},
+      </if>
+      <if test="userhead != null" >
+        UserHead = #{userhead,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="userlocation != null" >
+        UserLocation = #{userlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="provinces != null" >
+        Provinces = #{provinces,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        Area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="bookcount != null" >
+        BookCount = #{bookcount,jdbcType=INTEGER},
+      </if>
+      <if test="fanscount != null" >
+        FansCount = #{fanscount,jdbcType=INTEGER},
+      </if>
+      <if test="attentioncount != null" >
+        AttentionCount = #{attentioncount,jdbcType=INTEGER},
+      </if>
+      <if test="attentagcount != null" >
+        AttenTagCount = #{attentagcount,jdbcType=INTEGER},
+      </if>
+      <if test="accounttype != null" >
+        AccountType = #{accounttype,jdbcType=INTEGER},
+      </if>
+      <if test="privatetype != null" >
+        PrivateType = #{privatetype,jdbcType=INTEGER},
+      </if>
+      <if test="fansstatus != null" >
+        FansStatus = #{fansstatus,jdbcType=INTEGER},
+      </if>
+      <if test="attenuserrecbook != null" >
+        AttenUserRecBook = #{attenuserrecbook,jdbcType=INTEGER},
+      </if>
+      <if test="systemflg != null" >
+        SystemFlg = #{systemflg,jdbcType=INTEGER},
+      </if>
+      <if test="privateflg != null" >
+        PrivateFlg = #{privateflg,jdbcType=INTEGER},
+      </if>
+      <if test="reviewflg != null" >
+        ReviewFlg = #{reviewflg,jdbcType=INTEGER},
+      </if>
+      <if test="atuserflg != null" >
+        AtUserFlg = #{atuserflg,jdbcType=INTEGER},
+      </if>
+      <if test="attenbookflg != null" >
+        AttenBookFlg = #{attenbookflg,jdbcType=INTEGER},
+      </if>
+      <if test="scoreflg != null" >
+        ScoreFlg = #{scoreflg,jdbcType=INTEGER},
+      </if>
+      <if test="imgflg != null" >
+        ImgFlg = #{imgflg,jdbcType=INTEGER},
+      </if>
+      <if test="machinetype != null" >
+        MachineType = #{machinetype,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="thirduserid != null" >
+        ThirdUserID = #{thirduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        LastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userstatus != null" >
+        UserStatus = #{userstatus,jdbcType=INTEGER},
+      </if>
+      <if test="generatestatus != null" >
+        GenerateStatus = #{generatestatus,jdbcType=INTEGER},
+      </if>
+      <if test="bgimg != null" >
+        BgImg = #{bgimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UserID = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.user.pojo.UserInfo" >
+    update fm_userinfo
+    set UserName = #{username,jdbcType=VARCHAR},
+      UserPass = #{userpass,jdbcType=VARCHAR},
+      MD5UserPass = #{md5userpass,jdbcType=VARCHAR},
+      NickName = #{nickname,jdbcType=VARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      Signature = #{signature,jdbcType=VARCHAR},
+      StudyName = #{studyname,jdbcType=VARCHAR},
+      StudySummary = #{studysummary,jdbcType=VARCHAR},
+      UserHead = #{userhead,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=INTEGER},
+      UserLocation = #{userlocation,jdbcType=VARCHAR},
+      Country = #{country,jdbcType=VARCHAR},
+      Provinces = #{provinces,jdbcType=VARCHAR},
+      City = #{city,jdbcType=VARCHAR},
+      Area = #{area,jdbcType=VARCHAR},
+      BookCount = #{bookcount,jdbcType=INTEGER},
+      FansCount = #{fanscount,jdbcType=INTEGER},
+      AttentionCount = #{attentioncount,jdbcType=INTEGER},
+      AttenTagCount = #{attentagcount,jdbcType=INTEGER},
+      AccountType = #{accounttype,jdbcType=INTEGER},
+      PrivateType = #{privatetype,jdbcType=INTEGER},
+      FansStatus = #{fansstatus,jdbcType=INTEGER},
+      AttenUserRecBook = #{attenuserrecbook,jdbcType=INTEGER},
+      SystemFlg = #{systemflg,jdbcType=INTEGER},
+      PrivateFlg = #{privateflg,jdbcType=INTEGER},
+      ReviewFlg = #{reviewflg,jdbcType=INTEGER},
+      AtUserFlg = #{atuserflg,jdbcType=INTEGER},
+      AttenBookFlg = #{attenbookflg,jdbcType=INTEGER},
+      ScoreFlg = #{scoreflg,jdbcType=INTEGER},
+      ImgFlg = #{imgflg,jdbcType=INTEGER},
+      MachineType = #{machinetype,jdbcType=INTEGER},
+      version = #{version,jdbcType=VARCHAR},
+      ThirdUserID = #{thirduserid,jdbcType=VARCHAR},
+      LastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      UserStatus = #{userstatus,jdbcType=INTEGER},
+      GenerateStatus = #{generatestatus,jdbcType=INTEGER},
+      BgImg = #{bgimg,jdbcType=VARCHAR}
+    where UserID = #{userid,jdbcType=BIGINT}
+  </update>
+</mapper>

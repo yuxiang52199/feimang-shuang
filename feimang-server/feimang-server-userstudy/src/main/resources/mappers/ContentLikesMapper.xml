@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.ContentLikesMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.ContentLikes" >
+    <constructor >
+      <idArg column="Content_LikeID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Content_BaseID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Content_LikeID, Content_BaseID, Fromuid, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_content_likes
+    where Content_LikeID = #{contentLikeid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_content_likes
+    where Content_LikeID = #{contentLikeid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.ContentLikes" >
+    insert into fm_content_likes (Content_LikeID, Content_BaseID, Fromuid, 
+      CreateTime)
+    values (#{contentLikeid,jdbcType=BIGINT}, #{contentBaseid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.ContentLikes" >
+    insert into fm_content_likes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentLikeid != null" >
+        Content_LikeID,
+      </if>
+      <if test="contentBaseid != null" >
+        Content_BaseID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentLikeid != null" >
+        #{contentLikeid,jdbcType=BIGINT},
+      </if>
+      <if test="contentBaseid != null" >
+        #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.ContentLikes" >
+    update fm_content_likes
+    <set >
+      <if test="contentBaseid != null" >
+        Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Content_LikeID = #{contentLikeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.ContentLikes" >
+    update fm_content_likes
+    set Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where Content_LikeID = #{contentLikeid,jdbcType=BIGINT}
+  </update>
+</mapper>

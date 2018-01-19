@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="feimang-client-app" />
+        <module name="feimang-eureka" />
+        <module name="feimang-server-book" />
+        <module name="feimang-server-clubstudy" />
+        <module name="feimang-server-user" />
+        <module name="feimang-server-userstudy" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="feimang-client" target="1.6" />
+      <module name="feimang-client-app" target="1.8" />
+      <module name="feimang-eureka" target="1.8" />
+      <module name="feimang-server" target="1.6" />
+      <module name="feimang-server-book" target="1.8" />
+      <module name="feimang-server-clubstudy" target="1.8" />
+      <module name="feimang-server-user" target="1.8" />
+      <module name="feimang-server-userstudy" target="1.8" />
+      <module name="feimang-shuang" target="1.6" />
+      <module name="feimang-user-server" target="1.8" />
+      <module name="imooc-security" target="1.6" />
+      <module name="imooc-security-app" target="1.8" />
+      <module name="imooc-security-browser" target="1.8" />
+      <module name="imooc-security-core" target="1.8" />
+      <module name="shufang-demo" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

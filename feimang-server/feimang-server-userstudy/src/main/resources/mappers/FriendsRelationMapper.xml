@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.FriendsRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.FriendsRelation" >
+    <constructor >
+      <idArg column="ConID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Formuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Attentionuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="LinkStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ConID, Formuid, Attentionuid, LinkStatus, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_friends_relation
+    where ConID = #{conid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_friends_relation
+    where ConID = #{conid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
+    insert into fm_friends_relation (ConID, Formuid, Attentionuid, 
+      LinkStatus, CreateTime)
+    values (#{conid,jdbcType=INTEGER}, #{formuid,jdbcType=BIGINT}, #{attentionuid,jdbcType=BIGINT}, 
+      #{linkstatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
+    insert into fm_friends_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="conid != null" >
+        ConID,
+      </if>
+      <if test="formuid != null" >
+        Formuid,
+      </if>
+      <if test="attentionuid != null" >
+        Attentionuid,
+      </if>
+      <if test="linkstatus != null" >
+        LinkStatus,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="conid != null" >
+        #{conid,jdbcType=INTEGER},
+      </if>
+      <if test="formuid != null" >
+        #{formuid,jdbcType=BIGINT},
+      </if>
+      <if test="attentionuid != null" >
+        #{attentionuid,jdbcType=BIGINT},
+      </if>
+      <if test="linkstatus != null" >
+        #{linkstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
+    update fm_friends_relation
+    <set >
+      <if test="formuid != null" >
+        Formuid = #{formuid,jdbcType=BIGINT},
+      </if>
+      <if test="attentionuid != null" >
+        Attentionuid = #{attentionuid,jdbcType=BIGINT},
+      </if>
+      <if test="linkstatus != null" >
+        LinkStatus = #{linkstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ConID = #{conid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
+    update fm_friends_relation
+    set Formuid = #{formuid,jdbcType=BIGINT},
+      Attentionuid = #{attentionuid,jdbcType=BIGINT},
+      LinkStatus = #{linkstatus,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where ConID = #{conid,jdbcType=INTEGER}
+  </update>
+</mapper>

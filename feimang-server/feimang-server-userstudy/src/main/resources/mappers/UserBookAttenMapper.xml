@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.UserBookAttenMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.UserBookAtten" >
+    <constructor >
+      <idArg column="AttenInfoID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AttenInfoID, Fromuid, BookID, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_userbook_atten
+    where AttenInfoID = #{atteninfoid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_userbook_atten
+    where AttenInfoID = #{atteninfoid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.UserBookAtten" >
+    insert into fm_userbook_atten (AttenInfoID, Fromuid, BookID, 
+      CreateTime)
+    values (#{atteninfoid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.UserBookAtten" >
+    insert into fm_userbook_atten
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="atteninfoid != null" >
+        AttenInfoID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="bookid != null" >
+        BookID,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="atteninfoid != null" >
+        #{atteninfoid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.UserBookAtten" >
+    update fm_userbook_atten
+    <set >
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        BookID = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where AttenInfoID = #{atteninfoid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.UserBookAtten" >
+    update fm_userbook_atten
+    set Fromuid = #{fromuid,jdbcType=BIGINT},
+      BookID = #{bookid,jdbcType=BIGINT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where AttenInfoID = #{atteninfoid,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.UserBookPerfectMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.UserBookPerfect" >
+    <constructor >
+      <idArg column="PerfectID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ISBN" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Author" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Price" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Publisher" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PubDate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="LastUpdateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ImgFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PerfectStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Cover" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.feimang.userstudy.pojo.UserBookPerfectWithBLOBs" >
+    <constructor >
+      <idArg column="PerfectID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ISBN" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Author" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Price" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Publisher" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PubDate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="LastUpdateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ImgFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PerfectStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Cover" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Authorintro" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="Catalog" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="Summary" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PerfectID, BookID, Fromuid, BookName, ISBN, Author, Price, Publisher, PubDate, CreateTime, 
+    LastUpdateTime, ImgFlg, PerfectStatus, Cover
+  </sql>
+  <sql id="Blob_Column_List" >
+    Authorintro, Catalog, Summary
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fm_userbook_perfect
+    where PerfectID = #{perfectid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_userbook_perfect
+    where PerfectID = #{perfectid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.UserBookPerfectWithBLOBs" >
+    insert into fm_userbook_perfect (PerfectID, BookID, Fromuid, 
+      BookName, ISBN, Author, 
+      Price, Publisher, PubDate, 
+      CreateTime, LastUpdateTime, ImgFlg, 
+      PerfectStatus, Cover, Authorintro, 
+      Catalog, Summary)
+    values (#{perfectid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{bookname,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{price,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, #{pubdate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{lastupdatetime,jdbcType=TIMESTAMP}, #{imgflg,jdbcType=INTEGER}, 
+      #{perfectstatus,jdbcType=INTEGER}, #{cover,jdbcType=VARCHAR}, #{authorintro,jdbcType=LONGVARCHAR}, 
+      #{catalog,jdbcType=LONGVARCHAR}, #{summary,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.UserBookPerfectWithBLOBs" >
+    insert into fm_userbook_perfect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="perfectid != null" >
+        PerfectID,
+      </if>
+      <if test="bookid != null" >
+        BookID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="bookname != null" >
+        BookName,
+      </if>
+      <if test="isbn != null" >
+        ISBN,
+      </if>
+      <if test="author != null" >
+        Author,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="publisher != null" >
+        Publisher,
+      </if>
+      <if test="pubdate != null" >
+        PubDate,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="lastupdatetime != null" >
+        LastUpdateTime,
+      </if>
+      <if test="imgflg != null" >
+        ImgFlg,
+      </if>
+      <if test="perfectstatus != null" >
+        PerfectStatus,
+      </if>
+      <if test="cover != null" >
+        Cover,
+      </if>
+      <if test="authorintro != null" >
+        Authorintro,
+      </if>
+      <if test="catalog != null" >
+        Catalog,
+      </if>
+      <if test="summary != null" >
+        Summary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="perfectid != null" >
+        #{perfectid,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="bookname != null" >
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="pubdate != null" >
+        #{pubdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null" >
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgflg != null" >
+        #{imgflg,jdbcType=INTEGER},
+      </if>
+      <if test="perfectstatus != null" >
+        #{perfectstatus,jdbcType=INTEGER},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="authorintro != null" >
+        #{authorintro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="catalog != null" >
+        #{catalog,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.UserBookPerfectWithBLOBs" >
+    update fm_userbook_perfect
+    <set >
+      <if test="bookid != null" >
+        BookID = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="bookname != null" >
+        BookName = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        ISBN = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        Author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null" >
+        Publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="pubdate != null" >
+        PubDate = #{pubdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null" >
+        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgflg != null" >
+        ImgFlg = #{imgflg,jdbcType=INTEGER},
+      </if>
+      <if test="perfectstatus != null" >
+        PerfectStatus = #{perfectstatus,jdbcType=INTEGER},
+      </if>
+      <if test="cover != null" >
+        Cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="authorintro != null" >
+        Authorintro = #{authorintro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="catalog != null" >
+        Catalog = #{catalog,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summary != null" >
+        Summary = #{summary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where PerfectID = #{perfectid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.feimang.userstudy.pojo.UserBookPerfectWithBLOBs" >
+    update fm_userbook_perfect
+    set BookID = #{bookid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      BookName = #{bookname,jdbcType=VARCHAR},
+      ISBN = #{isbn,jdbcType=VARCHAR},
+      Author = #{author,jdbcType=VARCHAR},
+      Price = #{price,jdbcType=VARCHAR},
+      Publisher = #{publisher,jdbcType=VARCHAR},
+      PubDate = #{pubdate,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      ImgFlg = #{imgflg,jdbcType=INTEGER},
+      PerfectStatus = #{perfectstatus,jdbcType=INTEGER},
+      Cover = #{cover,jdbcType=VARCHAR},
+      Authorintro = #{authorintro,jdbcType=LONGVARCHAR},
+      Catalog = #{catalog,jdbcType=LONGVARCHAR},
+      Summary = #{summary,jdbcType=LONGVARCHAR}
+    where PerfectID = #{perfectid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.UserBookPerfect" >
+    update fm_userbook_perfect
+    set BookID = #{bookid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      BookName = #{bookname,jdbcType=VARCHAR},
+      ISBN = #{isbn,jdbcType=VARCHAR},
+      Author = #{author,jdbcType=VARCHAR},
+      Price = #{price,jdbcType=VARCHAR},
+      Publisher = #{publisher,jdbcType=VARCHAR},
+      PubDate = #{pubdate,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      ImgFlg = #{imgflg,jdbcType=INTEGER},
+      PerfectStatus = #{perfectstatus,jdbcType=INTEGER},
+      Cover = #{cover,jdbcType=VARCHAR}
+    where PerfectID = #{perfectid,jdbcType=BIGINT}
+  </update>
+</mapper>

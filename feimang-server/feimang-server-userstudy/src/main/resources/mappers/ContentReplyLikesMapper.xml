@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.ContentReplyLikesMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.ContentReplyLikes" >
+    <constructor >
+      <idArg column="Reply_LikeID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ReplyID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Reply_LikeID, ReplyID, Fromuid, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_content_reply_likes
+    where Reply_LikeID = #{replyLikeid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_content_reply_likes
+    where Reply_LikeID = #{replyLikeid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.ContentReplyLikes" >
+    insert into fm_content_reply_likes (Reply_LikeID, ReplyID, Fromuid, 
+      CreateTime)
+    values (#{replyLikeid,jdbcType=BIGINT}, #{replyid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.ContentReplyLikes" >
+    insert into fm_content_reply_likes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyLikeid != null" >
+        Reply_LikeID,
+      </if>
+      <if test="replyid != null" >
+        ReplyID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyLikeid != null" >
+        #{replyLikeid,jdbcType=BIGINT},
+      </if>
+      <if test="replyid != null" >
+        #{replyid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.ContentReplyLikes" >
+    update fm_content_reply_likes
+    <set >
+      <if test="replyid != null" >
+        ReplyID = #{replyid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Reply_LikeID = #{replyLikeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.ContentReplyLikes" >
+    update fm_content_reply_likes
+    set ReplyID = #{replyid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where Reply_LikeID = #{replyLikeid,jdbcType=BIGINT}
+  </update>
+</mapper>

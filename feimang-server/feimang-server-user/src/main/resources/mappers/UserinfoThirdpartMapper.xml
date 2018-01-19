@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.user.dao.UserinfoThirdpartMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.user.pojo.UserinfoThirdpart" >
+    <constructor >
+      <idArg column="TPID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="UserID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="UserName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="NickName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Signature" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserHead" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FansCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AttentionCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Country" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Area" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Provinces" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Sex" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AccountType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ThirdUserID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UnionID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ThirdStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TPID, UserID, UserName, NickName, Signature, UserHead, FansCount, AttentionCount, 
+    Country, Area, Provinces, Sex, AccountType, CreateTime, ThirdUserID, UnionID, ThirdStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_userinfo_thirdpart
+    where TPID = #{tpid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_userinfo_thirdpart
+    where TPID = #{tpid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.user.pojo.UserinfoThirdpart" >
+    insert into fm_userinfo_thirdpart (TPID, UserID, UserName, 
+      NickName, Signature, UserHead, 
+      FansCount, AttentionCount, Country, 
+      Area, Provinces, Sex, 
+      AccountType, CreateTime, ThirdUserID, 
+      UnionID, ThirdStatus)
+    values (#{tpid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{userhead,jdbcType=VARCHAR}, 
+      #{fanscount,jdbcType=INTEGER}, #{attentioncount,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{provinces,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{accounttype,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{thirduserid,jdbcType=VARCHAR}, 
+      #{unionid,jdbcType=VARCHAR}, #{thirdstatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.user.pojo.UserinfoThirdpart" >
+    insert into fm_userinfo_thirdpart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tpid != null" >
+        TPID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="nickname != null" >
+        NickName,
+      </if>
+      <if test="signature != null" >
+        Signature,
+      </if>
+      <if test="userhead != null" >
+        UserHead,
+      </if>
+      <if test="fanscount != null" >
+        FansCount,
+      </if>
+      <if test="attentioncount != null" >
+        AttentionCount,
+      </if>
+      <if test="country != null" >
+        Country,
+      </if>
+      <if test="area != null" >
+        Area,
+      </if>
+      <if test="provinces != null" >
+        Provinces,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="accounttype != null" >
+        AccountType,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="thirduserid != null" >
+        ThirdUserID,
+      </if>
+      <if test="unionid != null" >
+        UnionID,
+      </if>
+      <if test="thirdstatus != null" >
+        ThirdStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tpid != null" >
+        #{tpid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="userhead != null" >
+        #{userhead,jdbcType=VARCHAR},
+      </if>
+      <if test="fanscount != null" >
+        #{fanscount,jdbcType=INTEGER},
+      </if>
+      <if test="attentioncount != null" >
+        #{attentioncount,jdbcType=INTEGER},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="provinces != null" >
+        #{provinces,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="accounttype != null" >
+        #{accounttype,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirduserid != null" >
+        #{thirduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdstatus != null" >
+        #{thirdstatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.user.pojo.UserinfoThirdpart" >
+    update fm_userinfo_thirdpart
+    <set >
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        NickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        Signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="userhead != null" >
+        UserHead = #{userhead,jdbcType=VARCHAR},
+      </if>
+      <if test="fanscount != null" >
+        FansCount = #{fanscount,jdbcType=INTEGER},
+      </if>
+      <if test="attentioncount != null" >
+        AttentionCount = #{attentioncount,jdbcType=INTEGER},
+      </if>
+      <if test="country != null" >
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        Area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="provinces != null" >
+        Provinces = #{provinces,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="accounttype != null" >
+        AccountType = #{accounttype,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirduserid != null" >
+        ThirdUserID = #{thirduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        UnionID = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdstatus != null" >
+        ThirdStatus = #{thirdstatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where TPID = #{tpid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.user.pojo.UserinfoThirdpart" >
+    update fm_userinfo_thirdpart
+    set UserID = #{userid,jdbcType=INTEGER},
+      UserName = #{username,jdbcType=VARCHAR},
+      NickName = #{nickname,jdbcType=VARCHAR},
+      Signature = #{signature,jdbcType=VARCHAR},
+      UserHead = #{userhead,jdbcType=VARCHAR},
+      FansCount = #{fanscount,jdbcType=INTEGER},
+      AttentionCount = #{attentioncount,jdbcType=INTEGER},
+      Country = #{country,jdbcType=VARCHAR},
+      Area = #{area,jdbcType=VARCHAR},
+      Provinces = #{provinces,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=INTEGER},
+      AccountType = #{accounttype,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      ThirdUserID = #{thirduserid,jdbcType=VARCHAR},
+      UnionID = #{unionid,jdbcType=VARCHAR},
+      ThirdStatus = #{thirdstatus,jdbcType=INTEGER}
+    where TPID = #{tpid,jdbcType=INTEGER}
+  </update>
+</mapper>

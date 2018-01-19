@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.BookTagAttenMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.BookTagAtten" >
+    <constructor >
+      <idArg column="AttenID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UTID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="AttenUserID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="DelFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="TagNotifyStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AttenID, UTID, Fromuid, AttenUserID, DelFlg, CreateDate, TagNotifyStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_booktag_atten
+    where AttenID = #{attenid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_booktag_atten
+    where AttenID = #{attenid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.BookTagAtten" >
+    insert into fm_booktag_atten (AttenID, UTID, Fromuid, 
+      AttenUserID, DelFlg, CreateDate, 
+      TagNotifyStatus)
+    values (#{attenid,jdbcType=BIGINT}, #{utid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{attenuserid,jdbcType=BIGINT}, #{delflg,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{tagnotifystatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.BookTagAtten" >
+    insert into fm_booktag_atten
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attenid != null" >
+        AttenID,
+      </if>
+      <if test="utid != null" >
+        UTID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="attenuserid != null" >
+        AttenUserID,
+      </if>
+      <if test="delflg != null" >
+        DelFlg,
+      </if>
+      <if test="createdate != null" >
+        CreateDate,
+      </if>
+      <if test="tagnotifystatus != null" >
+        TagNotifyStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attenid != null" >
+        #{attenid,jdbcType=BIGINT},
+      </if>
+      <if test="utid != null" >
+        #{utid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="attenuserid != null" >
+        #{attenuserid,jdbcType=BIGINT},
+      </if>
+      <if test="delflg != null" >
+        #{delflg,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagnotifystatus != null" >
+        #{tagnotifystatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.BookTagAtten" >
+    update fm_booktag_atten
+    <set >
+      <if test="utid != null" >
+        UTID = #{utid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="attenuserid != null" >
+        AttenUserID = #{attenuserid,jdbcType=BIGINT},
+      </if>
+      <if test="delflg != null" >
+        DelFlg = #{delflg,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagnotifystatus != null" >
+        TagNotifyStatus = #{tagnotifystatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where AttenID = #{attenid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.BookTagAtten" >
+    update fm_booktag_atten
+    set UTID = #{utid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      AttenUserID = #{attenuserid,jdbcType=BIGINT},
+      DelFlg = #{delflg,jdbcType=INTEGER},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      TagNotifyStatus = #{tagnotifystatus,jdbcType=INTEGER}
+    where AttenID = #{attenid,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.ContentBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.ContentBase" >
+    <constructor >
+      <idArg column="Content_BaseID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="LikeCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="RewCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CollectionCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ShareCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PhotoType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.feimang.userstudy.pojo.ContentBase" >
+    <constructor >
+      <idArg column="Content_BaseID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="LikeCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="RewCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CollectionCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ShareCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PhotoType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="DescribeAction" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Content_BaseID, LikeCount, RewCount, CollectionCount, ShareCount, PhotoType, CreateTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    DescribeAction
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fm_content_base
+    where Content_BaseID = #{contentBaseid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_content_base
+    where Content_BaseID = #{contentBaseid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.ContentBase" >
+    insert into fm_content_base (Content_BaseID, LikeCount, RewCount, 
+      CollectionCount, ShareCount, PhotoType, 
+      CreateTime, DescribeAction)
+    values (#{contentBaseid,jdbcType=BIGINT}, #{likecount,jdbcType=INTEGER}, #{rewcount,jdbcType=INTEGER}, 
+      #{collectioncount,jdbcType=INTEGER}, #{sharecount,jdbcType=INTEGER}, #{phototype,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{describeaction,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.ContentBase" >
+    insert into fm_content_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentBaseid != null" >
+        Content_BaseID,
+      </if>
+      <if test="likecount != null" >
+        LikeCount,
+      </if>
+      <if test="rewcount != null" >
+        RewCount,
+      </if>
+      <if test="collectioncount != null" >
+        CollectionCount,
+      </if>
+      <if test="sharecount != null" >
+        ShareCount,
+      </if>
+      <if test="phototype != null" >
+        PhotoType,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="describeaction != null" >
+        DescribeAction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentBaseid != null" >
+        #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="likecount != null" >
+        #{likecount,jdbcType=INTEGER},
+      </if>
+      <if test="rewcount != null" >
+        #{rewcount,jdbcType=INTEGER},
+      </if>
+      <if test="collectioncount != null" >
+        #{collectioncount,jdbcType=INTEGER},
+      </if>
+      <if test="sharecount != null" >
+        #{sharecount,jdbcType=INTEGER},
+      </if>
+      <if test="phototype != null" >
+        #{phototype,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="describeaction != null" >
+        #{describeaction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.ContentBase" >
+    update fm_content_base
+    <set >
+      <if test="likecount != null" >
+        LikeCount = #{likecount,jdbcType=INTEGER},
+      </if>
+      <if test="rewcount != null" >
+        RewCount = #{rewcount,jdbcType=INTEGER},
+      </if>
+      <if test="collectioncount != null" >
+        CollectionCount = #{collectioncount,jdbcType=INTEGER},
+      </if>
+      <if test="sharecount != null" >
+        ShareCount = #{sharecount,jdbcType=INTEGER},
+      </if>
+      <if test="phototype != null" >
+        PhotoType = #{phototype,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="describeaction != null" >
+        DescribeAction = #{describeaction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Content_BaseID = #{contentBaseid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.feimang.userstudy.pojo.ContentBase" >
+    update fm_content_base
+    set LikeCount = #{likecount,jdbcType=INTEGER},
+      RewCount = #{rewcount,jdbcType=INTEGER},
+      CollectionCount = #{collectioncount,jdbcType=INTEGER},
+      ShareCount = #{sharecount,jdbcType=INTEGER},
+      PhotoType = #{phototype,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      DescribeAction = #{describeaction,jdbcType=LONGVARCHAR}
+    where Content_BaseID = #{contentBaseid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.ContentBase" >
+    update fm_content_base
+    set LikeCount = #{likecount,jdbcType=INTEGER},
+      RewCount = #{rewcount,jdbcType=INTEGER},
+      CollectionCount = #{collectioncount,jdbcType=INTEGER},
+      ShareCount = #{sharecount,jdbcType=INTEGER},
+      PhotoType = #{phototype,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where Content_BaseID = #{contentBaseid,jdbcType=BIGINT}
+  </update>
+</mapper>

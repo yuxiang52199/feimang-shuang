@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="shufang-demo:war">
+    <output-path>$PROJECT_DIR$/shufang-demo/target</output-path>
+    <root id="archive" name="demo.war">
+      <element id="artifact" artifact-name="shufang-demo:war exploded" />
+    </root>
+  </artifact>
+</component>

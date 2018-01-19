@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.BookTagMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.BookTag" >
+    <constructor >
+      <idArg column="UTID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="TagName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TagCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="Seq" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="DelFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsLock" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AttenCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TagYear" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="IsClub" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AddBookAuthority" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UTID, Fromuid, TagName, TagCount, CreateTime, Seq, DelFlg, IsLock, AttenCount, TagYear, 
+    ClubID, IsClub, AddBookAuthority
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_booktag
+    where UTID = #{utid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_booktag
+    where UTID = #{utid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.BookTag" >
+    insert into fm_booktag (UTID, Fromuid, TagName, 
+      TagCount, CreateTime, Seq, 
+      DelFlg, IsLock, AttenCount, 
+      TagYear, ClubID, IsClub, 
+      AddBookAuthority)
+    values (#{utid,jdbcType=INTEGER}, #{fromuid,jdbcType=BIGINT}, #{tagname,jdbcType=VARCHAR}, 
+      #{tagcount,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{seq,jdbcType=INTEGER}, 
+      #{delflg,jdbcType=INTEGER}, #{islock,jdbcType=INTEGER}, #{attencount,jdbcType=INTEGER}, 
+      #{tagyear,jdbcType=INTEGER}, #{clubid,jdbcType=BIGINT}, #{isclub,jdbcType=INTEGER}, 
+      #{addbookauthority,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.BookTag" >
+    insert into fm_booktag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="utid != null" >
+        UTID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="tagname != null" >
+        TagName,
+      </if>
+      <if test="tagcount != null" >
+        TagCount,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="seq != null" >
+        Seq,
+      </if>
+      <if test="delflg != null" >
+        DelFlg,
+      </if>
+      <if test="islock != null" >
+        IsLock,
+      </if>
+      <if test="attencount != null" >
+        AttenCount,
+      </if>
+      <if test="tagyear != null" >
+        TagYear,
+      </if>
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="isclub != null" >
+        IsClub,
+      </if>
+      <if test="addbookauthority != null" >
+        AddBookAuthority,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="utid != null" >
+        #{utid,jdbcType=INTEGER},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="tagname != null" >
+        #{tagname,jdbcType=VARCHAR},
+      </if>
+      <if test="tagcount != null" >
+        #{tagcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="delflg != null" >
+        #{delflg,jdbcType=INTEGER},
+      </if>
+      <if test="islock != null" >
+        #{islock,jdbcType=INTEGER},
+      </if>
+      <if test="attencount != null" >
+        #{attencount,jdbcType=INTEGER},
+      </if>
+      <if test="tagyear != null" >
+        #{tagyear,jdbcType=INTEGER},
+      </if>
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="isclub != null" >
+        #{isclub,jdbcType=INTEGER},
+      </if>
+      <if test="addbookauthority != null" >
+        #{addbookauthority,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.BookTag" >
+    update fm_booktag
+    <set >
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="tagname != null" >
+        TagName = #{tagname,jdbcType=VARCHAR},
+      </if>
+      <if test="tagcount != null" >
+        TagCount = #{tagcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seq != null" >
+        Seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="delflg != null" >
+        DelFlg = #{delflg,jdbcType=INTEGER},
+      </if>
+      <if test="islock != null" >
+        IsLock = #{islock,jdbcType=INTEGER},
+      </if>
+      <if test="attencount != null" >
+        AttenCount = #{attencount,jdbcType=INTEGER},
+      </if>
+      <if test="tagyear != null" >
+        TagYear = #{tagyear,jdbcType=INTEGER},
+      </if>
+      <if test="clubid != null" >
+        ClubID = #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="isclub != null" >
+        IsClub = #{isclub,jdbcType=INTEGER},
+      </if>
+      <if test="addbookauthority != null" >
+        AddBookAuthority = #{addbookauthority,jdbcType=INTEGER},
+      </if>
+    </set>
+    where UTID = #{utid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.BookTag" >
+    update fm_booktag
+    set Fromuid = #{fromuid,jdbcType=BIGINT},
+      TagName = #{tagname,jdbcType=VARCHAR},
+      TagCount = #{tagcount,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      Seq = #{seq,jdbcType=INTEGER},
+      DelFlg = #{delflg,jdbcType=INTEGER},
+      IsLock = #{islock,jdbcType=INTEGER},
+      AttenCount = #{attencount,jdbcType=INTEGER},
+      TagYear = #{tagyear,jdbcType=INTEGER},
+      ClubID = #{clubid,jdbcType=BIGINT},
+      IsClub = #{isclub,jdbcType=INTEGER},
+      AddBookAuthority = #{addbookauthority,jdbcType=INTEGER}
+    where UTID = #{utid,jdbcType=INTEGER}
+  </update>
+</mapper>

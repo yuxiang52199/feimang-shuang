@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="feimang-server-userstudy:war">
+    <output-path>$PROJECT_DIR$/feimang-server/feimang-server-userstudy/target</output-path>
+    <root id="archive" name="feimang-server-userstudy.war">
+      <element id="artifact" artifact-name="feimang-server-userstudy:war exploded" />
+    </root>
+  </artifact>
+</component>

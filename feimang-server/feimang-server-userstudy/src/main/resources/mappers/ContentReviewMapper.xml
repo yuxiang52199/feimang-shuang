@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.ContentReviewMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.ContentReview" >
+    <constructor >
+      <idArg column="ReviewID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Content_BaseID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="RewContent" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="RewCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="LikeCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ReviewID, Content_BaseID, Fromuid, RewContent, RewCount, LikeCount, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_content_review
+    where ReviewID = #{reviewid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_content_review
+    where ReviewID = #{reviewid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.ContentReview" >
+    insert into fm_content_review (ReviewID, Content_BaseID, Fromuid, 
+      RewContent, RewCount, LikeCount, 
+      CreateTime)
+    values (#{reviewid,jdbcType=BIGINT}, #{contentBaseid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{rewcontent,jdbcType=VARCHAR}, #{rewcount,jdbcType=INTEGER}, #{likecount,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.ContentReview" >
+    insert into fm_content_review
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reviewid != null" >
+        ReviewID,
+      </if>
+      <if test="contentBaseid != null" >
+        Content_BaseID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="rewcontent != null" >
+        RewContent,
+      </if>
+      <if test="rewcount != null" >
+        RewCount,
+      </if>
+      <if test="likecount != null" >
+        LikeCount,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reviewid != null" >
+        #{reviewid,jdbcType=BIGINT},
+      </if>
+      <if test="contentBaseid != null" >
+        #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="rewcontent != null" >
+        #{rewcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="rewcount != null" >
+        #{rewcount,jdbcType=INTEGER},
+      </if>
+      <if test="likecount != null" >
+        #{likecount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.ContentReview" >
+    update fm_content_review
+    <set >
+      <if test="contentBaseid != null" >
+        Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="rewcontent != null" >
+        RewContent = #{rewcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="rewcount != null" >
+        RewCount = #{rewcount,jdbcType=INTEGER},
+      </if>
+      <if test="likecount != null" >
+        LikeCount = #{likecount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ReviewID = #{reviewid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.ContentReview" >
+    update fm_content_review
+    set Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      RewContent = #{rewcontent,jdbcType=VARCHAR},
+      RewCount = #{rewcount,jdbcType=INTEGER},
+      LikeCount = #{likecount,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where ReviewID = #{reviewid,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.UserBookRecordImageMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.UserBookRecordImage" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BookID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Content_BaseID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="DelFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Seq" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ImageType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ImgFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.feimang.userstudy.pojo.UserBookRecordImage" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BookID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Content_BaseID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="DelFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Seq" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ImageType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ImgFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BookImage" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BookID, Content_BaseID, DelFlg, Seq, CreateTime, ImageType, Fromuid, ImgFlg
+  </sql>
+  <sql id="Blob_Column_List" >
+    BookImage
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fm_userbook_record_image
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_userbook_record_image
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.UserBookRecordImage" >
+    insert into fm_userbook_record_image (ID, BookID, Content_BaseID, 
+      DelFlg, Seq, CreateTime, 
+      ImageType, Fromuid, ImgFlg, 
+      BookImage)
+    values (#{id,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER}, #{contentBaseid,jdbcType=BIGINT}, 
+      #{delflg,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{imagetype,jdbcType=INTEGER}, #{fromuid,jdbcType=BIGINT}, #{imgflg,jdbcType=INTEGER}, 
+      #{bookimage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.UserBookRecordImage" >
+    insert into fm_userbook_record_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="bookid != null" >
+        BookID,
+      </if>
+      <if test="contentBaseid != null" >
+        Content_BaseID,
+      </if>
+      <if test="delflg != null" >
+        DelFlg,
+      </if>
+      <if test="seq != null" >
+        Seq,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="imagetype != null" >
+        ImageType,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="imgflg != null" >
+        ImgFlg,
+      </if>
+      <if test="bookimage != null" >
+        BookImage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="contentBaseid != null" >
+        #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="delflg != null" >
+        #{delflg,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imagetype != null" >
+        #{imagetype,jdbcType=INTEGER},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="imgflg != null" >
+        #{imgflg,jdbcType=INTEGER},
+      </if>
+      <if test="bookimage != null" >
+        #{bookimage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.UserBookRecordImage" >
+    update fm_userbook_record_image
+    <set >
+      <if test="bookid != null" >
+        BookID = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="contentBaseid != null" >
+        Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="delflg != null" >
+        DelFlg = #{delflg,jdbcType=INTEGER},
+      </if>
+      <if test="seq != null" >
+        Seq = #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imagetype != null" >
+        ImageType = #{imagetype,jdbcType=INTEGER},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="imgflg != null" >
+        ImgFlg = #{imgflg,jdbcType=INTEGER},
+      </if>
+      <if test="bookimage != null" >
+        BookImage = #{bookimage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.feimang.userstudy.pojo.UserBookRecordImage" >
+    update fm_userbook_record_image
+    set BookID = #{bookid,jdbcType=INTEGER},
+      Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      DelFlg = #{delflg,jdbcType=INTEGER},
+      Seq = #{seq,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      ImageType = #{imagetype,jdbcType=INTEGER},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      ImgFlg = #{imgflg,jdbcType=INTEGER},
+      BookImage = #{bookimage,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.UserBookRecordImage" >
+    update fm_userbook_record_image
+    set BookID = #{bookid,jdbcType=INTEGER},
+      Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      DelFlg = #{delflg,jdbcType=INTEGER},
+      Seq = #{seq,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      ImageType = #{imagetype,jdbcType=INTEGER},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      ImgFlg = #{imgflg,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

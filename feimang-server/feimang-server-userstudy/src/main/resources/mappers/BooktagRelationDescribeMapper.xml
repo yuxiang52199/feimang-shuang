@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.userstudy.dao.BooktagRelationDescribeMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.BooktagRelationDescribe" >
+    <constructor >
+      <idArg column="DescribeID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UTID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Describe" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DescribeStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DescribeID, Fromuid, BookID, UTID, Describe, DescribeStatus, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_booktag_relation_describe
+    where DescribeID = #{describeid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fm_booktag_relation_describe
+    where DescribeID = #{describeid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.BooktagRelationDescribe" >
+    insert into fm_booktag_relation_describe (DescribeID, Fromuid, BookID, 
+      UTID, Describe, DescribeStatus, 
+      CreateTime)
+    values (#{describeid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, 
+      #{utid,jdbcType=BIGINT}, #{describe,jdbcType=VARCHAR}, #{describestatus,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.BooktagRelationDescribe" >
+    insert into fm_booktag_relation_describe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="describeid != null" >
+        DescribeID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="bookid != null" >
+        BookID,
+      </if>
+      <if test="utid != null" >
+        UTID,
+      </if>
+      <if test="describe != null" >
+        Describe,
+      </if>
+      <if test="describestatus != null" >
+        DescribeStatus,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="describeid != null" >
+        #{describeid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="utid != null" >
+        #{utid,jdbcType=BIGINT},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="describestatus != null" >
+        #{describestatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.BooktagRelationDescribe" >
+    update fm_booktag_relation_describe
+    <set >
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        BookID = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="utid != null" >
+        UTID = #{utid,jdbcType=BIGINT},
+      </if>
+      <if test="describe != null" >
+        Describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="describestatus != null" >
+        DescribeStatus = #{describestatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DescribeID = #{describeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.BooktagRelationDescribe" >
+    update fm_booktag_relation_describe
+    set Fromuid = #{fromuid,jdbcType=BIGINT},
+      BookID = #{bookid,jdbcType=BIGINT},
+      UTID = #{utid,jdbcType=BIGINT},
+      Describe = #{describe,jdbcType=VARCHAR},
+      DescribeStatus = #{describestatus,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where DescribeID = #{describeid,jdbcType=BIGINT}
+  </update>
+</mapper>
