@@ -1,5 +1,7 @@
 package com.feimang.userstudy.pojo;
 
+import java.util.Date;
+
 public class UserBookPerfectWithBLOBs extends UserBookPerfect {
     private String authorintro;
 

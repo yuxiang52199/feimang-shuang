@@ -5,11 +5,14 @@
         <groupId>com.feimang.framework</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <artifactId>feimang-server-userstudy</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
+
     <name>feimang-server-userstudy Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
     <dependencies>
         <!--<dependency>-->
             <!--<groupId>junit</groupId>-->
@@ -17,6 +20,23 @@
             <!--<version>3.8.1</version>-->
             <!--<scope>test</scope>-->
         <!--</dependency>-->
+        <!-- mybatis pager -->
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>com.github.miemiedev</groupId>-->
+            <!--<artifactId>mybatis-paginator</artifactId>-->
+            <!--<version>1.2.17</version>-->
+        <!--</dependency>-->
+
+
+
+
     </dependencies>
     <build>
         <finalName>feimang-server-userstudy</finalName>

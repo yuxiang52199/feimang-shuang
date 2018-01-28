@@ -26,7 +26,7 @@
     insert into fm_userbook_atten (AttenInfoID, Fromuid, BookID, 
       CreateTime)
     values (#{atteninfoid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, 
-      #{createtime,jdbcType=TIMESTAMP})
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.UserBookAtten" >
     insert into fm_userbook_atten
@@ -81,4 +81,10 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where AttenInfoID = #{atteninfoid,jdbcType=BIGINT}
   </update>
+  <select id="getAttendBooksByUserId" parameterType="int" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from fm_userbook_atten
+    where Fromuid = #{userId}
+  </select>
 </mapper>

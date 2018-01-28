@@ -2,6 +2,8 @@ package com.feimang.userstudy.dao;
 
 import com.feimang.userstudy.pojo.UserBookAtten;
 
+import java.util.List;
+
 public interface UserBookAttenMapper {
     int deleteByPrimaryKey(Long atteninfoid);
 
@@ -14,4 +16,7 @@ public interface UserBookAttenMapper {
     int updateByPrimaryKeySelective(UserBookAtten record);
 
     int updateByPrimaryKey(UserBookAtten record);
+
+    // 查询用户关注的图书
+    List<UserBookAtten> getAttendBooksByUserId(Integer userId);
 }
