@@ -92,4 +92,16 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where ConID = #{conid,jdbcType=INTEGER}
   </update>
+  <select id="getAttens" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_friends_relation
+    where Formuid = #{userId}
+  </select>
+  <select id="getFans" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_friends_relation
+    where Attentionuid = #{userId}
+  </select>
 </mapper>

@@ -15,7 +15,7 @@ public interface IAttenBookService {
      * @param bookId 图书id
      * @return
      */
-    public ServerResponse addAttenByUserIdAndBookId(Integer userId, Integer bookId);
+    ServerResponse addAttenByUserIdAndBookId(Long userId, Integer bookId);
 
     /**
      * 获取用户的关注图书列表
@@ -24,5 +24,22 @@ public interface IAttenBookService {
      * @param pageSize
      * @return
      */
-    public ServerResponse<List<UserBookAtten>> getAttenBooks(Integer userId, int pageNum, int pageSize);
+    ServerResponse<List<UserBookAtten>> getAttenBooks(Long userId, int pageNum, int pageSize);
+
+    /**
+     * 验证图书是否被关注
+     * @param userId 用户id
+     * @param bookId 图书id
+     * @return
+     */
+    ServerResponse isAttenBook(Long userId,Integer bookId);
+
+    /**
+     * 取消关注的图书
+     * @param userId 用户id
+     * @param bookId 图书id
+     * @return
+     */
+    ServerResponse delAtten(Long userId,Integer bookId);
+
 }

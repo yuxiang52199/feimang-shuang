@@ -5,6 +5,7 @@ import com.feimang.userstudy.pojo.UserBookAtten;
 import com.feimang.userstudy.service.IAttenBookService;
 import com.feimang.userstudy.service.impl.AttenBookServiceImpl;
 
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +31,8 @@ public class AttenBookController {
      * @param bookId 图书id
      * @return
      */
-
-    public ServerResponse addAtten(HttpServletRequest request,Integer userId,Integer bookId){
+    @GetMapping("/addAtten")
+    public ServerResponse addAtten(HttpServletRequest request,Long userId,Integer bookId){
         return iAttenBookService.addAttenByUserIdAndBookId(userId, bookId);
     }
 
@@ -44,9 +45,33 @@ public class AttenBookController {
      * @return
      */
     @GetMapping("/getAttenBooks")
-    public ServerResponse<List<UserBookAtten>> getAttenBooks(HttpServletRequest request, Integer userId,
+    public ServerResponse<List<UserBookAtten>> getAttenBooks(HttpServletRequest request, Long userId,
                                                              @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                                              @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
         return iAttenBookService.getAttenBooks(userId, pageNum, pageSize);
+    }
+
+    /**
+     * 判断图书是否被关注
+     * @param request
+     * @param userId 用户id
+     * @param bookId 图书id
+     * @return
+     */
+    @GetMapping("/isAttenBook")
+    public ServerResponse isAttenBook(HttpServletRequest request, Long userId, Integer bookId){
+        return iAttenBookService.isAttenBook(userId, bookId);
+    }
+
+    /**
+     * 取消关注图书
+     * @param request
+     * @param userId
+     * @param bookId
+     * @return
+     */
+    @GetMapping("/delAtten")
+    public ServerResponse delAtten(HttpServletRequest request,Long userId,Integer bookId){
+        return iAttenBookService.delAtten(userId, bookId);
     }
 }
