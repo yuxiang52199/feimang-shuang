@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by yxm on 2018/1/29
  */
-@Service("iUserBookInputService")
+@Service("userBookInputService")
 public class UserBookInputServiceImpl implements IUserBookInputService {
 
     @Autowired

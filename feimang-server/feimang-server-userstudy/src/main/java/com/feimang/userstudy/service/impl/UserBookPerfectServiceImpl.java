@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by yxm on 2018/1/29
  */
-@Service("iUserBookPerfectService")
+@Service("userBookPerfectService")
 public class UserBookPerfectServiceImpl implements IUserBookPerfectService {
     @Autowired
     private UserBookPerfectMapper userBookPerfectMapper;

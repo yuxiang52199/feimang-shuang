@@ -4,6 +4,7 @@ import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.pojo.BookInfo;
 import com.feimang.userstudy.service.IUserBookInputService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserBookInputController {
 
     @Autowired
-    private IUserBookInputService iUserBookInputService;
+    private IUserBookInputService userBookInputService;
     /**
      * 获取手动录入列表
      * @param request
@@ -26,7 +27,7 @@ public class UserBookInputController {
      */
     @GetMapping("/getInputBooks")
     public ServerResponse getInputBooks(HttpServletRequest request,Long userId){
-        return iUserBookInputService.getInputBooks(userId);
+        return userBookInputService.getInputBooks(userId);
     }
 
     /**
@@ -35,9 +36,9 @@ public class UserBookInputController {
      * @param inputId 录入记录id
      * @return
      */
-    @GetMapping("/delInputBook")
+    @DeleteMapping("/delInputBook")
     public ServerResponse delInputBook(HttpServletRequest request,Long inputId){
-        return iUserBookInputService.delInputBook(inputId);
+        return userBookInputService.delInputBook(inputId);
     }
 
     /**
@@ -49,6 +50,6 @@ public class UserBookInputController {
      */
     @PostMapping("/addInputBook")
     public ServerResponse addInputBook(HttpServletRequest request,Long userId,BookInfo bookInfo){
-        return  iUserBookInputService.addInputBook(userId, bookInfo);
+        return  userBookInputService.addInputBook(userId, bookInfo);
     }
 }

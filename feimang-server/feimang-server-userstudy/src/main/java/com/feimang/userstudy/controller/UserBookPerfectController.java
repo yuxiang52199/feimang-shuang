@@ -4,9 +4,7 @@ import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.pojo.UserBookPerfect;
 import com.feimang.userstudy.service.IUserBookPerfectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -17,7 +15,7 @@ import java.util.List;
 @RestController
 public class UserBookPerfectController {
     @Autowired
-    private IUserBookPerfectService iUserBookPerfectService;
+    private IUserBookPerfectService userBookPerfectService;
     /**
      * 判断是否完善过图书
      * @param request
@@ -27,7 +25,7 @@ public class UserBookPerfectController {
      */
     @GetMapping("/isPerfectBook")
     public ServerResponse isPerfectBook(HttpServletRequest request,Long userId,Integer bookId){
-        return iUserBookPerfectService.isPerfectBook(userId, bookId);
+        return userBookPerfectService.isPerfectBook(userId, bookId);
     }
 
     /**
@@ -38,7 +36,7 @@ public class UserBookPerfectController {
      */
     @GetMapping("/getPerfectBooks")
     public ServerResponse<List<UserBookPerfect>> getPerfectBooks(HttpServletRequest request,Long userId){
-        return iUserBookPerfectService.getPerfectBooksByUserID(userId);
+        return userBookPerfectService.getPerfectBooksByUserID(userId);
     }
 
     /**
@@ -50,7 +48,7 @@ public class UserBookPerfectController {
      */
     @GetMapping("/getPerfectBook")
     public ServerResponse getPerfectBook(HttpServletRequest request,Long userId,Integer bookId){
-        return iUserBookPerfectService.getPerfectBookByUserIdAndBookId(userId, bookId);
+        return userBookPerfectService.getPerfectBookByUserIdAndBookId(userId, bookId);
     }
 
     /**
@@ -59,9 +57,9 @@ public class UserBookPerfectController {
      * @param perfectId 完善资料id
      * @return
      */
-    @GetMapping("/delPerfectBook")
+    @DeleteMapping("/delPerfectBook")
     public ServerResponse delPerfectBook(HttpServletRequest request,Long perfectId){
-        return iUserBookPerfectService.delPerfectBook(perfectId);
+        return userBookPerfectService.delPerfectBook(perfectId);
     }
 
     /**
@@ -70,9 +68,9 @@ public class UserBookPerfectController {
      * @param userBookPerfect
      * @return
      */
-    @PostMapping("/editPerfectBook")
+    @PutMapping("/editPerfectBook")
     public ServerResponse editPerfectBook(HttpServletRequest request,UserBookPerfect userBookPerfect){
-        return iUserBookPerfectService.editPerfectBook(userBookPerfect);
+        return userBookPerfectService.editPerfectBook(userBookPerfect);
     }
 
     /**
@@ -85,7 +83,7 @@ public class UserBookPerfectController {
      */
     @PostMapping("/addPerfectBook")
     public ServerResponse addPerfectBook(HttpServletRequest request,Long userId,Long bookId,UserBookPerfect userBookPerfect){
-        return iUserBookPerfectService.addPerfectBook(userBookPerfect,userId,bookId);
+        return userBookPerfectService.addPerfectBook(userBookPerfect,userId,bookId);
     }
 
 }

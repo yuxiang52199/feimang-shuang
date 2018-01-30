@@ -187,4 +187,24 @@
       AddBookAuthority = #{addbookauthority,jdbcType=INTEGER}
     where UTID = #{utid,jdbcType=INTEGER}
   </update>
+  <select id="getBookTags" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_booktag
+    where Fromuid = #{userId}
+    and DelFlg = 0
+  </select>
+  <update id="editBookTag" parameterType="map">
+    UPDATE fm_booktag
+    SET Seq =
+    <foreach collection="bookTagList" item="item" index="index">
+      #{item.seq}
+    </foreach>
+    where UTID IN
+    <foreach collection="bookTagList" item="item" index="index">
+      #{item.utid}
+    </foreach>
+    and Fromuid = #{userId}
+
+  </update>
 </mapper>
