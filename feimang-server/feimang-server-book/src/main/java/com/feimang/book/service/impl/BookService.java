@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service("bookService")
@@ -88,13 +89,15 @@ public class BookService implements IBookService {
      * @return  ServerResponse< List< BookInfo>>
      */
     public ServerResponse<List<BookInfo>> GetBooksByBookIds(String bookIds){
+
         if(StringUtils.isBlank(bookIds)){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-        List<BookInfo> bookList = new ArrayList<BookInfo>();
 
-        bookList=bookInfoMapper.getBooksByBookIds(bookIds);
+        List<String> bookIdList =  Arrays.asList(bookIds.split(","));
+        List<BookInfo> bookList = bookInfoMapper.getBooksByBookIds(bookIdList);
         return ServerResponse.createBySuccess(bookList);
+
     }
 
 

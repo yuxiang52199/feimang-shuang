@@ -4,7 +4,6 @@ import com.feimang.book.pojo.BookInfo;
 
 import java.util.List;
 
-
 public interface BookInfoMapper {
     int deleteByPrimaryKey(Long bookid);
 
@@ -18,6 +17,5 @@ public interface BookInfoMapper {
 
     int updateByPrimaryKey(BookInfo record);
 
-
-    List<BookInfo> getBooksByBookIds(String bookIds);
+    List<BookInfo> getBooksByBookIds(List<String> bookIdList);
 }

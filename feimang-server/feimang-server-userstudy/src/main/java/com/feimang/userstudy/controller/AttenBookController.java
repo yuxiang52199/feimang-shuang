@@ -1,14 +1,17 @@
 package com.feimang.userstudy.controller;
 
 import com.feimang.userstudy.common.ServerResponse;
+import com.feimang.userstudy.pojo.BookInfo;
 import com.feimang.userstudy.pojo.UserBookAtten;
 import com.feimang.userstudy.service.IAttenBookService;
+import com.feimang.userstudy.service.IBookService;
 import com.feimang.userstudy.service.impl.AttenBookServiceImpl;
 
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +26,13 @@ public class AttenBookController {
 
     @Autowired
     private IAttenBookService iAttenBookService;
+
+    @Autowired
+    private IBookService bookService;
+    @GetMapping("/GetBooksByBookIds/{bookIds}")
+    ServerResponse<List<BookInfo>> GetBooksByBookIds(@PathVariable("bookIds") String bookIds){
+        return bookService.GetBooksByBookIds(bookIds);
+    }
 
     /**
      * 添加关注

@@ -7,6 +7,7 @@ import com.feimang.userstudy.pojo.UserBookAtten;
 import com.feimang.userstudy.pojo.UserInfo;
 import com.feimang.userstudy.service.IAttenBookService;
 import com.feimang.userstudy.service.IUserService;
+
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class AttenBookServiceImpl implements IAttenBookService {
             // 判断参数是否为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
+
         PageHelper.startPage(pageNum, pageSize);//分页查询
         List<UserBookAtten> userBookAttens = userBookAttenMapper.getAttendBooksByUserId(userId);
         //todo 查询图书详细信息

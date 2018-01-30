@@ -38,10 +38,4 @@ public class BookController {
     public ServerResponse<List<BookInfo>> GetBooksByBookIds(@PathVariable("bookIds") String bookIds) {
         return  bookService.GetBooksByBookIds(bookIds);
     }
-
-
-
-
-
-
 }
