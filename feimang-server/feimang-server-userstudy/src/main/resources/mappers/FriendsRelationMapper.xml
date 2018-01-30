@@ -27,7 +27,7 @@
     insert into fm_friends_relation (ConID, Formuid, Attentionuid, 
       LinkStatus, CreateTime)
     values (#{conid,jdbcType=INTEGER}, #{formuid,jdbcType=BIGINT}, #{attentionuid,jdbcType=BIGINT}, 
-      #{linkstatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+      #{linkstatus,jdbcType=INTEGER}, now())
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
     insert into fm_friends_relation
@@ -92,4 +92,28 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where ConID = #{conid,jdbcType=INTEGER}
   </update>
+  <select id="getAttens" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_friends_relation
+    where Formuid = #{userId}
+  </select>
+  <select id="getFans" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_friends_relation
+    where Attentionuid = #{userId}
+  </select>
+  <select id="isAttenUserByAttentionuid" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_friends_relation
+    where Formuid = #{userId}
+    and Attentionuid = #{attentionuid}
+  </select>
+  <delete id="delFriendsByUserIdAndAttentionuid" parameterType="map">
+    delete from fm_friends_relation
+    where Formuid = #{userId}
+    and Attentionuid = #{attentionuid}
+  </delete>
 </mapper>

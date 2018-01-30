@@ -81,10 +81,22 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where AttenInfoID = #{atteninfoid,jdbcType=BIGINT}
   </update>
-  <select id="getAttendBooksByUserId" parameterType="int" resultMap="BaseResultMap">
+  <select id="getAttendBooksByUserId" parameterType="long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from fm_userbook_atten
     where Fromuid = #{userId}
   </select>
+  <select id="isAttenBookByUserIDAndBookID" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from fm_userbook_atten
+    where Fromuid = #{userId}
+    and BookID = #{bookId}
+  </select>
+  <delete id="delAttenByUserIdAndBookId" parameterType="map">
+    delete from fm_userbook_atten
+    where Fromuid = #{userId}
+    and BookID = #{bookId}
+  </delete>
 </mapper>

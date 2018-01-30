@@ -273,4 +273,17 @@
       Cover = #{cover,jdbcType=VARCHAR}
     where PerfectID = #{perfectid,jdbcType=BIGINT}
   </update>
+  <select id="selectPerfectBookByUserIDAndBookID" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_userbook_perfect
+    where Fromuid = #{userId}
+    and BookID = #{bookId}
+  </select>
+  <select id="getPerfectBooksByUserID" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_userbook_perfect
+    where Fromuid = #{userId}
+  </select>
 </mapper>

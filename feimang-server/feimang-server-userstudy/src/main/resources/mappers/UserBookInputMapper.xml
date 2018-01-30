@@ -26,7 +26,7 @@
     insert into fm_userbook_input (InputID, Fromuid, BookID, 
       CreateTime)
     values (#{inputid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, 
-      #{createtime,jdbcType=TIMESTAMP})
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.UserBookInput" >
     insert into fm_userbook_input
@@ -81,4 +81,10 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where InputID = #{inputid,jdbcType=BIGINT}
   </update>
+  <select id="getInputBooksByUserId" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_userbook_input
+    where Fromuid = #{userId}
+  </select>
 </mapper>
