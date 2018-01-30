@@ -1,4 +1,4 @@
-package com.feimang.userstudy.pojo;
+package com.feimang.book.pojo;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -42,6 +42,12 @@ public class BookInfo {
 
     private Integer words;
 
+    private String authorintro;
+
+    private String catalog;
+
+    private String summary;
+
     private Integer category;
 
     private Integer isapproved;
@@ -80,7 +86,7 @@ public class BookInfo {
 
     private BigDecimal priceD;
 
-    public BookInfo(Long bookid, String isbn, String isbn10, String bookname, String nameother, String origintitle, String author, String translator, String language, String price, String publisher, String pubdate, Integer pubdatetime, String version, String page, String packaging, String format, Integer printpage, Integer words, Integer category, Integer isapproved, String cover, String idtype, Long doubanid, Date createtime, Byte bookstatus, Date lastupdatetime, Byte tagstatus, Double average, String presscode, Integer imgflg, Byte ismore, Byte iscomplete, Byte authorintroisnull, Byte catalogisnull, Byte summaryisnull, Integer catalogstatus, BigDecimal priceD) {
+    public BookInfo(Long bookid, String isbn, String isbn10, String bookname, String nameother, String origintitle, String author, String translator, String language, String price, String publisher, String pubdate, Integer pubdatetime, String version, String page, String packaging, String format, Integer printpage, Integer words, String authorintro, String catalog, String summary, Integer category, Integer isapproved, String cover, String idtype, Long doubanid, Date createtime, Byte bookstatus, Date lastupdatetime, Byte tagstatus, Double average, String presscode, Integer imgflg, Byte ismore, Byte iscomplete, Byte authorintroisnull, Byte catalogisnull, Byte summaryisnull, Integer catalogstatus, BigDecimal priceD) {
         this.bookid = bookid;
         this.isbn = isbn;
         this.isbn10 = isbn10;
@@ -100,6 +106,9 @@ public class BookInfo {
         this.format = format;
         this.printpage = printpage;
         this.words = words;
+        this.authorintro = authorintro;
+        this.catalog = catalog;
+        this.summary = summary;
         this.category = category;
         this.isapproved = isapproved;
         this.cover = cover;
@@ -275,6 +284,30 @@ public class BookInfo {
 
     public void setWords(Integer words) {
         this.words = words;
+    }
+
+    public String getAuthorintro() {
+        return authorintro;
+    }
+
+    public void setAuthorintro(String authorintro) {
+        this.authorintro = authorintro == null ? null : authorintro.trim();
+    }
+
+    public String getCatalog() {
+        return catalog;
+    }
+
+    public void setCatalog(String catalog) {
+        this.catalog = catalog == null ? null : catalog.trim();
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary == null ? null : summary.trim();
     }
 
     public Integer getCategory() {
