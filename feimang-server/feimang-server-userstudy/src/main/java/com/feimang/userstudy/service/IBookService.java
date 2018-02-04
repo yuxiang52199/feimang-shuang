@@ -21,8 +21,8 @@ public interface IBookService {
      * @param book
      * @return  com.feimang.book.common.ServerResponse
      */
-    @PostMapping("/AddBook_Input")
-    ServerResponse AddBook_Input(BookInfo book);
+    @PostMapping("/addBook_Input")
+    ServerResponse addBook_Input(BookInfo book);
 
     /**
      * 获取图书列表
@@ -30,6 +30,6 @@ public interface IBookService {
      * @param bookIds
      * @return  ServerResponse< List< BookInfo>>
      */
-    @GetMapping("/GetBooksByBookIds")
-    public ServerResponse<List<BookInfo>> GetBooksByBookIds(@RequestParam("bookIds") String bookIds);
+    @GetMapping("/getBooksByBookIds")
+    ServerResponse<List<BookInfo>> getBooksByBookIds(@PathVariable("bookIds") String bookIds);
 }
