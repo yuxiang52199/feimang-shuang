@@ -3,10 +3,7 @@ package com.feimang.userstudy.controller;
 import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.service.IFriendsRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,8 +22,9 @@ public class FriendsRelationController {
      * @return
      */
     @GetMapping("/getAttens")
-    public ServerResponse getAttens(HttpServletRequest request,Long userId){
-        return friendsRelationService.getAttens(userId);
+    public ServerResponse getAttens(HttpServletRequest request,Long userId,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                    @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        return friendsRelationService.getAttens(userId,pageNum,pageSize);
     }
 
     /**
@@ -36,8 +34,9 @@ public class FriendsRelationController {
      * @return
      */
     @GetMapping("/getFans")
-    public ServerResponse getFans(HttpServletRequest request,Long userId){
-        return friendsRelationService.getFans(userId);
+    public ServerResponse getFans(HttpServletRequest request,Long userId,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                  @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        return friendsRelationService.getFans(userId,pageNum,pageSize);
     }
 
     /**

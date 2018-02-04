@@ -6,6 +6,7 @@ import com.feimang.userstudy.dao.UserBookPerfectMapper;
 import com.feimang.userstudy.pojo.UserBookPerfect;
 import com.feimang.userstudy.pojo.UserBookPerfectWithBLOBs;
 import com.feimang.userstudy.service.IUserBookPerfectService;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,11 +44,12 @@ public class UserBookPerfectServiceImpl implements IUserBookPerfectService {
      * @param userId 用户id
      * @return
      */
-    public ServerResponse getPerfectBooksByUserID(Long userId){
+    public ServerResponse getPerfectBooksByUserID(Long userId,int pageNum,int pageSize){
         if (userId == null){
             //参数为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
+        PageHelper.startPage(pageNum, pageSize);
         List<UserBookPerfect> userBookPerfectList = userBookPerfectMapper.getPerfectBooksByUserID(userId);
         if (CollectionUtils.isNotEmpty(userBookPerfectList)){
             return ServerResponse.createBySuccess("查询成功",userBookPerfectList);

@@ -86,4 +86,17 @@ public class BookTagAtten {
     public void setTagnotifystatus(Integer tagnotifystatus) {
         this.tagnotifystatus = tagnotifystatus;
     }
+
+    @Override
+    public String toString() {
+        return "BookTagAtten{" +
+                "attenid=" + attenid +
+                ", utid=" + utid +
+                ", fromuid=" + fromuid +
+                ", attenuserid=" + attenuserid +
+                ", delflg=" + delflg +
+                ", createdate=" + createdate +
+                ", tagnotifystatus=" + tagnotifystatus +
+                '}';
+    }
 }

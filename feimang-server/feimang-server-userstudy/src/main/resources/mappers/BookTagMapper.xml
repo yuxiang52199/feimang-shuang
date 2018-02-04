@@ -197,14 +197,25 @@
   <update id="editBookTag" parameterType="map">
     UPDATE fm_booktag
     SET Seq =
-    <foreach collection="bookTagList" item="item" index="index">
+    <foreach collection="bookTagList" item="item" index="index" separator="," open="(" close=")">
       #{item.seq}
     </foreach>
     where UTID IN
-    <foreach collection="bookTagList" item="item" index="index">
+    <foreach collection="bookTagList" item="item" index="index" separator="," open="(" close=")">
       #{item.utid}
     </foreach>
-    and Fromuid = #{userId}
+
 
   </update>
+  <select id="checkTagNameByUserIdAndTagName" parameterType="map" resultType="int">
+    SELECT count(1)
+    FROM fm_booktag
+    where Fromuid = #{userId}
+    and TagName = #{tagName}
+  </select>
+  <select id="selectByUtid" parameterType="long" resultType="int">
+    SELECT count(1)
+    FROM fm_booktag
+    where UTID = #{utid}
+  </select>
 </mapper>

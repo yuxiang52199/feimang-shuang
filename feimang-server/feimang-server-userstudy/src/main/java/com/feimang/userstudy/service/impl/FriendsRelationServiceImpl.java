@@ -6,6 +6,7 @@ import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.dao.FriendsRelationMapper;
 import com.feimang.userstudy.pojo.FriendsRelation;
 import com.feimang.userstudy.service.IFriendsRelationService;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,12 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
      * @param userId 用户id
      * @return
      */
-    public ServerResponse getAttens(Long userId){
+    public ServerResponse getAttens(Long userId,int pageNum,int pageSize){
         if (userId == null){
             //参数为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
+        PageHelper.startPage(pageNum, pageSize);
         List<FriendsRelation> friendsRelationList = friendsRelationMapper.getAttens(userId);
         if (CollectionUtils.isNotEmpty(friendsRelationList)){
             //todo 使用被关注id 查询用户信息
@@ -43,11 +45,12 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
      * @param userId
      * @return
      */
-    public ServerResponse getFans(Long userId){
+    public ServerResponse getFans(Long userId,int pageNum,int pageSize){
         if (userId == null){
             //参数为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
+        PageHelper.startPage(pageNum, pageSize);
         List<FriendsRelation> friendsRelationList = friendsRelationMapper.getFans(userId);
         if (CollectionUtils.isNotEmpty(friendsRelationList)){
             //todo 使用粉丝id 查询用户信息

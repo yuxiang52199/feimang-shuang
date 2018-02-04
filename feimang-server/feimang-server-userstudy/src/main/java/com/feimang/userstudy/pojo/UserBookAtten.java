@@ -11,6 +11,8 @@ public class UserBookAtten {
 
     private Date createtime;
 
+    public BookInfo book;
+
     public UserBookAtten(Long atteninfoid, Long fromuid, Long bookid, Date createtime) {
         this.atteninfoid = atteninfoid;
         this.fromuid = fromuid;
@@ -52,5 +54,13 @@ public class UserBookAtten {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public BookInfo getBook() {
+        return book;
+    }
+
+    public void setBook(BookInfo book) {
+        this.book = book;
     }
 }

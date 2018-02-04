@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface IUserBookInputService {
     //获取录入图书列表
-    ServerResponse getInputBooks(Long userId);
+    ServerResponse getInputBooks(Long userId,int pageNum,int pageSize);
     //删除手动录入记录
     ServerResponse delInputBook(Long inputId);
     //添加手动录入记录

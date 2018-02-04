@@ -35,8 +35,9 @@ public class UserBookPerfectController {
      * @return
      */
     @GetMapping("/getPerfectBooks")
-    public ServerResponse<List<UserBookPerfect>> getPerfectBooks(HttpServletRequest request,Long userId){
-        return userBookPerfectService.getPerfectBooksByUserID(userId);
+    public ServerResponse<List<UserBookPerfect>> getPerfectBooks(HttpServletRequest request,Long userId,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                                                 @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        return userBookPerfectService.getPerfectBooksByUserID(userId,pageNum,pageSize);
     }
 
     /**

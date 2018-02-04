@@ -7,9 +7,9 @@ import com.feimang.userstudy.common.ServerResponse;
  */
 public interface IFriendsRelationService {
     // 获取关注列表
-    ServerResponse getAttens(Long userId);
+    ServerResponse getAttens(Long userId,int pageNum,int pageSize);
     // 获取粉丝列表
-    ServerResponse getFans(Long userId);
+    ServerResponse getFans(Long userId,int pageNum,int pageSize);
     // 判断是否关注
     ServerResponse isAttenUserByAttentionuid(Long userId,Long attentionuid);
     // 添加关注
