@@ -72,9 +72,9 @@ public class AttenBookServiceImpl implements IAttenBookService {
         List<UserBookAtten> userBookAttens = userBookAttenMapper.getAttendBooksByUserId(userId);
         //todo 查询图书详细信息
         for (UserBookAtten bookAtten:userBookAttens) {
-            ServerResponse<UserInfo> user =userService.getUserByUserId(bookAtten.getFromuid());
+            //ServerResponse<UserInfo> user =userService.getUserByUserId(bookAtten.getFromuid());
 
-            System.out.print(user);
+            //System.out.print(user);
         }
         if (CollectionUtils.isNotEmpty(userBookAttens)){
             return ServerResponse.createBySuccess(userBookAttens);

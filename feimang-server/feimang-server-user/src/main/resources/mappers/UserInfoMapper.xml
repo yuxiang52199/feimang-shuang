@@ -494,4 +494,13 @@
       BgImg = #{bgimg,jdbcType=VARCHAR}
     where UserID = #{userid,jdbcType=BIGINT}
   </update>
+  <select id="getUsersByUserIds" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from fm_userinfo
+    where UserID in
+    <foreach item="userIdList" index="index" collection="list" open="(" separator="," close=")">
+      #{userIdList}
+    </foreach>
+  </select>
 </mapper>

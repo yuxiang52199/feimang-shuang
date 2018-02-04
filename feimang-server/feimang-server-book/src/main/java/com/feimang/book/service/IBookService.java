@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface IBookService {
 
-    ServerResponse<BookInfo> GetBookInfoByBookId(Long bookId);
+    ServerResponse<BookInfo> getBookInfoByBookId(Long bookId);
 
-    ServerResponse AddBook(BookInfo book);
+    ServerResponse addBook(BookInfo book);
 
-    ServerResponse AddBook_Input(BookInfo book);
+    ServerResponse addBook_Input(BookInfo book);
 
-    ServerResponse<List<BookInfo>> GetBooksByBookIds(String bookIds);
+    ServerResponse<List<BookInfo>> getBooksByBookIds(String bookIds);
 
 }

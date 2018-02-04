@@ -3,10 +3,13 @@ package com.feimang.userstudy.controller;
 import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.pojo.BookInfo;
 import com.feimang.userstudy.pojo.UserBookAtten;
+import com.feimang.userstudy.pojo.UserInfo;
 import com.feimang.userstudy.service.IAttenBookService;
 import com.feimang.userstudy.service.IBookService;
+import com.feimang.userstudy.service.IUserService;
 import com.feimang.userstudy.service.impl.AttenBookServiceImpl;
 
+import com.netflix.discovery.converters.Auto;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +32,18 @@ public class AttenBookController {
 
     @Autowired
     private IBookService bookService;
-    @GetMapping("/GetBooksByBookIds/{bookIds}")
-    ServerResponse<List<BookInfo>> GetBooksByBookIds(@PathVariable("bookIds") String bookIds){
-        return bookService.GetBooksByBookIds(bookIds);
+
+    @Autowired
+    private IUserService userService;
+
+    @GetMapping("/getBooksByBookIds/{bookIds}")
+    ServerResponse<List<BookInfo>> getBooksByBookIds(@PathVariable("bookIds") String bookIds){
+        return bookService.getBooksByBookIds(bookIds);
+    }
+
+    @GetMapping("/getUserByUserIds/{userIds}")
+    ServerResponse<List<UserInfo>> getUsersByUserIds(@PathVariable("userIds") String userIds){
+       return userService.getUsersByUserIds(userIds);
     }
 
     /**
@@ -84,4 +96,5 @@ public class AttenBookController {
     public ServerResponse delAtten(HttpServletRequest request,Long userId,Integer bookId){
         return iAttenBookService.delAtten(userId, bookId);
     }
+
 }
