@@ -4,10 +4,7 @@ import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.pojo.BookInfo;
 import com.feimang.userstudy.service.IUserBookInputService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,8 +23,9 @@ public class UserBookInputController {
      * @return
      */
     @GetMapping("/getInputBooks")
-    public ServerResponse getInputBooks(HttpServletRequest request,Long userId){
-        return userBookInputService.getInputBooks(userId);
+    public ServerResponse getInputBooks(HttpServletRequest request,Long userId,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                        @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        return userBookInputService.getInputBooks(userId,pageNum,pageSize);
     }
 
     /**

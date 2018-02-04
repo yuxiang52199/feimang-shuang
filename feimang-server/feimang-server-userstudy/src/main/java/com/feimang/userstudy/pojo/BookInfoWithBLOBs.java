@@ -1,5 +1,8 @@
 package com.feimang.userstudy.pojo;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class BookInfoWithBLOBs extends BookInfo {
     private String authorintro;
 

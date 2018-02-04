@@ -10,7 +10,7 @@ public interface IUserBookPerfectService {
     //判断是否完善过图书
     ServerResponse isPerfectBook(Long userId, Integer bookId);
     //获取完善信息列表
-    ServerResponse getPerfectBooksByUserID(Long userId);
+    ServerResponse getPerfectBooksByUserID(Long userId,int pageNum,int pageSize);
     //获取完善资料信息
     ServerResponse getPerfectBookByUserIdAndBookId(Long userId,Integer bookId);
     //删除完善资料信息

@@ -20,5 +20,9 @@ public interface BookTagMapper {
     //获取书架列表
     List<BookTag> getBookTags(Long userId);
     //更新书架排序
-    int editBookTag(@Param("userId") Long userId,@Param("bookTagList")List<BookTag> bookTagList);
+    int editBookTag(@Param("bookTagList")List<BookTag> bookTagList);
+    //根据用户id和书架名称 查询该用户是否存在该书架
+    int checkTagNameByUserIdAndTagName(@Param("userId") Long userId,@Param("tagName") String tagName);
+    //查询书架是否存在
+    int selectByUtid(Long utid);
 }

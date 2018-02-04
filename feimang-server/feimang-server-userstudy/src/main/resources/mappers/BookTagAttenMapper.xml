@@ -30,7 +30,7 @@
       AttenUserID, DelFlg, CreateDate, 
       TagNotifyStatus)
     values (#{attenid,jdbcType=BIGINT}, #{utid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
-      #{attenuserid,jdbcType=BIGINT}, #{delflg,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{attenuserid,jdbcType=BIGINT}, #{delflg,jdbcType=INTEGER}, now(),
       #{tagnotifystatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.BookTagAtten" >
@@ -116,4 +116,19 @@
       TagNotifyStatus = #{tagnotifystatus,jdbcType=INTEGER}
     where AttenID = #{attenid,jdbcType=BIGINT}
   </update>
+  <select id="getAttenBookTags" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_booktag_atten
+    where Fromuid = #{userId}
+    AND  DelFlg = 0
+  </select>
+  <select id="isAttenBookTagByUserIdAndUtid" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_booktag_atten
+    where Fromuid = #{userId}
+    AND UTID = #{utid}
+  </select>
+
 </mapper>

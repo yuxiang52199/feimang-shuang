@@ -2,7 +2,7 @@ package com.feimang.userstudy.pojo;
 
 import java.util.Date;
 
-public class BookTag {
+public class    BookTag {
     private Integer utid;
 
     private Long fromuid;

@@ -3,12 +3,16 @@ package com.feimang.userstudy.service.impl;
 import com.feimang.userstudy.common.ResponseCode;
 import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.dao.UserBookAttenMapper;
+import com.feimang.userstudy.pojo.BookInfo;
 import com.feimang.userstudy.pojo.UserBookAtten;
 import com.feimang.userstudy.pojo.UserInfo;
 import com.feimang.userstudy.service.IAttenBookService;
+import com.feimang.userstudy.service.IBookService;
 import com.feimang.userstudy.service.IUserService;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +28,11 @@ public class AttenBookServiceImpl implements IAttenBookService {
     @Autowired
     private UserBookAttenMapper userBookAttenMapper;
 
+//    @Autowired
+//    private IUserService userService;
+
     @Autowired
-    private IUserService userService;
+    private IBookService bookService;
 
     /**
      * 添加图书关注
@@ -68,11 +75,26 @@ public class AttenBookServiceImpl implements IAttenBookService {
         }
         PageHelper.startPage(pageNum, pageSize);//分页查询
         List<UserBookAtten> userBookAttens = userBookAttenMapper.getAttendBooksByUserId(userId);
+        String bookIds = String.join(",",CollectionUtils.collect(userBookAttens, new Transformer() {
+            public Object transform(Object arg0) {
+                UserBookAtten u = (UserBookAtten) arg0;
+                return u.getBookid().toString();
+            }
+        }));
+
+        List<BookInfo> books= bookService.GetBooksByBookIds(bookIds).getData();
         //todo 查询图书详细信息
         for (UserBookAtten bookAtten:userBookAttens) {
-            ServerResponse<UserInfo> user =userService.getUserByUserId(bookAtten.getFromuid());
 
-            System.out.print(user);
+            List<BookInfo> ss = (List<BookInfo>) CollectionUtils.select(books, new Predicate() {
+                @Override
+                public boolean evaluate(Object o) {
+                    BookInfo book = (BookInfo)o;
+                    return bookAtten.getBookid().equals(book.getBookid());
+                }
+            });
+            bookAtten.setBook(ss.get(0));
+
         }
         if (CollectionUtils.isNotEmpty(userBookAttens)){
             return ServerResponse.createBySuccess(userBookAttens);

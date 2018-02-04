@@ -92,4 +92,17 @@
       TagBookSeq = #{tagbookseq,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getBooksByUTID" parameterType="int" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_booktag_relation
+    WHERE UTID = #{utid}
+  </select>
+  <delete id="delBookByUserIdAndId" parameterType="list">
+    DELETE FROM
+    fm_booktag_relation WHERE id IN
+    <foreach collection="booktagRelationList" item="item" open="(" separator="," close=")" index="index">
+      #{item.id}
+    </foreach>
+  </delete>
 </mapper>

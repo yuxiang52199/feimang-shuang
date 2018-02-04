@@ -6,6 +6,7 @@ import com.feimang.userstudy.dao.UserBookInputMapper;
 import com.feimang.userstudy.pojo.BookInfo;
 import com.feimang.userstudy.pojo.UserBookInput;
 import com.feimang.userstudy.service.IUserBookInputService;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,12 @@ public class UserBookInputServiceImpl implements IUserBookInputService {
      * @param userId 用户id
      * @return
      */
-    public ServerResponse getInputBooks(Long userId){
+    public ServerResponse getInputBooks(Long userId,int pageNum,int pageSize){
         if (userId == null){
             //参数为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
+        PageHelper.startPage(pageNum, pageSize);
         List<UserBookInput> userBookInputList = userBookInputMapper.getInputBooksByUserId(userId);
         if (CollectionUtils.isNotEmpty(userBookInputList)){
             //todo
