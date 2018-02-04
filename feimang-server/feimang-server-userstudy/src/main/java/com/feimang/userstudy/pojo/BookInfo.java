@@ -12,6 +12,9 @@ public class BookInfo {
 
     private String bookname;
 
+
+
+    
     private String nameother;
 
     private String origintitle;
