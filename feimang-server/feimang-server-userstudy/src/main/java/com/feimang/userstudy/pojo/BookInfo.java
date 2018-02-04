@@ -11,9 +11,6 @@ public class BookInfo {
     private String isbn10;
 
     private String bookname;
-
-
-
     
     private String nameother;
 
