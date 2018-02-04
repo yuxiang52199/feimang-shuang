@@ -23,9 +23,9 @@ public class BookController {
      * @param book
      * @return  com.feimang.book.common.ServerResponse
      */
-    @PostMapping("/AddBook_Input")
-    public ServerResponse AddBook_Input(BookInfo book){
-        return bookService.AddBook_Input(book);
+    @PostMapping("/addBook_Input")
+    public ServerResponse addBook_Input(BookInfo book){
+        return bookService.addBook_Input(book);
     }
 
     /**
@@ -34,14 +34,8 @@ public class BookController {
      * @param bookIds
      * @return  ServerResponse< List< BookInfo>>
      */
-    @GetMapping("/GetBooksByBookIds/{bookIds}")
-    public ServerResponse<List<BookInfo>> GetBooksByBookIds(@PathVariable("bookIds") String bookIds) {
-        return  bookService.GetBooksByBookIds(bookIds);
+    @GetMapping("/getBooksByBookIds/{bookIds}")
+    public ServerResponse<List<BookInfo>> getBooksByBookIds(@PathVariable("bookIds") String bookIds) {
+        return  bookService.getBooksByBookIds(bookIds);
     }
-
-
-
-
-
-
 }

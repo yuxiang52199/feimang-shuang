@@ -4,6 +4,8 @@ import com.feimang.user.common.ServerResponse;
 import com.feimang.user.pojo.UserInfo;
 import com.feimang.user.pojo.UserinfoThirdpart;
 
+import java.util.List;
+
 public interface IUserService {
 
     ServerResponse<UserInfo> getUserByUserName(String username);
@@ -18,5 +20,5 @@ public interface IUserService {
 
     ServerResponse<String> checkValid(String str,String type);
 
-
+    ServerResponse<List<UserInfo>> getUsersByUserIds(String userIds);
 }

@@ -13,6 +13,7 @@
       <arg column="Translator" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="Language" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="Price" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Price_d" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="Publisher" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="PubDate" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="PubDateTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -26,32 +27,24 @@
       <arg column="Catalog" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="Summary" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="Category" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="IsApproved" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="Cover" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="IDType" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="DoubanID" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="BookStatus" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="LastUpdateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="TagStatus" jdbcType="TINYINT" javaType="java.lang.Byte" />
       <arg column="Average" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="Presscode" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ImgFlg" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="ismore" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="iscomplete" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="AuthorintroISnull" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="CatalogISnull" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="SummaryISnull" jdbcType="TINYINT" javaType="java.lang.Byte" />
-      <arg column="catalogstatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="price_d" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="IDType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Ismore" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="IsComplete" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="IsApproved" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BookStatus" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="LastUpdateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     BookID, ISBN, ISBN10, BookName, NameOther, OriginTitle, Author, Translator, Language, 
-    Price, Publisher, PubDate, PubDateTime, Version, Page, Packaging, Format, PrintPage, 
-    Words, Authorintro, Catalog, Summary, Category, IsApproved, Cover, IDType, DoubanID, 
-    CreateTime, BookStatus, LastUpdateTime, TagStatus, Average, Presscode, ImgFlg, ismore, 
-    iscomplete, AuthorintroISnull, CatalogISnull, SummaryISnull, catalogstatus, price_d
+    Price, Price_d, Publisher, PubDate, PubDateTime, Version, Page, Packaging, Format, 
+    PrintPage, Words, Authorintro, Catalog, Summary, Category, Cover, Average, Presscode, 
+    ImgFlg, IDType, Ismore, IsComplete, IsApproved, BookStatus, CreateTime, LastUpdateTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -67,31 +60,27 @@
     insert into bookinfo (BookID, ISBN, ISBN10, 
       BookName, NameOther, OriginTitle, 
       Author, Translator, Language, 
-      Price, Publisher, PubDate, 
-      PubDateTime, Version, Page, 
-      Packaging, Format, PrintPage, 
-      Words, Authorintro, Catalog, 
-      Summary, Category, IsApproved, 
-      Cover, IDType, DoubanID, 
-      CreateTime, BookStatus, LastUpdateTime, 
-      TagStatus, Average, Presscode, 
-      ImgFlg, ismore, iscomplete, 
-      AuthorintroISnull, CatalogISnull, SummaryISnull, 
-      catalogstatus, price_d)
+      Price, Price_d, Publisher, 
+      PubDate, PubDateTime, Version, 
+      Page, Packaging, Format, 
+      PrintPage, Words, Authorintro, 
+      Catalog, Summary, Category, 
+      Cover, Average, Presscode, 
+      ImgFlg, IDType, Ismore, 
+      IsComplete, IsApproved, BookStatus, 
+      CreateTime, LastUpdateTime)
     values (#{bookid,jdbcType=BIGINT}, #{isbn,jdbcType=VARCHAR}, #{isbn10,jdbcType=VARCHAR}, 
       #{bookname,jdbcType=VARCHAR}, #{nameother,jdbcType=VARCHAR}, #{origintitle,jdbcType=VARCHAR}, 
       #{author,jdbcType=VARCHAR}, #{translator,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
-      #{price,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, #{pubdate,jdbcType=VARCHAR}, 
-      #{pubdatetime,jdbcType=INTEGER}, #{version,jdbcType=VARCHAR}, #{page,jdbcType=VARCHAR}, 
-      #{packaging,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, #{printpage,jdbcType=INTEGER}, 
-      #{words,jdbcType=INTEGER}, #{authorintro,jdbcType=VARCHAR}, #{catalog,jdbcType=VARCHAR}, 
-      #{summary,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{isapproved,jdbcType=INTEGER}, 
-      #{cover,jdbcType=VARCHAR}, #{idtype,jdbcType=VARCHAR}, #{doubanid,jdbcType=BIGINT}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{bookstatus,jdbcType=TINYINT}, #{lastupdatetime,jdbcType=TIMESTAMP}, 
-      #{tagstatus,jdbcType=TINYINT}, #{average,jdbcType=DOUBLE}, #{presscode,jdbcType=VARCHAR}, 
-      #{imgflg,jdbcType=INTEGER}, #{ismore,jdbcType=TINYINT}, #{iscomplete,jdbcType=TINYINT}, 
-      #{authorintroisnull,jdbcType=TINYINT}, #{catalogisnull,jdbcType=TINYINT}, #{summaryisnull,jdbcType=TINYINT}, 
-      #{catalogstatus,jdbcType=INTEGER}, #{priceD,jdbcType=DECIMAL})
+      #{price,jdbcType=VARCHAR}, #{priceD,jdbcType=DECIMAL}, #{publisher,jdbcType=VARCHAR}, 
+      #{pubdate,jdbcType=VARCHAR}, #{pubdatetime,jdbcType=INTEGER}, #{version,jdbcType=VARCHAR}, 
+      #{page,jdbcType=VARCHAR}, #{packaging,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
+      #{printpage,jdbcType=INTEGER}, #{words,jdbcType=INTEGER}, #{authorintro,jdbcType=VARCHAR}, 
+      #{catalog,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, 
+      #{cover,jdbcType=VARCHAR}, #{average,jdbcType=DOUBLE}, #{presscode,jdbcType=VARCHAR}, 
+      #{imgflg,jdbcType=INTEGER}, #{idtype,jdbcType=VARCHAR}, #{ismore,jdbcType=TINYINT}, 
+      #{iscomplete,jdbcType=TINYINT}, #{isapproved,jdbcType=INTEGER}, #{bookstatus,jdbcType=TINYINT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{lastupdatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.book.pojo.BookInfo" >
     insert into bookinfo
@@ -125,6 +114,9 @@
       </if>
       <if test="price != null" >
         Price,
+      </if>
+      <if test="priceD != null" >
+        Price_d,
       </if>
       <if test="publisher != null" >
         Publisher,
@@ -165,29 +157,8 @@
       <if test="category != null" >
         Category,
       </if>
-      <if test="isapproved != null" >
-        IsApproved,
-      </if>
       <if test="cover != null" >
         Cover,
-      </if>
-      <if test="idtype != null" >
-        IDType,
-      </if>
-      <if test="doubanid != null" >
-        DoubanID,
-      </if>
-      <if test="createtime != null" >
-        CreateTime,
-      </if>
-      <if test="bookstatus != null" >
-        BookStatus,
-      </if>
-      <if test="lastupdatetime != null" >
-        LastUpdateTime,
-      </if>
-      <if test="tagstatus != null" >
-        TagStatus,
       </if>
       <if test="average != null" >
         Average,
@@ -198,26 +169,26 @@
       <if test="imgflg != null" >
         ImgFlg,
       </if>
+      <if test="idtype != null" >
+        IDType,
+      </if>
       <if test="ismore != null" >
-        ismore,
+        Ismore,
       </if>
       <if test="iscomplete != null" >
-        iscomplete,
+        IsComplete,
       </if>
-      <if test="authorintroisnull != null" >
-        AuthorintroISnull,
+      <if test="isapproved != null" >
+        IsApproved,
       </if>
-      <if test="catalogisnull != null" >
-        CatalogISnull,
+      <if test="bookstatus != null" >
+        BookStatus,
       </if>
-      <if test="summaryisnull != null" >
-        SummaryISnull,
+      <if test="createtime != null" >
+        CreateTime,
       </if>
-      <if test="catalogstatus != null" >
-        catalogstatus,
-      </if>
-      <if test="priceD != null" >
-        price_d,
+      <if test="lastupdatetime != null" >
+        LastUpdateTime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -250,6 +221,9 @@
       </if>
       <if test="price != null" >
         #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="priceD != null" >
+        #{priceD,jdbcType=DECIMAL},
       </if>
       <if test="publisher != null" >
         #{publisher,jdbcType=VARCHAR},
@@ -290,29 +264,8 @@
       <if test="category != null" >
         #{category,jdbcType=INTEGER},
       </if>
-      <if test="isapproved != null" >
-        #{isapproved,jdbcType=INTEGER},
-      </if>
       <if test="cover != null" >
         #{cover,jdbcType=VARCHAR},
-      </if>
-      <if test="idtype != null" >
-        #{idtype,jdbcType=VARCHAR},
-      </if>
-      <if test="doubanid != null" >
-        #{doubanid,jdbcType=BIGINT},
-      </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bookstatus != null" >
-        #{bookstatus,jdbcType=TINYINT},
-      </if>
-      <if test="lastupdatetime != null" >
-        #{lastupdatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="tagstatus != null" >
-        #{tagstatus,jdbcType=TINYINT},
       </if>
       <if test="average != null" >
         #{average,jdbcType=DOUBLE},
@@ -323,26 +276,26 @@
       <if test="imgflg != null" >
         #{imgflg,jdbcType=INTEGER},
       </if>
+      <if test="idtype != null" >
+        #{idtype,jdbcType=VARCHAR},
+      </if>
       <if test="ismore != null" >
         #{ismore,jdbcType=TINYINT},
       </if>
       <if test="iscomplete != null" >
         #{iscomplete,jdbcType=TINYINT},
       </if>
-      <if test="authorintroisnull != null" >
-        #{authorintroisnull,jdbcType=TINYINT},
+      <if test="isapproved != null" >
+        #{isapproved,jdbcType=INTEGER},
       </if>
-      <if test="catalogisnull != null" >
-        #{catalogisnull,jdbcType=TINYINT},
+      <if test="bookstatus != null" >
+        #{bookstatus,jdbcType=TINYINT},
       </if>
-      <if test="summaryisnull != null" >
-        #{summaryisnull,jdbcType=TINYINT},
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="catalogstatus != null" >
-        #{catalogstatus,jdbcType=INTEGER},
-      </if>
-      <if test="priceD != null" >
-        #{priceD,jdbcType=DECIMAL},
+      <if test="lastupdatetime != null" >
+        #{lastupdatetime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -375,6 +328,9 @@
       </if>
       <if test="price != null" >
         Price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="priceD != null" >
+        Price_d = #{priceD,jdbcType=DECIMAL},
       </if>
       <if test="publisher != null" >
         Publisher = #{publisher,jdbcType=VARCHAR},
@@ -415,29 +371,8 @@
       <if test="category != null" >
         Category = #{category,jdbcType=INTEGER},
       </if>
-      <if test="isapproved != null" >
-        IsApproved = #{isapproved,jdbcType=INTEGER},
-      </if>
       <if test="cover != null" >
         Cover = #{cover,jdbcType=VARCHAR},
-      </if>
-      <if test="idtype != null" >
-        IDType = #{idtype,jdbcType=VARCHAR},
-      </if>
-      <if test="doubanid != null" >
-        DoubanID = #{doubanid,jdbcType=BIGINT},
-      </if>
-      <if test="createtime != null" >
-        CreateTime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bookstatus != null" >
-        BookStatus = #{bookstatus,jdbcType=TINYINT},
-      </if>
-      <if test="lastupdatetime != null" >
-        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="tagstatus != null" >
-        TagStatus = #{tagstatus,jdbcType=TINYINT},
       </if>
       <if test="average != null" >
         Average = #{average,jdbcType=DOUBLE},
@@ -448,26 +383,26 @@
       <if test="imgflg != null" >
         ImgFlg = #{imgflg,jdbcType=INTEGER},
       </if>
+      <if test="idtype != null" >
+        IDType = #{idtype,jdbcType=VARCHAR},
+      </if>
       <if test="ismore != null" >
-        ismore = #{ismore,jdbcType=TINYINT},
+        Ismore = #{ismore,jdbcType=TINYINT},
       </if>
       <if test="iscomplete != null" >
-        iscomplete = #{iscomplete,jdbcType=TINYINT},
+        IsComplete = #{iscomplete,jdbcType=TINYINT},
       </if>
-      <if test="authorintroisnull != null" >
-        AuthorintroISnull = #{authorintroisnull,jdbcType=TINYINT},
+      <if test="isapproved != null" >
+        IsApproved = #{isapproved,jdbcType=INTEGER},
       </if>
-      <if test="catalogisnull != null" >
-        CatalogISnull = #{catalogisnull,jdbcType=TINYINT},
+      <if test="bookstatus != null" >
+        BookStatus = #{bookstatus,jdbcType=TINYINT},
       </if>
-      <if test="summaryisnull != null" >
-        SummaryISnull = #{summaryisnull,jdbcType=TINYINT},
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="catalogstatus != null" >
-        catalogstatus = #{catalogstatus,jdbcType=INTEGER},
-      </if>
-      <if test="priceD != null" >
-        price_d = #{priceD,jdbcType=DECIMAL},
+      <if test="lastupdatetime != null" >
+        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where BookID = #{bookid,jdbcType=BIGINT}
@@ -483,6 +418,7 @@
       Translator = #{translator,jdbcType=VARCHAR},
       Language = #{language,jdbcType=VARCHAR},
       Price = #{price,jdbcType=VARCHAR},
+      Price_d = #{priceD,jdbcType=DECIMAL},
       Publisher = #{publisher,jdbcType=VARCHAR},
       PubDate = #{pubdate,jdbcType=VARCHAR},
       PubDateTime = #{pubdatetime,jdbcType=INTEGER},
@@ -496,31 +432,26 @@
       Catalog = #{catalog,jdbcType=VARCHAR},
       Summary = #{summary,jdbcType=VARCHAR},
       Category = #{category,jdbcType=INTEGER},
-      IsApproved = #{isapproved,jdbcType=INTEGER},
       Cover = #{cover,jdbcType=VARCHAR},
-      IDType = #{idtype,jdbcType=VARCHAR},
-      DoubanID = #{doubanid,jdbcType=BIGINT},
-      CreateTime = #{createtime,jdbcType=TIMESTAMP},
-      BookStatus = #{bookstatus,jdbcType=TINYINT},
-      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
-      TagStatus = #{tagstatus,jdbcType=TINYINT},
       Average = #{average,jdbcType=DOUBLE},
       Presscode = #{presscode,jdbcType=VARCHAR},
       ImgFlg = #{imgflg,jdbcType=INTEGER},
-      ismore = #{ismore,jdbcType=TINYINT},
-      iscomplete = #{iscomplete,jdbcType=TINYINT},
-      AuthorintroISnull = #{authorintroisnull,jdbcType=TINYINT},
-      CatalogISnull = #{catalogisnull,jdbcType=TINYINT},
-      SummaryISnull = #{summaryisnull,jdbcType=TINYINT},
-      catalogstatus = #{catalogstatus,jdbcType=INTEGER},
-      price_d = #{priceD,jdbcType=DECIMAL}
+      IDType = #{idtype,jdbcType=VARCHAR},
+      Ismore = #{ismore,jdbcType=TINYINT},
+      IsComplete = #{iscomplete,jdbcType=TINYINT},
+      IsApproved = #{isapproved,jdbcType=INTEGER},
+      BookStatus = #{bookstatus,jdbcType=TINYINT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP}
     where BookID = #{bookid,jdbcType=BIGINT}
   </update>
-
-  <select id="getBooksByBookIds" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="getBooksByBookIds" resultMap="BaseResultMap"  >
     select
     <include refid="Base_Column_List" />
     from bookinfo
-    where BookID in (#{bookIds})
+    where BookID in
+    <foreach item="bookIdList" index="index" collection="list" open="(" separator="," close=")">
+        #{bookIdList}
+    </foreach>
   </select>
 </mapper>

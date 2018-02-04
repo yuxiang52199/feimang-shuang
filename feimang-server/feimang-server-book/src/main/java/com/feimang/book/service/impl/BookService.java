@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service("bookService")
@@ -23,7 +24,7 @@ public class BookService implements IBookService {
      * @param bookId
      * @return  com.feimang.book.common.ServerResponse<com.feimang.book.pojo.BookInfo>
      */
-    public ServerResponse<BookInfo> GetBookInfoByBookId(Long bookId){
+    public ServerResponse<BookInfo> getBookInfoByBookId(Long bookId){
 
 
         if(bookId == null){
@@ -46,7 +47,7 @@ public class BookService implements IBookService {
      * @param book
      * @return  com.feimang.book.common.ServerResponse
      */
-    public ServerResponse AddBook(BookInfo book){
+    public ServerResponse addBook(BookInfo book){
         if(book != null)
         {
             book.setIsapproved(0);
@@ -66,7 +67,7 @@ public class BookService implements IBookService {
      * @param book
      * @return  com.feimang.book.common.ServerResponse
      */
-    public ServerResponse AddBook_Input(BookInfo book){
+    public ServerResponse addBook_Input(BookInfo book){
 
         if(book != null)
         {
@@ -87,14 +88,16 @@ public class BookService implements IBookService {
      * @param bookIds
      * @return  ServerResponse< List< BookInfo>>
      */
-    public ServerResponse<List<BookInfo>> GetBooksByBookIds(String bookIds){
+    public ServerResponse<List<BookInfo>> getBooksByBookIds(String bookIds){
+
         if(StringUtils.isBlank(bookIds)){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-        List<BookInfo> bookList = new ArrayList<BookInfo>();
 
-        bookList=bookInfoMapper.getBooksByBookIds(bookIds);
+        List<String> bookIdList =  Arrays.asList(bookIds.split(","));
+        List<BookInfo> bookList = bookInfoMapper.getBooksByBookIds(bookIdList);
         return ServerResponse.createBySuccess(bookList);
+
     }
 
 

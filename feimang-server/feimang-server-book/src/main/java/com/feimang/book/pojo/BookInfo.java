@@ -24,6 +24,8 @@ public class BookInfo {
 
     private String price;
 
+    private BigDecimal priceD;
+
     private String publisher;
 
     private String pubdate;
@@ -50,21 +52,7 @@ public class BookInfo {
 
     private Integer category;
 
-    private Integer isapproved;
-
     private String cover;
-
-    private String idtype;
-
-    private Long doubanid;
-
-    private Date createtime;
-
-    private Byte bookstatus;
-
-    private Date lastupdatetime;
-
-    private Byte tagstatus;
 
     private Double average;
 
@@ -72,21 +60,21 @@ public class BookInfo {
 
     private Integer imgflg;
 
+    private String idtype;
+
     private Byte ismore;
 
     private Byte iscomplete;
 
-    private Byte authorintroisnull;
+    private Integer isapproved;
 
-    private Byte catalogisnull;
+    private Byte bookstatus;
 
-    private Byte summaryisnull;
+    private Date createtime;
 
-    private Integer catalogstatus;
+    private Date lastupdatetime;
 
-    private BigDecimal priceD;
-
-    public BookInfo(Long bookid, String isbn, String isbn10, String bookname, String nameother, String origintitle, String author, String translator, String language, String price, String publisher, String pubdate, Integer pubdatetime, String version, String page, String packaging, String format, Integer printpage, Integer words, String authorintro, String catalog, String summary, Integer category, Integer isapproved, String cover, String idtype, Long doubanid, Date createtime, Byte bookstatus, Date lastupdatetime, Byte tagstatus, Double average, String presscode, Integer imgflg, Byte ismore, Byte iscomplete, Byte authorintroisnull, Byte catalogisnull, Byte summaryisnull, Integer catalogstatus, BigDecimal priceD) {
+    public BookInfo(Long bookid, String isbn, String isbn10, String bookname, String nameother, String origintitle, String author, String translator, String language, String price, BigDecimal priceD, String publisher, String pubdate, Integer pubdatetime, String version, String page, String packaging, String format, Integer printpage, Integer words, String authorintro, String catalog, String summary, Integer category, String cover, Double average, String presscode, Integer imgflg, String idtype, Byte ismore, Byte iscomplete, Integer isapproved, Byte bookstatus, Date createtime, Date lastupdatetime) {
         this.bookid = bookid;
         this.isbn = isbn;
         this.isbn10 = isbn10;
@@ -97,6 +85,7 @@ public class BookInfo {
         this.translator = translator;
         this.language = language;
         this.price = price;
+        this.priceD = priceD;
         this.publisher = publisher;
         this.pubdate = pubdate;
         this.pubdatetime = pubdatetime;
@@ -110,24 +99,17 @@ public class BookInfo {
         this.catalog = catalog;
         this.summary = summary;
         this.category = category;
-        this.isapproved = isapproved;
         this.cover = cover;
-        this.idtype = idtype;
-        this.doubanid = doubanid;
-        this.createtime = createtime;
-        this.bookstatus = bookstatus;
-        this.lastupdatetime = lastupdatetime;
-        this.tagstatus = tagstatus;
         this.average = average;
         this.presscode = presscode;
         this.imgflg = imgflg;
+        this.idtype = idtype;
         this.ismore = ismore;
         this.iscomplete = iscomplete;
-        this.authorintroisnull = authorintroisnull;
-        this.catalogisnull = catalogisnull;
-        this.summaryisnull = summaryisnull;
-        this.catalogstatus = catalogstatus;
-        this.priceD = priceD;
+        this.isapproved = isapproved;
+        this.bookstatus = bookstatus;
+        this.createtime = createtime;
+        this.lastupdatetime = lastupdatetime;
     }
 
     public BookInfo() {
@@ -212,6 +194,14 @@ public class BookInfo {
 
     public void setPrice(String price) {
         this.price = price == null ? null : price.trim();
+    }
+
+    public BigDecimal getPriceD() {
+        return priceD;
+    }
+
+    public void setPriceD(BigDecimal priceD) {
+        this.priceD = priceD;
     }
 
     public String getPublisher() {
@@ -318,68 +308,12 @@ public class BookInfo {
         this.category = category;
     }
 
-    public Integer getIsapproved() {
-        return isapproved;
-    }
-
-    public void setIsapproved(Integer isapproved) {
-        this.isapproved = isapproved;
-    }
-
     public String getCover() {
         return cover;
     }
 
     public void setCover(String cover) {
         this.cover = cover == null ? null : cover.trim();
-    }
-
-    public String getIdtype() {
-        return idtype;
-    }
-
-    public void setIdtype(String idtype) {
-        this.idtype = idtype == null ? null : idtype.trim();
-    }
-
-    public Long getDoubanid() {
-        return doubanid;
-    }
-
-    public void setDoubanid(Long doubanid) {
-        this.doubanid = doubanid;
-    }
-
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public Byte getBookstatus() {
-        return bookstatus;
-    }
-
-    public void setBookstatus(Byte bookstatus) {
-        this.bookstatus = bookstatus;
-    }
-
-    public Date getLastupdatetime() {
-        return lastupdatetime;
-    }
-
-    public void setLastupdatetime(Date lastupdatetime) {
-        this.lastupdatetime = lastupdatetime;
-    }
-
-    public Byte getTagstatus() {
-        return tagstatus;
-    }
-
-    public void setTagstatus(Byte tagstatus) {
-        this.tagstatus = tagstatus;
     }
 
     public Double getAverage() {
@@ -406,6 +340,14 @@ public class BookInfo {
         this.imgflg = imgflg;
     }
 
+    public String getIdtype() {
+        return idtype;
+    }
+
+    public void setIdtype(String idtype) {
+        this.idtype = idtype == null ? null : idtype.trim();
+    }
+
     public Byte getIsmore() {
         return ismore;
     }
@@ -422,43 +364,35 @@ public class BookInfo {
         this.iscomplete = iscomplete;
     }
 
-    public Byte getAuthorintroisnull() {
-        return authorintroisnull;
+    public Integer getIsapproved() {
+        return isapproved;
     }
 
-    public void setAuthorintroisnull(Byte authorintroisnull) {
-        this.authorintroisnull = authorintroisnull;
+    public void setIsapproved(Integer isapproved) {
+        this.isapproved = isapproved;
     }
 
-    public Byte getCatalogisnull() {
-        return catalogisnull;
+    public Byte getBookstatus() {
+        return bookstatus;
     }
 
-    public void setCatalogisnull(Byte catalogisnull) {
-        this.catalogisnull = catalogisnull;
+    public void setBookstatus(Byte bookstatus) {
+        this.bookstatus = bookstatus;
     }
 
-    public Byte getSummaryisnull() {
-        return summaryisnull;
+    public Date getCreatetime() {
+        return createtime;
     }
 
-    public void setSummaryisnull(Byte summaryisnull) {
-        this.summaryisnull = summaryisnull;
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 
-    public Integer getCatalogstatus() {
-        return catalogstatus;
+    public Date getLastupdatetime() {
+        return lastupdatetime;
     }
 
-    public void setCatalogstatus(Integer catalogstatus) {
-        this.catalogstatus = catalogstatus;
-    }
-
-    public BigDecimal getPriceD() {
-        return priceD;
-    }
-
-    public void setPriceD(BigDecimal priceD) {
-        this.priceD = priceD;
+    public void setLastupdatetime(Date lastupdatetime) {
+        this.lastupdatetime = lastupdatetime;
     }
 }
