@@ -7,6 +7,7 @@ import com.feimang.userstudy.pojo.UserBookPerfect;
 import com.feimang.userstudy.pojo.UserBookPerfectWithBLOBs;
 import com.feimang.userstudy.service.IUserBookPerfectService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
 public class UserBookPerfectServiceImpl implements IUserBookPerfectService {
     @Autowired
     private UserBookPerfectMapper userBookPerfectMapper;
+    // region  完善图书信息相关
     /**
      * 判断是否完善过图书信息
      * @param userId 用户id
@@ -52,7 +54,8 @@ public class UserBookPerfectServiceImpl implements IUserBookPerfectService {
         PageHelper.startPage(pageNum, pageSize);
         List<UserBookPerfect> userBookPerfectList = userBookPerfectMapper.getPerfectBooksByUserID(userId);
         if (CollectionUtils.isNotEmpty(userBookPerfectList)){
-            return ServerResponse.createBySuccess("查询成功",userBookPerfectList);
+            PageInfo pageInfo = new PageInfo(userBookPerfectList);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("用户未完善过图书信息");
     }
@@ -149,4 +152,6 @@ public class UserBookPerfectServiceImpl implements IUserBookPerfectService {
         userBookPerfectWithBLOBs.setCover(userBookPerfect.getCover());
         return userBookPerfectWithBLOBs;
     }
+
+    //endregion
 }

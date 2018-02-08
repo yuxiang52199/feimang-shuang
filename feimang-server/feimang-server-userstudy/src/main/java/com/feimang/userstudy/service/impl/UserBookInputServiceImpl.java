@@ -7,6 +7,7 @@ import com.feimang.userstudy.pojo.BookInfo;
 import com.feimang.userstudy.pojo.UserBookInput;
 import com.feimang.userstudy.service.IUserBookInputService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class UserBookInputServiceImpl implements IUserBookInputService {
 
     @Autowired
     private UserBookInputMapper userBookInputMapper;
-
+    //region 手动录入功能
     /**
      * 获取手动录入列表
      * @param userId 用户id
@@ -35,8 +36,8 @@ public class UserBookInputServiceImpl implements IUserBookInputService {
         PageHelper.startPage(pageNum, pageSize);
         List<UserBookInput> userBookInputList = userBookInputMapper.getInputBooksByUserId(userId);
         if (CollectionUtils.isNotEmpty(userBookInputList)){
-            //todo
-            return ServerResponse.createBySuccess("查询成功",userBookInputList);
+            PageInfo pageInfo = new PageInfo(userBookInputList);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("用户尚未录入图书");
     }
@@ -80,4 +81,5 @@ public class UserBookInputServiceImpl implements IUserBookInputService {
         }
         return ServerResponse.createByErrorMessage("添加失败");
     }
+    //endregion
 }

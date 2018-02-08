@@ -5,12 +5,15 @@ import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.dao.*;
 import com.feimang.userstudy.pojo.*;
 import com.feimang.userstudy.service.IContentBaseService;
+import com.feimang.userstudy.vo.ContentReviewVO;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +36,7 @@ public class ContentBaseServiceImpl implements IContentBaseService{
 
     @Autowired
     private ContentReplyMapper contentReplyMapper;
-
+    // region 书拍点赞相关
     /**
      * 书拍点赞
      * @param contentBaseid
@@ -88,7 +91,8 @@ public class ContentBaseServiceImpl implements IContentBaseService{
         }
         return ServerResponse.createBySuccess("查询成功",contentBase);
     }
-
+    // endregion
+    //region 收藏书拍相关
     /**
      * 收藏书拍
      * @param contentCollection
@@ -105,6 +109,9 @@ public class ContentBaseServiceImpl implements IContentBaseService{
         }
         int resultCount = contentCollectionMapper.insert(contentCollection);
         if (resultCount > 0){
+            //修改书拍的收藏数量+1
+            contentCollectionMapper.addShareCount(contentCollection.getContentBaseid());
+
             return ServerResponse.createBySuccess("收藏成功");
         }
         return ServerResponse.createByErrorMessage("收藏失败");
@@ -142,6 +149,8 @@ public class ContentBaseServiceImpl implements IContentBaseService{
             return ServerResponse.createByErrorMessage("未关注此书拍");
         }
         contentCollectionMapper.deleteByPrimaryKey(collectionID);
+        //修改书拍的收藏数量-1
+        contentCollectionMapper.delShareCount(contentCollection.getContentBaseid());
         return ServerResponse.createBySuccess("取消收藏书拍");
     }
 
@@ -158,11 +167,12 @@ public class ContentBaseServiceImpl implements IContentBaseService{
         PageHelper.startPage(pageNum, pageSize);
         List<ContentCollection> contentCollections = contentCollectionMapper.selectAllByFromUid(userId);
         if (CollectionUtils.isNotEmpty(contentCollections)){
-            return ServerResponse.createBySuccess("查询成功",contentCollections);
+            PageInfo pageInfo = new PageInfo(contentCollections);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("用户未收藏书拍");
     }
-
+    //endregion
     /**
      * 添加书拍评论
      * @param contentReview
@@ -186,6 +196,7 @@ public class ContentBaseServiceImpl implements IContentBaseService{
      * 一级评论点赞
      * @return
      */
+    //region 一级评论点赞相关
     public ServerResponse addReviewLikes(ContentReviewLikes contentReviewLikes){
         if (contentReviewLikes == null){
             //参数为空
@@ -198,7 +209,9 @@ public class ContentBaseServiceImpl implements IContentBaseService{
         //添加评论
         contentReviewLikesMapper.insert(contentReviewLikes);
         //更新该条评论的点赞数
-        contentReviewMapper.updateLikeCountByReviewID(contentReviewLikes.getReviewid());
+        ContentReview contentReview = contentReviewMapper.selectByPrimaryKey(contentReviewLikes.getReviewid());
+        contentReview.setLikecount(contentReview.getLikecount()+1);
+        contentReviewMapper.updateByPrimaryKeySelective(contentReview);
         return ServerResponse.createBySuccess("点赞成功");
     }
 
@@ -231,11 +244,13 @@ public class ContentBaseServiceImpl implements IContentBaseService{
         }
         // 删除点赞
         contentReviewLikesMapper.delByUserIDAndReviewID(contentReviewLikes);
-        // 更新评论的点赞数量
-        contentReviewMapper.updateLikeCountByReviewID(contentReviewLikes.getReviewid());
+        // 更新评论的点赞数量-1
+        ContentReview contentReview = contentReviewMapper.selectByPrimaryKey(contentReviewLikes.getReviewid());
+        contentReview.setLikecount(contentReview.getLikecount()-1);
+        contentReviewMapper.updateByPrimaryKeySelective(contentReview);
         return ServerResponse.createBySuccess("取消点赞成功");
     }
-
+    //endregion
     /**
      * 添加评论回复
      * @param contentReply
@@ -252,6 +267,92 @@ public class ContentBaseServiceImpl implements IContentBaseService{
             return ServerResponse.createBySuccess("留言成功");
         }
         contentReplyMapper.insert(contentReply);
+        //增加一级评论的回复数量
+        ContentReview contentReview = contentReviewMapper.selectByPrimaryKey(contentReply.getReviewid());
+        contentReview.setRewcount(contentReview.getRewcount()+1);
         return ServerResponse.createBySuccess("回复成功");
     }
+
+    /**
+     * 根据ids获取列表
+     * @param ids
+     * @return
+     */
+    public ServerResponse getListByIds(String ids){
+        //region
+        if (ids == null){
+            //参数为空
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        String [] arr = ids.split(",");
+        List<String> stringList = new ArrayList<>();
+        for (int i=0; i<arr.length;i++){
+            stringList.add(arr[i]);
+        }
+        List<ContentBase> contentBases = contentBaseMapper.getListByIds(stringList);
+        if (CollectionUtils.isNotEmpty(contentBases)){
+            return ServerResponse.createBySuccess("查询成功",contentBases);
+        }
+        return ServerResponse.createByErrorMessage("查询失败");
+        //endregion
+    }
+    //region 获取一 二级评论
+    /**
+     * 获取一级评论
+     * @param contentBaseId
+     * @return
+     */
+    public ServerResponse getReviews(Long contentBaseId,int pageNum,int pageSize){
+        if (contentBaseId == null){
+            //参数为空
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<ContentReview> contentReviewList = contentReviewMapper.getReviews(contentBaseId);
+        // 将contentReviewlist转换成vo
+        if (CollectionUtils.isNotEmpty(contentReviewList)){
+            List<ContentReviewVO> contentReviewVOList = new ArrayList<>();
+            for (ContentReview contentReview : contentReviewList){
+                ContentReviewVO contentReviewVO = new ContentReviewVO();
+                contentReviewVO.setContentBaseid(contentReview.getContentBaseid());
+                contentReviewVO.setCreatetime(contentReview.getCreatetime());
+                contentReviewVO.setFromuid(contentReview.getFromuid());
+                contentReviewVO.setLikecount(contentReview.getLikecount());
+                contentReviewVO.setReviewid(contentReview.getReviewid());
+                contentReviewVO.setRewcontent(contentReview.getRewcontent());
+                contentReviewVO.setRewcount(contentReview.getRewcount());
+                // 判断一级回复是否有二级回复 若有 只显示三条二级回复
+                if (contentReview.getRewcount()>0){
+                    List<ContentReply> contentReplies = contentReplyMapper.getReplysLimitByReviewID(contentReview.getReviewid());
+                    contentReviewVO.setContentReplyList(contentReplies);
+                }
+                contentReviewVOList.add(contentReviewVO);
+            }
+            PageInfo pageInfo = new PageInfo(contentReviewVOList);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
+        }
+        return ServerResponse.createByErrorMessage("该书拍未有评论");
+    }
+
+    /**
+     * 获取二级评论
+     * @param reviewid
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public ServerResponse getReplys(Long reviewid,int pageNum,int pageSize){
+        if (reviewid==null){
+            //参数为空
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<ContentReply> contentReplyList = contentReplyMapper.getReplysByReviewID(reviewid);
+        if (CollectionUtils.isNotEmpty(contentReplyList)){
+            PageInfo pageInfo = new PageInfo(contentReplyList);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
+        }
+        return ServerResponse.createByErrorMessage("查询失败");
+    }
+    //endregion
 }

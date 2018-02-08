@@ -31,6 +31,7 @@ public class    BookTagRelationServiceImpl implements IBookTagRelationService{
     private UserBookMapper userBookMapper;
     @Autowired
     private BookTagMapper bookTagMapper;
+    //region 书架内图书操作
     /**
      * 获取书架内图书列表
      * @param utid 书架id
@@ -173,5 +174,5 @@ public class    BookTagRelationServiceImpl implements IBookTagRelationService{
         booktagRelationMapper.editBookSeq(booktagRelationList);
         return ServerResponse.createBySuccess("排序成功");
     }
-
+    //endregion
 }

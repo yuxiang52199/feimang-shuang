@@ -157,4 +157,13 @@
     UPDATE fm_content_base SET rewCount = (SELECT COUNT(1) FROM fm_content_review WHERE
 Content_BaseID = #{contentBaseid}) WHERE Content_BaseID = #{contentBaseid}
   </update>
+  <select id="getListByIds" parameterType="list" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_content_base
+    where id IN
+    <foreach collection="ids" item="item" index="index" separator="," close=")" open="(">
+      #{ids}
+    </foreach>
+  </select>
 </mapper>

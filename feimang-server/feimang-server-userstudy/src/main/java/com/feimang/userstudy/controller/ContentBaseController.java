@@ -151,4 +151,27 @@ public class ContentBaseController {
     public ServerResponse addReply(HttpServletRequest request, ContentReply contentReply){
         return contentBaseService.addReply(contentReply);
     }
+
+    /**
+     * 获取一级评论
+     * @param request
+     * @param contentBaseId
+     * @return
+     */
+    @GetMapping("/getReviews")
+    public ServerResponse getReviews(HttpServletRequest request,Long contentBaseId,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
+        return contentBaseService.getReviews(contentBaseId,pageNum,pageSize);
+    }
+
+    /**
+     * 获取二级评论
+     * @param reviewID
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/getReplys")
+    public ServerResponse getReplys(HttpServletRequest request,Long reviewID,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
+        return contentBaseService.getReplys(reviewID, pageNum, pageSize);
+    }
 }

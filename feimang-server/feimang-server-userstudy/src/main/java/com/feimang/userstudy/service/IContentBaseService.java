@@ -34,4 +34,8 @@ public interface IContentBaseService {
     ServerResponse delReviewLikes(ContentReviewLikes contentReviewLikes);
     // 添加评论回复
     ServerResponse addReply(ContentReply contentReply);
+    // 获取二级评论列表
+    ServerResponse getReplys(Long reviewid,int pageNum,int pageSize);
+    // 获取一级评论列表
+    ServerResponse getReviews(Long contentBaseId,int pageNum,int pageSize);
 }
