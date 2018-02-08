@@ -181,4 +181,24 @@
       ImgFlg = #{imgflg,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getImageByRecordId" parameterType="list" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_userbook_record_image
+    WHERE RecordID =
+    <foreach collection="userBookRecordList" item="item" index="index">
+      #{item.recordid}
+    </foreach>
+  </select>
+  <insert id="updateDelflgByBookIdAndUserIdAndRecordID" parameterType="map" statementType="CALLABLE">
+    call update_book_photo_delflg(
+            #{bookid},
+
+            #{fromuid},
+
+            #{recordId}
+
+            )
+  </insert>
+
 </mapper>

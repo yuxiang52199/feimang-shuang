@@ -42,4 +42,24 @@ public class Const {
             return value;
         }
     }
+
+    //图书状态 0书拍 1推荐图书
+    public enum PhotoType{
+        BookPhoto(0,"书拍"),
+        Recommend(1,"推荐图书");
+        private String value;
+        private int code;
+        PhotoType(int code,String value){
+            this.code = code;
+            this.value = value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
 }

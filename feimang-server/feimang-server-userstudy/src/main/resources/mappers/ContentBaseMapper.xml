@@ -42,13 +42,13 @@
     delete from fm_content_base
     where Content_BaseID = #{contentBaseid,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.feimang.userstudy.pojo.ContentBase" >
+  <insert id="insert" parameterType="com.feimang.userstudy.pojo.ContentBase">
     insert into fm_content_base (Content_BaseID, LikeCount, RewCount, 
       CollectionCount, ShareCount, PhotoType, 
       CreateTime, DescribeAction)
     values (#{contentBaseid,jdbcType=BIGINT}, #{likecount,jdbcType=INTEGER}, #{rewcount,jdbcType=INTEGER}, 
       #{collectioncount,jdbcType=INTEGER}, #{sharecount,jdbcType=INTEGER}, #{phototype,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{describeaction,jdbcType=LONGVARCHAR})
+      now(), #{describeaction,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.ContentBase" >
     insert into fm_content_base
@@ -152,5 +152,9 @@
       PhotoType = #{phototype,jdbcType=INTEGER},
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where Content_BaseID = #{contentBaseid,jdbcType=BIGINT}
+  </update>
+  <update id="updateRewCountByContentBaseID" parameterType="long">
+    UPDATE fm_content_base SET rewCount = (SELECT COUNT(1) FROM fm_content_review WHERE
+Content_BaseID = #{contentBaseid}) WHERE Content_BaseID = #{contentBaseid}
   </update>
 </mapper>

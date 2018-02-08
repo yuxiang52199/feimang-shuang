@@ -26,7 +26,7 @@
     insert into fm_content_collection (CollectionID, Content_BaseID, Fromuid, 
       CreateTime)
     values (#{collectionid,jdbcType=BIGINT}, #{contentBaseid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
-      #{createtime,jdbcType=TIMESTAMP})
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.ContentCollection" >
     insert into fm_content_collection
@@ -81,4 +81,17 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where CollectionID = #{collectionid,jdbcType=BIGINT}
   </update>
+  <select id="selectByFromuidAndContentbaseId" parameterType="com.feimang.userstudy.pojo.ContentCollection" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_content_collection
+    where Fromuid = #{fromuid}
+    AND content_baseID = #{contentBaseid}
+  </select>
+  <select id="selectAllByFromUid" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_content_collection
+    where fromuid = #{userId}
+  </select>
 </mapper>

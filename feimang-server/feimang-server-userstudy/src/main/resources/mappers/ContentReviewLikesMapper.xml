@@ -81,4 +81,16 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where Review_LikeID = #{reviewLikeid,jdbcType=BIGINT}
   </update>
+  <select id="selectByUserIdAndReviewID" parameterType="com.feimang.userstudy.pojo.ContentReviewLikes" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_content_review_likes
+    WHERE Fromuid = #{fromuid}
+    AND ReviewID = #{reviewid}
+  </select>
+  <delete id="delByUserIDAndReviewID" parameterType="com.feimang.userstudy.pojo.ContentReviewLikes">
+    delete from fm_content_review_likes
+    where Fromuid = #{fromuid}
+    and reviewid = #{reviewid}
+  </delete>
 </mapper>

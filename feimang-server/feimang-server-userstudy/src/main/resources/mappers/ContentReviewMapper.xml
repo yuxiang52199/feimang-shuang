@@ -26,12 +26,12 @@
     where ReviewID = #{reviewid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.feimang.userstudy.pojo.ContentReview" >
-    insert into fm_content_review (ReviewID, Content_BaseID, Fromuid, 
+    insert into fm_content_review (ReviewID, Content_BaseID, Fromuid,
       RewContent, RewCount, LikeCount, 
       CreateTime)
-    values (#{reviewid,jdbcType=BIGINT}, #{contentBaseid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+    values (#{reviewid,jdbcType=BIGINT}, #{contentBaseid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT},
       #{rewcontent,jdbcType=VARCHAR}, #{rewcount,jdbcType=INTEGER}, #{likecount,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=TIMESTAMP})
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.ContentReview" >
     insert into fm_content_review
@@ -115,5 +115,9 @@
       LikeCount = #{likecount,jdbcType=INTEGER},
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where ReviewID = #{reviewid,jdbcType=BIGINT}
+  </update>
+  <update id="updateLikeCountByReviewID" parameterType="long">
+    UPDATE fm_content_review SET likecount = (SELECT COUNT(1) FROM fm_content_review_likes WHERE
+Reviewid = #{reviewId}) WHERE Reviewid = #{reviewId}
   </update>
 </mapper>

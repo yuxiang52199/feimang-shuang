@@ -19,11 +19,15 @@ public interface BooktagRelationMapper {
 
     int updateByPrimaryKey(BooktagRelation record);
     // 获取书架内图书列表
-    List<BooktagRelation> getBooksByUTID(Integer utid);
+    List<BooktagRelation> getBooksByUTID(@Param("userId") Long userId,@Param("utid") Integer utid);
     // 书架内删除图书
     int delBookByUserIdAndId(@Param("booktagRelationList") List<BooktagRelation> booktagRelationList);
-
-    //int addBookByBookIdAndUTID(@Param());
+    // 书架内添加图书
+    void addBookToBookTag(@Param("booktagRelations") List<BooktagRelation> booktagRelations);
+    // 根据用户id和图书id查询,图书是否在书架内
+    void checkBookRelation(@Param("bookid")Long bookid,@Param("fromuid")Long fromuid);
+    // 书架内图书排序
+    void editBookSeq(@Param("booktagRelationList") List<BooktagRelation> booktagRelationList);
 
 
 }

@@ -16,4 +16,6 @@ public interface ContentBaseMapper {
     int updateByPrimaryKeyWithBLOBs(ContentBase record);
 
     int updateByPrimaryKey(ContentBase record);
+    // 根据主键 修改评论数量
+    void updateRewCountByContentBaseID(Long contentBaseid);
 }

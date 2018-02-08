@@ -5,10 +5,8 @@ import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.dao.UserBookAttenMapper;
 import com.feimang.userstudy.pojo.BookInfo;
 import com.feimang.userstudy.pojo.UserBookAtten;
-import com.feimang.userstudy.pojo.UserInfo;
 import com.feimang.userstudy.service.IAttenBookService;
 import com.feimang.userstudy.service.IBookService;
-import com.feimang.userstudy.service.IUserService;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -82,7 +80,7 @@ public class AttenBookServiceImpl implements IAttenBookService {
             }
         }));
 
-        List<BookInfo> books= bookService.GetBooksByBookIds(bookIds).getData();
+        List<BookInfo> books= bookService.getBooksByBookIds(bookIds).getData();
         //todo 查询图书详细信息
         for (UserBookAtten bookAtten:userBookAttens) {
 

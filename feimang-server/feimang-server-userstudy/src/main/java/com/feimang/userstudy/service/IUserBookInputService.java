@@ -3,8 +3,6 @@ package com.feimang.userstudy.service;
 import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.pojo.BookInfo;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * Created by yxm on 2018/1/29
  */

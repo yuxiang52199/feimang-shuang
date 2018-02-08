@@ -11,16 +11,15 @@ public class UserBook {
 
     private Date createtime;
 
-    private Integer delflg;
-
     private Integer sourcebook;
 
-    public UserBook(Integer ubid, Long fromuid, Long bookid, Date createtime, Integer delflg, Integer sourcebook) {
+    private Integer isTag;
+
+    public UserBook(Integer ubid, Long fromuid, Long bookid, Date createtime, Integer sourcebook,Integer isTag) {
         this.ubid = ubid;
         this.fromuid = fromuid;
         this.bookid = bookid;
         this.createtime = createtime;
-        this.delflg = delflg;
         this.sourcebook = sourcebook;
     }
 
@@ -60,19 +59,19 @@ public class UserBook {
         this.createtime = createtime;
     }
 
-    public Integer getDelflg() {
-        return delflg;
-    }
-
-    public void setDelflg(Integer delflg) {
-        this.delflg = delflg;
-    }
-
     public Integer getSourcebook() {
         return sourcebook;
     }
 
     public void setSourcebook(Integer sourcebook) {
         this.sourcebook = sourcebook;
+    }
+
+    public Integer getIsTag() {
+        return isTag;
+    }
+
+    public void setIsTag(Integer isTag) {
+        this.isTag = isTag;
     }
 }

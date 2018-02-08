@@ -7,15 +7,18 @@ public class BooktagRelation {
 
     private Integer utid;
 
+    private Long fromuid;
+
     private Long bookid;
 
     private Date createtime;
 
     private Integer tagbookseq;
 
-    public BooktagRelation(Integer id, Integer utid, Long bookid, Date createtime, Integer tagbookseq) {
+    public BooktagRelation(Integer id, Integer utid, Long fromuid,Long bookid, Date createtime, Integer tagbookseq) {
         this.id = id;
         this.utid = utid;
+        this.fromuid = fromuid;
         this.bookid = bookid;
         this.createtime = createtime;
         this.tagbookseq = tagbookseq;
@@ -63,5 +66,13 @@ public class BooktagRelation {
 
     public void setTagbookseq(Integer tagbookseq) {
         this.tagbookseq = tagbookseq;
+    }
+
+    public Long getFromuid() {
+        return fromuid;
+    }
+
+    public void setFromuid(Long fromuid) {
+        this.fromuid = fromuid;
     }
 }

@@ -9,7 +9,7 @@
 	<contextName>SpringBootDemo</contextName>
 	<property name="LOG_PATH" value="E:\\JavaWebLogs" />
 	<!--设置系统日志目录 -->
-	<property name="APPDIR" value="SpringBootDemo" />
+	<property name="APPDIR" value="userstudy" />
 
 	<!-- 日志记录器，日期滚动记录 -->
 	<appender name="FILEERROR"
@@ -130,7 +130,7 @@
 	<logger name="java.sql.Connection" level="DEBUG" />  
 	<logger name="java.sql.Statement" level="DEBUG" />  
 	<logger name="java.sql.PreparedStatement" level="DEBUG" /> 
-	<logger name="com.feimang.springboot.dao" level="DEBUG"/>
+	<logger name="com.feimang.userstudy.dao" level="DEBUG"/>
 
 	<!-- 生产环境下，将此级别配置为适合的级别，以免日志文件太多或影响程序性能 -->
 	<root level="INFO">
@@ -140,4 +140,6 @@
 		<!-- 生产环境将请stdout,testfile去掉 -->
 		<appender-ref ref="STDOUT" />
 	</root>
+
+
 </configuration>

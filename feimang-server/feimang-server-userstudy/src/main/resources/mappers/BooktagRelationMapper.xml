@@ -5,13 +5,14 @@
     <constructor >
       <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="UTID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="BookID" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="TagBookSeq" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, UTID, BookID, CreateTime, TagBookSeq
+    ID, UTID,Fromuid, BookID, CreateTime, TagBookSeq
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,9 +25,9 @@
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.feimang.userstudy.pojo.BooktagRelation" >
-    insert into fm_booktag_relation (ID, UTID, BookID, 
+    insert into fm_booktag_relation (ID, UTID, Fromuid,BookID,
       CreateTime, TagBookSeq)
-    values (#{id,jdbcType=INTEGER}, #{utid,jdbcType=INTEGER}, #{bookid,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=INTEGER}, #{utid,jdbcType=INTEGER},#{fromuid,jdbcType=BIGINT} #{bookid,jdbcType=BIGINT},
       #{createtime,jdbcType=TIMESTAMP}, #{tagbookseq,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.BooktagRelation" >
@@ -37,6 +38,9 @@
       </if>
       <if test="utid != null" >
         UTID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
       </if>
       <if test="bookid != null" >
         BookID,
@@ -55,6 +59,9 @@
       <if test="utid != null" >
         #{utid,jdbcType=INTEGER},
       </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=INTEGER},
+      </if>
       <if test="bookid != null" >
         #{bookid,jdbcType=BIGINT},
       </if>
@@ -72,6 +79,9 @@
       <if test="utid != null" >
         UTID = #{utid,jdbcType=INTEGER},
       </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
       <if test="bookid != null" >
         BookID = #{bookid,jdbcType=BIGINT},
       </if>
@@ -87,16 +97,18 @@
   <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.BooktagRelation" >
     update fm_booktag_relation
     set UTID = #{utid,jdbcType=INTEGER},
+    Fromuid = #{fromuid,jdbcType=BIGINT},
       BookID = #{bookid,jdbcType=BIGINT},
       CreateTime = #{createtime,jdbcType=TIMESTAMP},
       TagBookSeq = #{tagbookseq,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getBooksByUTID" parameterType="int" resultMap="BaseResultMap">
+  <select id="getBooksByUTID" parameterType="map" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"/>
     FROM fm_booktag_relation
     WHERE UTID = #{utid}
+    and Fromuid = #{userId}
   </select>
   <delete id="delBookByUserIdAndId" parameterType="list">
     DELETE FROM
@@ -105,4 +117,36 @@
       #{item.id}
     </foreach>
   </delete>
+  <insert id="addBookToBookTag" parameterType="list">
+    replace INTO  fm_booktag_relation(Fromuid,UTID,BookID) VALUES
+    <foreach collection="booktagRelations" item="item" index="index" separator=",">
+      (
+      #{item.fromuid},
+      #{item.utid},
+      #{item.bookid}
+      )
+    </foreach>
+  </insert>
+  <insert id="checkBookRelation" parameterType="map" statementType="CALLABLE">
+    <!--<foreach collection="booktagRelationList" item="item" index="index">-->
+
+
+        call check_book_relation(
+         #{bookid},
+         #{fromuid}
+      )
+
+    <!--</foreach>-->
+  </insert>
+  <update id="editBookSeq" parameterType="list">
+    update fm_booktag_relation
+    set TagBookSeq =
+    <foreach collection="booktagRelationList" item="item" index="index" >
+      #{item.tagbookseq}
+    </foreach>
+    where id IN
+    <foreach collection="booktagRelationList" item="item" index="index" open="(" separator="," close=")">
+      #{item.id}
+    </foreach>
+  </update>
 </mapper>

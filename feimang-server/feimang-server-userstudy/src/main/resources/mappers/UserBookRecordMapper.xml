@@ -32,12 +32,12 @@
   <insert id="insert" parameterType="com.feimang.userstudy.pojo.UserBookRecord" >
     insert into fm_userbook_record (RecordID, Content_BaseID, BookID, 
       Fromuid, Contents, Photos, 
-      PhotoType, PhotoSource, DelFlg, 
+      PhotoType, PhotoSource, DelFlg,
       CreateTime)
     values (#{recordid,jdbcType=BIGINT}, #{contentBaseid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, 
       #{fromuid,jdbcType=BIGINT}, #{contents,jdbcType=VARCHAR}, #{photos,jdbcType=VARCHAR}, 
       #{phototype,jdbcType=INTEGER}, #{photosource,jdbcType=INTEGER}, #{delflg,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=TIMESTAMP})
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.UserBookRecord" >
     insert into fm_userbook_record
@@ -134,7 +134,7 @@
         DelFlg = #{delflg,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
-        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+        CreateTime = now(),
       </if>
     </set>
     where RecordID = #{recordid,jdbcType=BIGINT}
@@ -152,4 +152,64 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where RecordID = #{recordid,jdbcType=BIGINT}
   </update>
+  <select id="getRecommendBooksByUserID" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_userbook_record
+    WHERE Fromuid = #{userId}
+    and PhotoType = 1
+    and delflg = 0
+  </select>
+  <select id="selectByUserIdAndBookId" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_userbook_record
+    WHERE Fromuid = #{userId}
+    and BookID = #{bookId}
+    and PhotoType = 1
+  </select>
+  <select id="getBookPhotos" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_userbook_record
+    where Fromuid = #{userId}
+    and PhotoType = 0
+    and delflg = 0
+  </select>
+  <update id="updateDelflgById" parameterType="list" >
+    update fm_userbook_record SET delflg = 1
+    WHERE  recordid IN
+    <foreach collection="userBookRecordList" item="item" index="index" open="(" separator="," close=")">
+      #{item.recordid}
+    </foreach>
+  </update>
+  <update id="updateBookPhotoDelflgByRecordID" parameterType="long">
+    UPDATE fm_userbook_record
+    SET  delflg = 1
+    where RecordID = #{recordId}
+  </update>
+  <select id="getRecommendBooksByIds" parameterType="list" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_userbook_record
+    WHERE
+     RecordID IN
+    <foreach collection="ids" item="item" index="index"  open="(" separator="," close=")" >
+      #{item}
+    </foreach>
+    and delflg = 0
+    and phototype = 1
+  </select>
+  <select id="getBookPhotosByIds" parameterType="list" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_userbook_record
+    WHERE
+    RecordID IN
+    <foreach collection="ids" item="item" index="index"  open="(" separator="," close=")" >
+      #{item}
+    </foreach>
+    and delflg = 0
+    and phototype = 0
+  </select>
 </mapper>

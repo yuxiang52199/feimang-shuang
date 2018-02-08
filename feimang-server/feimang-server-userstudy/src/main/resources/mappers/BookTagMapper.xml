@@ -218,4 +218,7 @@
     FROM fm_booktag
     where UTID = #{utid}
   </select>
+  <update id="updateTagCount" parameterType="int">
+    UPDATE fm_booktag SET tagCount = (SELECT COUNT(1) FROM fm_booktag_relation WHERE utid =#{utid}) WHERE utid = #{utid}
+  </update>
 </mapper>

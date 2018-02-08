@@ -3,6 +3,7 @@ package com.feimang.userstudy.controller;
 import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.service.IBookTagRelationService;
 import com.feimang.userstudy.vo.BookTagRelations;
+import com.feimang.userstudy.vo.UserBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +24,10 @@ public class BookTagRelationController {
      * @return
      */
     @GetMapping("/getBooksByBookTag")
-    public ServerResponse getBooksByBookTag(HttpServletRequest request,Integer utid,
+    public ServerResponse getBooksByBookTag(HttpServletRequest request,Long userId,Integer utid,
                                             @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                             @RequestParam(value = "pageSize",defaultValue = "10")int pageSize){
-        return bookTagRelationService.getBooksByBookTag(utid, pageNum, pageSize);
+        return bookTagRelationService.getBooksByBookTag(userId,utid, pageNum, pageSize);
     }
 
     /**
@@ -36,8 +37,8 @@ public class BookTagRelationController {
      * @return
      */
     @PostMapping("/addBookToBookTag")
-    public ServerResponse addBookToBookTag(HttpServletRequest request,@RequestBody BookTagRelations entity){
-        return null;
+    public ServerResponse addBookToBookTag(HttpServletRequest request,@RequestBody UserBookVO entity){
+        return bookTagRelationService.addBookToBookTag(entity);
     }
 
     /**
@@ -49,5 +50,37 @@ public class BookTagRelationController {
     @PostMapping("delBookFromBookTag")
     public ServerResponse delBookFromBookTag(HttpServletRequest request,@RequestBody BookTagRelations entity){
         return bookTagRelationService.delBookFromBookTag(entity.booktagRelations);
+    }
+
+    /**
+     * 书架内复制图书
+     * @param request
+     * @param entity
+     * @return
+     */
+    @PutMapping("/copyBook")
+    public ServerResponse copyBook(HttpServletRequest request,@RequestBody BookTagRelations entity){
+        return bookTagRelationService.copyBook(entity.booktagRelations);
+    }
+
+    /**
+     * 书架内移动图书
+     * @param request
+     * @param entity
+     * @return
+     */
+    @PutMapping("/moveBook")
+    public ServerResponse moveBook(HttpServletRequest request,@RequestBody BookTagRelations entity){
+        return bookTagRelationService.moveBook(entity);
+    }
+    /**
+     * 书架内图书排序
+     * @param request
+     * @param entity
+     * @return
+     */
+    @PutMapping("/editBookSeq")
+    public ServerResponse editBookSeq(HttpServletRequest request,@RequestBody BookTagRelations entity){
+        return bookTagRelationService.editBookSeq(entity.booktagRelations);
     }
 }

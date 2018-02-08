@@ -25,4 +25,6 @@ public interface BookTagMapper {
     int checkTagNameByUserIdAndTagName(@Param("userId") Long userId,@Param("tagName") String tagName);
     //查询书架是否存在
     int selectByUtid(Long utid);
+    // 更改书架内的图书数量
+    int updateTagCount(Integer utid);
 }

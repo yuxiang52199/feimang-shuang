@@ -14,4 +14,6 @@ public interface ContentReviewMapper {
     int updateByPrimaryKeySelective(ContentReview record);
 
     int updateByPrimaryKey(ContentReview record);
+    // 更新评论的点赞数量
+    void updateLikeCountByReviewID(Long reviewId);
 }

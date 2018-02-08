@@ -14,4 +14,8 @@ public interface ContentReviewLikesMapper {
     int updateByPrimaryKeySelective(ContentReviewLikes record);
 
     int updateByPrimaryKey(ContentReviewLikes record);
+    // 判断是否存在
+    ContentReviewLikes selectByUserIdAndReviewID(ContentReviewLikes contentReviewLikes);
+    // 删除数据 根据用户id和一级评论id
+    void delByUserIDAndReviewID(ContentReviewLikes contentReviewLikes);
 }

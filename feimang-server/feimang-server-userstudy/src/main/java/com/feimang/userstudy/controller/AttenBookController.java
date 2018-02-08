@@ -7,12 +7,8 @@ import com.feimang.userstudy.pojo.UserInfo;
 import com.feimang.userstudy.service.IAttenBookService;
 import com.feimang.userstudy.service.IBookService;
 import com.feimang.userstudy.service.IUserService;
-import com.feimang.userstudy.service.impl.AttenBookServiceImpl;
 
-import com.netflix.discovery.converters.Auto;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
