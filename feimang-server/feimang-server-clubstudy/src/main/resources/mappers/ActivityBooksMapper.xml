@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.ActivityBooksMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.ActivityBooks" >
+    <constructor >
+      <idArg column="ABID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CAID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ABID, CAID, BookID, BookName, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_activity_books
+    where ABID = #{abid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rc_activity_books
+    where ABID = #{abid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.ActivityBooks" >
+    insert into rc_activity_books (ABID, CAID, BookID, 
+      BookName, CreateTime)
+    values (#{abid,jdbcType=INTEGER}, #{caid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, 
+      #{bookname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.ActivityBooks" >
+    insert into rc_activity_books
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="abid != null" >
+        ABID,
+      </if>
+      <if test="caid != null" >
+        CAID,
+      </if>
+      <if test="bookid != null" >
+        BookID,
+      </if>
+      <if test="bookname != null" >
+        BookName,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="abid != null" >
+        #{abid,jdbcType=INTEGER},
+      </if>
+      <if test="caid != null" >
+        #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="bookname != null" >
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.ActivityBooks" >
+    update rc_activity_books
+    <set >
+      <if test="caid != null" >
+        CAID = #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        BookID = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="bookname != null" >
+        BookName = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ABID = #{abid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.ActivityBooks" >
+    update rc_activity_books
+    set CAID = #{caid,jdbcType=BIGINT},
+      BookID = #{bookid,jdbcType=BIGINT},
+      BookName = #{bookname,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where ABID = #{abid,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertByList" parameterType="List" >
+    REPLACE INTO into rc_activity_books ( CAID, BookID,)
+    <foreach collection="list" item="item" index="index" open="" separator="," close="">
+      values (
+      #{item.caid,jdbcType=BIGINT},
+      #{item.bookid,jdbcType=BIGINT} )
+    </foreach>
+  </insert>
+
+  <select id="selectListByCaid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from rc_activity_books
+    where CAID = #{caid,jdbcType=INTEGER}
+    ORDER BY ABID DESC
+  </select>
+
+</mapper>

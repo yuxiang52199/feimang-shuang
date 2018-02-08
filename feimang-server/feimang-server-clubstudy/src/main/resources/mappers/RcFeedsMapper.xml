@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.RcFeedsMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.RcFeeds" >
+    <constructor >
+      <idArg column="ClubFeedsID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="PhotoID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="FeedsType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ClubFeedsID, ClubID, PhotoID, FeedsType, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_feeds
+    where ClubFeedsID = #{clubfeedsid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rc_feeds
+    where ClubFeedsID = #{clubfeedsid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.RcFeeds" >
+    insert into rc_feeds (ClubFeedsID, ClubID, PhotoID, 
+      FeedsType, CreateTime)
+    values (#{clubfeedsid,jdbcType=BIGINT}, #{clubid,jdbcType=BIGINT}, #{photoid,jdbcType=BIGINT}, 
+      #{feedstype,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.RcFeeds" >
+    insert into rc_feeds
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clubfeedsid != null" >
+        ClubFeedsID,
+      </if>
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="photoid != null" >
+        PhotoID,
+      </if>
+      <if test="feedstype != null" >
+        FeedsType,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clubfeedsid != null" >
+        #{clubfeedsid,jdbcType=BIGINT},
+      </if>
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="photoid != null" >
+        #{photoid,jdbcType=BIGINT},
+      </if>
+      <if test="feedstype != null" >
+        #{feedstype,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.RcFeeds" >
+    update rc_feeds
+    <set >
+      <if test="clubid != null" >
+        ClubID = #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="photoid != null" >
+        PhotoID = #{photoid,jdbcType=BIGINT},
+      </if>
+      <if test="feedstype != null" >
+        FeedsType = #{feedstype,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ClubFeedsID = #{clubfeedsid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.RcFeeds" >
+    update rc_feeds
+    set ClubID = #{clubid,jdbcType=BIGINT},
+      PhotoID = #{photoid,jdbcType=BIGINT},
+      FeedsType = #{feedstype,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where ClubFeedsID = #{clubfeedsid,jdbcType=BIGINT}
+  </update>
+</mapper>

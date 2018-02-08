@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.BankCardMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.BankCard" >
+    <constructor >
+      <idArg column="CBCID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BankCardID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="BankName" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CBCID, ClubID, BankCardID, UserName, CreateTime, BankName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_bankcard
+    where CBCID = #{cbcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rc_bankcard
+    where CBCID = #{cbcid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.BankCard" >
+    insert into rc_bankcard (CBCID, ClubID, BankCardID, 
+      UserName, CreateTime, BankName
+      )
+    values (#{cbcid,jdbcType=INTEGER}, #{clubid,jdbcType=BIGINT}, #{bankcardid,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{bankname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.BankCard" >
+    insert into rc_bankcard
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cbcid != null" >
+        CBCID,
+      </if>
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="bankcardid != null" >
+        BankCardID,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="bankname != null" >
+        BankName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cbcid != null" >
+        #{cbcid,jdbcType=INTEGER},
+      </if>
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="bankcardid != null" >
+        #{bankcardid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankname != null" >
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.BankCard" >
+    update rc_bankcard
+    <set >
+      <if test="clubid != null" >
+        ClubID = #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="bankcardid != null" >
+        BankCardID = #{bankcardid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankname != null" >
+        BankName = #{bankname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CBCID = #{cbcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.BankCard" >
+    update rc_bankcard
+    set ClubID = #{clubid,jdbcType=BIGINT},
+      BankCardID = #{bankcardid,jdbcType=VARCHAR},
+      UserName = #{username,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      BankName = #{bankname,jdbcType=VARCHAR}
+    where CBCID = #{cbcid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.PayOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.PayOrder" >
+    <constructor >
+      <idArg column="PayID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PayStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PayID, PayStatus, Fromuid, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_pay_order
+    where PayID = #{payid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rc_pay_order
+    where PayID = #{payid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.PayOrder" >
+    insert into rc_pay_order (PayID, PayStatus, Fromuid, 
+      CreateTime)
+    values (#{payid,jdbcType=VARCHAR}, #{paystatus,jdbcType=INTEGER}, #{fromuid,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.PayOrder" >
+    insert into rc_pay_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payid != null" >
+        PayID,
+      </if>
+      <if test="paystatus != null" >
+        PayStatus,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payid != null" >
+        #{payid,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        #{paystatus,jdbcType=INTEGER},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.PayOrder" >
+    update rc_pay_order
+    <set >
+      <if test="paystatus != null" >
+        PayStatus = #{paystatus,jdbcType=INTEGER},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PayID = #{payid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.PayOrder" >
+    update rc_pay_order
+    set PayStatus = #{paystatus,jdbcType=INTEGER},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where PayID = #{payid,jdbcType=VARCHAR}
+  </update>
+</mapper>

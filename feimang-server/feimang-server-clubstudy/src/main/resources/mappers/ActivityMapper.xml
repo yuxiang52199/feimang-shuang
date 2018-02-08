@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.Activity" >
+    <constructor >
+      <idArg column="CAID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Content_BaseID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CoverURL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MemberCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BrowseCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="JoinCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="IsActivity" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsLinks" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsForever" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsTop" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BeginTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="EndTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ActivityStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ActivityType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsSticky" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ActivityAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IsDelete" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.feimang.clubstudy.pojo.Activity" >
+    <constructor >
+      <idArg column="CAID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Content_BaseID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CoverURL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MemberCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BrowseCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="JoinCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="IsActivity" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsLinks" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsForever" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsTop" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BeginTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="EndTime" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ActivityStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ActivityType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsSticky" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ActivityAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IsDelete" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Contents" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CAID, Content_BaseID, ClubID, Fromuid, Title, CoverURL, MemberCount, BrowseCount, 
+    JoinCount, Price, IsActivity, IsLinks, IsForever, IsTop, BeginTime, EndTime, CreateTime, 
+    ActivityStatus, ActivityType, IsSticky, ActivityAddress, IsDelete
+  </sql>
+  <sql id="Blob_Column_List" >
+    Contents
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from rc_activity
+    where CAID = #{caid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rc_activity
+    where CAID = #{caid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.Activity" >
+    insert into rc_activity (CAID, Content_BaseID, ClubID, 
+      Fromuid, Title, CoverURL, 
+      MemberCount, BrowseCount, JoinCount, 
+      Price, IsActivity, IsLinks, 
+      IsForever, IsTop, BeginTime, 
+      EndTime, CreateTime, ActivityStatus, 
+      ActivityType, IsSticky, ActivityAddress, 
+      IsDelete, Contents)
+    values (#{caid,jdbcType=BIGINT}, #{contentBaseid,jdbcType=BIGINT}, #{clubid,jdbcType=BIGINT}, 
+      #{fromuid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{coverurl,jdbcType=VARCHAR}, 
+      #{membercount,jdbcType=INTEGER}, #{browsecount,jdbcType=INTEGER}, #{joincount,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{isactivity,jdbcType=INTEGER}, #{islinks,jdbcType=INTEGER}, 
+      #{isforever,jdbcType=INTEGER}, #{istop,jdbcType=INTEGER}, #{begintime,jdbcType=INTEGER}, 
+      #{endtime,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{activitystatus,jdbcType=INTEGER}, 
+      #{activitytype,jdbcType=INTEGER}, #{issticky,jdbcType=INTEGER}, #{activityaddress,jdbcType=VARCHAR}, 
+      #{isdelete,jdbcType=INTEGER}, #{contents,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.Activity" >
+    insert into rc_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caid != null" >
+        CAID,
+      </if>
+      <if test="contentBaseid != null" >
+        Content_BaseID,
+      </if>
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="coverurl != null" >
+        CoverURL,
+      </if>
+      <if test="membercount != null" >
+        MemberCount,
+      </if>
+      <if test="browsecount != null" >
+        BrowseCount,
+      </if>
+      <if test="joincount != null" >
+        JoinCount,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="isactivity != null" >
+        IsActivity,
+      </if>
+      <if test="islinks != null" >
+        IsLinks,
+      </if>
+      <if test="isforever != null" >
+        IsForever,
+      </if>
+      <if test="istop != null" >
+        IsTop,
+      </if>
+      <if test="begintime != null" >
+        BeginTime,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="activitystatus != null" >
+        ActivityStatus,
+      </if>
+      <if test="activitytype != null" >
+        ActivityType,
+      </if>
+      <if test="issticky != null" >
+        IsSticky,
+      </if>
+      <if test="activityaddress != null" >
+        ActivityAddress,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+      <if test="contents != null" >
+        Contents,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caid != null" >
+        #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="contentBaseid != null" >
+        #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="coverurl != null" >
+        #{coverurl,jdbcType=VARCHAR},
+      </if>
+      <if test="membercount != null" >
+        #{membercount,jdbcType=INTEGER},
+      </if>
+      <if test="browsecount != null" >
+        #{browsecount,jdbcType=INTEGER},
+      </if>
+      <if test="joincount != null" >
+        #{joincount,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isactivity != null" >
+        #{isactivity,jdbcType=INTEGER},
+      </if>
+      <if test="islinks != null" >
+        #{islinks,jdbcType=INTEGER},
+      </if>
+      <if test="isforever != null" >
+        #{isforever,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null" >
+        #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitystatus != null" >
+        #{activitystatus,jdbcType=INTEGER},
+      </if>
+      <if test="activitytype != null" >
+        #{activitytype,jdbcType=INTEGER},
+      </if>
+      <if test="issticky != null" >
+        #{issticky,jdbcType=INTEGER},
+      </if>
+      <if test="activityaddress != null" >
+        #{activityaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="contents != null" >
+        #{contents,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.Activity" >
+    update rc_activity
+    <set >
+      <if test="contentBaseid != null" >
+        Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="clubid != null" >
+        ClubID = #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="coverurl != null" >
+        CoverURL = #{coverurl,jdbcType=VARCHAR},
+      </if>
+      <if test="membercount != null" >
+        MemberCount = #{membercount,jdbcType=INTEGER},
+      </if>
+      <if test="browsecount != null" >
+        BrowseCount = #{browsecount,jdbcType=INTEGER},
+      </if>
+      <if test="joincount != null" >
+        JoinCount = #{joincount,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isactivity != null" >
+        IsActivity = #{isactivity,jdbcType=INTEGER},
+      </if>
+      <if test="islinks != null" >
+        IsLinks = #{islinks,jdbcType=INTEGER},
+      </if>
+      <if test="isforever != null" >
+        IsForever = #{isforever,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null" >
+        IsTop = #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="begintime != null" >
+        BeginTime = #{begintime,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null" >
+        EndTime = #{endtime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitystatus != null" >
+        ActivityStatus = #{activitystatus,jdbcType=INTEGER},
+      </if>
+      <if test="activitytype != null" >
+        ActivityType = #{activitytype,jdbcType=INTEGER},
+      </if>
+      <if test="issticky != null" >
+        IsSticky = #{issticky,jdbcType=INTEGER},
+      </if>
+      <if test="activityaddress != null" >
+        ActivityAddress = #{activityaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        IsDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="contents != null" >
+        Contents = #{contents,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CAID = #{caid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.feimang.clubstudy.pojo.Activity" >
+    update rc_activity
+    set Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      ClubID = #{clubid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      Title = #{title,jdbcType=VARCHAR},
+      CoverURL = #{coverurl,jdbcType=VARCHAR},
+      MemberCount = #{membercount,jdbcType=INTEGER},
+      BrowseCount = #{browsecount,jdbcType=INTEGER},
+      JoinCount = #{joincount,jdbcType=INTEGER},
+      Price = #{price,jdbcType=DECIMAL},
+      IsActivity = #{isactivity,jdbcType=INTEGER},
+      IsLinks = #{islinks,jdbcType=INTEGER},
+      IsForever = #{isforever,jdbcType=INTEGER},
+      IsTop = #{istop,jdbcType=INTEGER},
+      BeginTime = #{begintime,jdbcType=INTEGER},
+      EndTime = #{endtime,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      ActivityStatus = #{activitystatus,jdbcType=INTEGER},
+      ActivityType = #{activitytype,jdbcType=INTEGER},
+      IsSticky = #{issticky,jdbcType=INTEGER},
+      ActivityAddress = #{activityaddress,jdbcType=VARCHAR},
+      IsDelete = #{isdelete,jdbcType=INTEGER},
+      Contents = #{contents,jdbcType=LONGVARCHAR}
+    where CAID = #{caid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.Activity" >
+    update rc_activity
+    set Content_BaseID = #{contentBaseid,jdbcType=BIGINT},
+      ClubID = #{clubid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      Title = #{title,jdbcType=VARCHAR},
+      CoverURL = #{coverurl,jdbcType=VARCHAR},
+      MemberCount = #{membercount,jdbcType=INTEGER},
+      BrowseCount = #{browsecount,jdbcType=INTEGER},
+      JoinCount = #{joincount,jdbcType=INTEGER},
+      Price = #{price,jdbcType=DECIMAL},
+      IsActivity = #{isactivity,jdbcType=INTEGER},
+      IsLinks = #{islinks,jdbcType=INTEGER},
+      IsForever = #{isforever,jdbcType=INTEGER},
+      IsTop = #{istop,jdbcType=INTEGER},
+      BeginTime = #{begintime,jdbcType=INTEGER},
+      EndTime = #{endtime,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      ActivityStatus = #{activitystatus,jdbcType=INTEGER},
+      ActivityType = #{activitytype,jdbcType=INTEGER},
+      IsSticky = #{issticky,jdbcType=INTEGER},
+      ActivityAddress = #{activityaddress,jdbcType=VARCHAR},
+      IsDelete = #{isdelete,jdbcType=INTEGER}
+    where CAID = #{caid,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByMap" resultMap="ResultMapWithBLOBs" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from rc_activity
+    <where>
+      <if test="isDelete!=null">
+        AND IsDelete = #{isDelete}
+      </if>
+      <if test="clubID!=null">
+        AND ClubID = #{clubID}
+      </if>
+      <if test="fromuid!=null">
+        AND Fromuid = #{fromuid}
+      </if>
+      <if test="clubID!=null">
+        AND ClubID = #{clubID}
+      </if>
+      <if test="isActivity!=null">
+        AND IsActivity = #{isActivity}
+      </if>
+    </where>
+    ORDER BY
+    <choose>
+      <when test="sort!=null">
+        ${sort}
+        <if test="order!=null">
+          ${order},
+        </if>
+      </when>
+    </choose>
+     CreateTime DESC
+  </select>
+
+  <select id="selectCountByMap" resultType="int" parameterType="Map" >
+    select count(1) from rc_activity
+    <where>
+      <if test="isDelete!=null">
+        AND IsDelete = #{isDelete}
+      </if>
+      <if test="clubID!=null">
+        AND ClubID = #{clubID}
+      </if>
+      <if test="fromuid!=null">
+        AND Fromuid = #{fromuid}
+      </if>
+      <if test="clubID!=null">
+        AND ClubID = #{clubID}
+      </if>
+      <if test="isActivity!=null">
+        AND IsActivity = #{isActivity}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectListByCaids" resultMap="ResultMapWithBLOBs" parameterType="List" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from rc_activity
+    WHERE Content_BaseID IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+
+
+  </select>
+
+  <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="caid" parameterType="com.feimang.clubstudy.pojo.Activity" >
+    insert into rc_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caid != null" >
+        CAID,
+      </if>
+      <if test="contentBaseid != null" >
+        Content_BaseID,
+      </if>
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="coverurl != null" >
+        CoverURL,
+      </if>
+      <if test="membercount != null" >
+        MemberCount,
+      </if>
+      <if test="browsecount != null" >
+        BrowseCount,
+      </if>
+      <if test="joincount != null" >
+        JoinCount,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="isactivity != null" >
+        IsActivity,
+      </if>
+      <if test="islinks != null" >
+        IsLinks,
+      </if>
+      <if test="isforever != null" >
+        IsForever,
+      </if>
+      <if test="istop != null" >
+        IsTop,
+      </if>
+      <if test="begintime != null" >
+        BeginTime,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="activitystatus != null" >
+        ActivityStatus,
+      </if>
+      <if test="activitytype != null" >
+        ActivityType,
+      </if>
+      <if test="issticky != null" >
+        IsSticky,
+      </if>
+      <if test="activityaddress != null" >
+        ActivityAddress,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+      <if test="contents != null" >
+        Contents,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caid != null" >
+        #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="contentBaseid != null" >
+        #{contentBaseid,jdbcType=BIGINT},
+      </if>
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="coverurl != null" >
+        #{coverurl,jdbcType=VARCHAR},
+      </if>
+      <if test="membercount != null" >
+        #{membercount,jdbcType=INTEGER},
+      </if>
+      <if test="browsecount != null" >
+        #{browsecount,jdbcType=INTEGER},
+      </if>
+      <if test="joincount != null" >
+        #{joincount,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isactivity != null" >
+        #{isactivity,jdbcType=INTEGER},
+      </if>
+      <if test="islinks != null" >
+        #{islinks,jdbcType=INTEGER},
+      </if>
+      <if test="isforever != null" >
+        #{isforever,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null" >
+        #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitystatus != null" >
+        #{activitystatus,jdbcType=INTEGER},
+      </if>
+      <if test="activitytype != null" >
+        #{activitytype,jdbcType=INTEGER},
+      </if>
+      <if test="issticky != null" >
+        #{issticky,jdbcType=INTEGER},
+      </if>
+      <if test="activityaddress != null" >
+        #{activityaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="contents != null" >
+        #{contents,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

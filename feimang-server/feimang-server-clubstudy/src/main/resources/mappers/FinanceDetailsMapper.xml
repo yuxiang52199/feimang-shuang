@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.FinanceDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.FinanceDetails" >
+    <constructor >
+      <idArg column="FinanceID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="Describe" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DocID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CAID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="PayID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FinanceType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="FinanceStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FinanceID, ClubID, Fromuid, Price, Describe, DocID, CAID, PayID, FinanceType, FinanceStatus, 
+    CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_finance_details
+    where FinanceID = #{financeid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rc_finance_details
+    where FinanceID = #{financeid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.FinanceDetails" >
+    insert into rc_finance_details (FinanceID, ClubID, Fromuid, 
+      Price, Describe, DocID, 
+      CAID, PayID, FinanceType, 
+      FinanceStatus, CreateTime)
+    values (#{financeid,jdbcType=BIGINT}, #{clubid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{price,jdbcType=DECIMAL}, #{describe,jdbcType=VARCHAR}, #{docid,jdbcType=BIGINT}, 
+      #{caid,jdbcType=BIGINT}, #{payid,jdbcType=VARCHAR}, #{financetype,jdbcType=INTEGER}, 
+      #{financestatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.FinanceDetails" >
+    insert into rc_finance_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="financeid != null" >
+        FinanceID,
+      </if>
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="describe != null" >
+        Describe,
+      </if>
+      <if test="docid != null" >
+        DocID,
+      </if>
+      <if test="caid != null" >
+        CAID,
+      </if>
+      <if test="payid != null" >
+        PayID,
+      </if>
+      <if test="financetype != null" >
+        FinanceType,
+      </if>
+      <if test="financestatus != null" >
+        FinanceStatus,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="financeid != null" >
+        #{financeid,jdbcType=BIGINT},
+      </if>
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="docid != null" >
+        #{docid,jdbcType=BIGINT},
+      </if>
+      <if test="caid != null" >
+        #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="payid != null" >
+        #{payid,jdbcType=VARCHAR},
+      </if>
+      <if test="financetype != null" >
+        #{financetype,jdbcType=INTEGER},
+      </if>
+      <if test="financestatus != null" >
+        #{financestatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.FinanceDetails" >
+    update rc_finance_details
+    <set >
+      <if test="clubid != null" >
+        ClubID = #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="describe != null" >
+        Describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="docid != null" >
+        DocID = #{docid,jdbcType=BIGINT},
+      </if>
+      <if test="caid != null" >
+        CAID = #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="payid != null" >
+        PayID = #{payid,jdbcType=VARCHAR},
+      </if>
+      <if test="financetype != null" >
+        FinanceType = #{financetype,jdbcType=INTEGER},
+      </if>
+      <if test="financestatus != null" >
+        FinanceStatus = #{financestatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FinanceID = #{financeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.FinanceDetails" >
+    update rc_finance_details
+    set ClubID = #{clubid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      Price = #{price,jdbcType=DECIMAL},
+      Describe = #{describe,jdbcType=VARCHAR},
+      DocID = #{docid,jdbcType=BIGINT},
+      CAID = #{caid,jdbcType=BIGINT},
+      PayID = #{payid,jdbcType=VARCHAR},
+      FinanceType = #{financetype,jdbcType=INTEGER},
+      FinanceStatus = #{financestatus,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where FinanceID = #{financeid,jdbcType=BIGINT}
+  </update>
+</mapper>

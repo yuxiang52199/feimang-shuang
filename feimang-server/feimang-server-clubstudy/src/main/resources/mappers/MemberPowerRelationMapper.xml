@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.MemberPowerRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.MemberPowerRelation" >
+    <constructor >
+      <idArg column="RPID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PowerID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MemberID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RPID, PowerID, MemberID, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_member_power_relation
+    where RPID = #{rpid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rc_member_power_relation
+    where RPID = #{rpid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.MemberPowerRelation" >
+    insert into rc_member_power_relation (RPID, PowerID, MemberID, 
+      CreateTime)
+    values (#{rpid,jdbcType=INTEGER}, #{powerid,jdbcType=INTEGER}, #{memberid,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.MemberPowerRelation" >
+    insert into rc_member_power_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rpid != null" >
+        RPID,
+      </if>
+      <if test="powerid != null" >
+        PowerID,
+      </if>
+      <if test="memberid != null" >
+        MemberID,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rpid != null" >
+        #{rpid,jdbcType=INTEGER},
+      </if>
+      <if test="powerid != null" >
+        #{powerid,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.MemberPowerRelation" >
+    update rc_member_power_relation
+    <set >
+      <if test="powerid != null" >
+        PowerID = #{powerid,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null" >
+        MemberID = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RPID = #{rpid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.MemberPowerRelation" >
+    update rc_member_power_relation
+    set PowerID = #{powerid,jdbcType=INTEGER},
+      MemberID = #{memberid,jdbcType=BIGINT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where RPID = #{rpid,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteByMemberId" parameterType="java.lang.Long" >
+    delete from rc_member_power_relation
+    where MemberID = #{memberId}
+  </delete>
+</mapper>

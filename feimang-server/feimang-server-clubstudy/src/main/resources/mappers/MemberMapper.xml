@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.Member" >
+    <constructor >
+      <idArg column="MemberID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="MemberType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsRemove" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsCreatePhoto" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsForbidPhoto" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MemberStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="RemoveTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="PhotoTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ForbidTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MemberID, ClubID, Fromuid, MemberType, IsRemove, IsCreatePhoto, IsForbidPhoto, MemberStatus, 
+    CreateTime, RemoveTime, PhotoTime, ForbidTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_member
+    where MemberID = #{memberid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rc_member
+    where MemberID = #{memberid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.Member" >
+    insert into rc_member (MemberID, ClubID, Fromuid, 
+      MemberType, IsRemove, IsCreatePhoto, 
+      IsForbidPhoto, MemberStatus, CreateTime, 
+      RemoveTime, PhotoTime, ForbidTime
+      )
+    values (#{memberid,jdbcType=BIGINT}, #{clubid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{membertype,jdbcType=INTEGER}, #{isremove,jdbcType=INTEGER}, #{iscreatephoto,jdbcType=INTEGER}, 
+      #{isforbidphoto,jdbcType=INTEGER}, #{memberstatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{removetime,jdbcType=TIMESTAMP}, #{phototime,jdbcType=TIMESTAMP}, #{forbidtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.Member" >
+    insert into rc_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberid != null" >
+        MemberID,
+      </if>
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="membertype != null" >
+        MemberType,
+      </if>
+      <if test="isremove != null" >
+        IsRemove,
+      </if>
+      <if test="iscreatephoto != null" >
+        IsCreatePhoto,
+      </if>
+      <if test="isforbidphoto != null" >
+        IsForbidPhoto,
+      </if>
+      <if test="memberstatus != null" >
+        MemberStatus,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="removetime != null" >
+        RemoveTime,
+      </if>
+      <if test="phototime != null" >
+        PhotoTime,
+      </if>
+      <if test="forbidtime != null" >
+        ForbidTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberid != null" >
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="membertype != null" >
+        #{membertype,jdbcType=INTEGER},
+      </if>
+      <if test="isremove != null" >
+        #{isremove,jdbcType=INTEGER},
+      </if>
+      <if test="iscreatephoto != null" >
+        #{iscreatephoto,jdbcType=INTEGER},
+      </if>
+      <if test="isforbidphoto != null" >
+        #{isforbidphoto,jdbcType=INTEGER},
+      </if>
+      <if test="memberstatus != null" >
+        #{memberstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removetime != null" >
+        #{removetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phototime != null" >
+        #{phototime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forbidtime != null" >
+        #{forbidtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.Member" >
+    update rc_member
+    <set >
+      <if test="clubid != null" >
+        ClubID = #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="membertype != null" >
+        MemberType = #{membertype,jdbcType=INTEGER},
+      </if>
+      <if test="isremove != null" >
+        IsRemove = #{isremove,jdbcType=INTEGER},
+      </if>
+      <if test="iscreatephoto != null" >
+        IsCreatePhoto = #{iscreatephoto,jdbcType=INTEGER},
+      </if>
+      <if test="isforbidphoto != null" >
+        IsForbidPhoto = #{isforbidphoto,jdbcType=INTEGER},
+      </if>
+      <if test="memberstatus != null" >
+        MemberStatus = #{memberstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removetime != null" >
+        RemoveTime = #{removetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phototime != null" >
+        PhotoTime = #{phototime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forbidtime != null" >
+        ForbidTime = #{forbidtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MemberID = #{memberid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.Member" >
+    update rc_member
+    set ClubID = #{clubid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      MemberType = #{membertype,jdbcType=INTEGER},
+      IsRemove = #{isremove,jdbcType=INTEGER},
+      IsCreatePhoto = #{iscreatephoto,jdbcType=INTEGER},
+      IsForbidPhoto = #{isforbidphoto,jdbcType=INTEGER},
+      MemberStatus = #{memberstatus,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      RemoveTime = #{removetime,jdbcType=TIMESTAMP},
+      PhotoTime = #{phototime,jdbcType=TIMESTAMP},
+      ForbidTime = #{forbidtime,jdbcType=TIMESTAMP}
+    where MemberID = #{memberid,jdbcType=BIGINT}
+  </update>
+
+  <select id="getMemberListByMap" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from rc_member
+    <where>
+      <if test="clubid!=null">
+        AND ClubID=#{clubid}
+      </if>
+      <if test="fromuid!=null">
+        AND Fromuid = #{fromuid}
+      </if>
+      <if test="memberType!=null">
+        AND MemberType = #{memberType}
+      </if>
+      <if test="isRemove!=null">
+        AND IsRemove = #{isRemove}
+      </if>
+      <if test="isCreatePhoto!=null">
+        AND IsCreatePhoto = #{isCreatePhoto}
+      </if>
+      <if test="isForbidPhoto!=null">
+        AND IsForbidPhoto = #{isForbidPhoto}
+      </if>
+      <if test="memberStatus!=null">
+        AND MemberStatus = #{memberStatus}
+      </if>
+    </where>
+    ORDER BY
+    <choose>
+      <when test="sort!=null">
+        ${sort}
+        <if test="order!=null">
+          ${order}
+        </if>
+      </when>
+    </choose>
+  </select>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.MemberPowerMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.MemberPower" >
+    <constructor >
+      <idArg column="PowerID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PowerName" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PowerID, PID, PowerName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_member_power
+    where PowerID = #{powerid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rc_member_power
+    where PowerID = #{powerid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.MemberPower" >
+    insert into rc_member_power (PowerID, PID, PowerName
+      )
+    values (#{powerid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{powername,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.MemberPower" >
+    insert into rc_member_power
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="powerid != null" >
+        PowerID,
+      </if>
+      <if test="pid != null" >
+        PID,
+      </if>
+      <if test="powername != null" >
+        PowerName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="powerid != null" >
+        #{powerid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="powername != null" >
+        #{powername,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.MemberPower" >
+    update rc_member_power
+    <set >
+      <if test="pid != null" >
+        PID = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="powername != null" >
+        PowerName = #{powername,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PowerID = #{powerid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.MemberPower" >
+    update rc_member_power
+    set PID = #{pid,jdbcType=INTEGER},
+      PowerName = #{powername,jdbcType=VARCHAR}
+    where PowerID = #{powerid,jdbcType=INTEGER}
+  </update>
+</mapper>

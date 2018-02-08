@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.ActivitySignUpMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.ActivitySignUp" >
+    <constructor >
+      <idArg column="SignUpID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CAID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="RCUserName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="RCUserPhone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PayID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SignStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SignUpID, CAID, Fromuid, CreateTime, RCUserName, RCUserPhone, PayID, SignStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_activity_signup
+    where SignUpID = #{signupid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rc_activity_signup
+    where SignUpID = #{signupid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.ActivitySignUp" >
+    insert into rc_activity_signup (SignUpID, CAID, Fromuid, 
+      CreateTime, RCUserName, RCUserPhone, 
+      PayID, SignStatus)
+    values (#{signupid,jdbcType=BIGINT}, #{caid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{rcusername,jdbcType=VARCHAR}, #{rcuserphone,jdbcType=VARCHAR}, 
+      #{payid,jdbcType=VARCHAR}, #{signstatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.ActivitySignUp" >
+    insert into rc_activity_signup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="signupid != null" >
+        SignUpID,
+      </if>
+      <if test="caid != null" >
+        CAID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="rcusername != null" >
+        RCUserName,
+      </if>
+      <if test="rcuserphone != null" >
+        RCUserPhone,
+      </if>
+      <if test="payid != null" >
+        PayID,
+      </if>
+      <if test="signstatus != null" >
+        SignStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="signupid != null" >
+        #{signupid,jdbcType=BIGINT},
+      </if>
+      <if test="caid != null" >
+        #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcusername != null" >
+        #{rcusername,jdbcType=VARCHAR},
+      </if>
+      <if test="rcuserphone != null" >
+        #{rcuserphone,jdbcType=VARCHAR},
+      </if>
+      <if test="payid != null" >
+        #{payid,jdbcType=VARCHAR},
+      </if>
+      <if test="signstatus != null" >
+        #{signstatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.ActivitySignUp" >
+    update rc_activity_signup
+    <set >
+      <if test="caid != null" >
+        CAID = #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcusername != null" >
+        RCUserName = #{rcusername,jdbcType=VARCHAR},
+      </if>
+      <if test="rcuserphone != null" >
+        RCUserPhone = #{rcuserphone,jdbcType=VARCHAR},
+      </if>
+      <if test="payid != null" >
+        PayID = #{payid,jdbcType=VARCHAR},
+      </if>
+      <if test="signstatus != null" >
+        SignStatus = #{signstatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SignUpID = #{signupid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.ActivitySignUp" >
+    update rc_activity_signup
+    set CAID = #{caid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      RCUserName = #{rcusername,jdbcType=VARCHAR},
+      RCUserPhone = #{rcuserphone,jdbcType=VARCHAR},
+      PayID = #{payid,jdbcType=VARCHAR},
+      SignStatus = #{signstatus,jdbcType=INTEGER}
+    where SignUpID = #{signupid,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByMap" resultMap="BaseResultMap" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />
+    from rc_activity_signup
+    <where>
+      <if test="caid!=null">
+        AND CAID = #{caid}
+      </if>
+      <if test="fromuid!=null">
+        AND Fromuid = #{fromuid}
+      </if>
+      <if test="signStatus!=null">
+        AND SignStatus = #{signStatus}
+      </if>
+    </where>
+  </select>
+</mapper>

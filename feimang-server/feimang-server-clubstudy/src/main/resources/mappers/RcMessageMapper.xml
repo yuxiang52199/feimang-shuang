@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.RcMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.RcMessage" >
+    <constructor >
+      <idArg column="ClubMessageID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Touid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CAID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="MessageType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="MessageStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ClubMessageID, ClubID, Fromuid, Touid, CAID, MessageType, CreateTime, MessageStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_message
+    where ClubMessageID = #{clubmessageid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rc_message
+    where ClubMessageID = #{clubmessageid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.RcMessage" >
+    insert into rc_message (ClubMessageID, ClubID, Fromuid, 
+      Touid, CAID, MessageType, 
+      CreateTime, MessageStatus)
+    values (#{clubmessageid,jdbcType=BIGINT}, #{clubid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, 
+      #{touid,jdbcType=BIGINT}, #{caid,jdbcType=BIGINT}, #{messagetype,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{messagestatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.RcMessage" >
+    insert into rc_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clubmessageid != null" >
+        ClubMessageID,
+      </if>
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="touid != null" >
+        Touid,
+      </if>
+      <if test="caid != null" >
+        CAID,
+      </if>
+      <if test="messagetype != null" >
+        MessageType,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="messagestatus != null" >
+        MessageStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clubmessageid != null" >
+        #{clubmessageid,jdbcType=BIGINT},
+      </if>
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="touid != null" >
+        #{touid,jdbcType=BIGINT},
+      </if>
+      <if test="caid != null" >
+        #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="messagetype != null" >
+        #{messagetype,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messagestatus != null" >
+        #{messagestatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.RcMessage" >
+    update rc_message
+    <set >
+      <if test="clubid != null" >
+        ClubID = #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="touid != null" >
+        Touid = #{touid,jdbcType=BIGINT},
+      </if>
+      <if test="caid != null" >
+        CAID = #{caid,jdbcType=BIGINT},
+      </if>
+      <if test="messagetype != null" >
+        MessageType = #{messagetype,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messagestatus != null" >
+        MessageStatus = #{messagestatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ClubMessageID = #{clubmessageid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.RcMessage" >
+    update rc_message
+    set ClubID = #{clubid,jdbcType=BIGINT},
+      Fromuid = #{fromuid,jdbcType=BIGINT},
+      Touid = #{touid,jdbcType=BIGINT},
+      CAID = #{caid,jdbcType=BIGINT},
+      MessageType = #{messagetype,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      MessageStatus = #{messagestatus,jdbcType=INTEGER}
+    where ClubMessageID = #{clubmessageid,jdbcType=BIGINT}
+  </update>
+</mapper>

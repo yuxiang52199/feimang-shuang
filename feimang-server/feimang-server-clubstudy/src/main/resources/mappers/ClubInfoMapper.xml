@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.clubstudy.dao.ClubInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.clubstudy.pojo.ClubInfo" >
+    <constructor >
+      <idArg column="ClubID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ClubName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ClubHead" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ClubSign" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ClubType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Personalurl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Licenseurl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Authorizationurl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ClubStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="JoinType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="JoinPassWord" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BrowseType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PhotoType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BookTagCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ActivityCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="DocCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AdminCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MemberCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="NoticeCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PhotoCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ClubID, Fromuid, ClubName, ClubHead, ClubSign, Phone, ClubType, Personalurl, Licenseurl, 
+    Authorizationurl, ClubStatus, JoinType, JoinPassWord, BrowseType, PhotoType, BookTagCount, 
+    ActivityCount, DocCount, AdminCount, MemberCount, NoticeCount, PhotoCount, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rc_clubinfo
+    where ClubID = #{clubid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rc_clubinfo
+    where ClubID = #{clubid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.clubstudy.pojo.ClubInfo" >
+    insert into rc_clubinfo (ClubID, Fromuid, ClubName, 
+      ClubHead, ClubSign, Phone, 
+      ClubType, Personalurl, Licenseurl, 
+      Authorizationurl, ClubStatus, JoinType, 
+      JoinPassWord, BrowseType, PhotoType, 
+      BookTagCount, ActivityCount, DocCount, 
+      AdminCount, MemberCount, NoticeCount, 
+      PhotoCount, CreateTime)
+    values (#{clubid,jdbcType=BIGINT}, #{fromuid,jdbcType=BIGINT}, #{clubname,jdbcType=VARCHAR}, 
+      #{clubhead,jdbcType=VARCHAR}, #{clubsign,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{clubtype,jdbcType=INTEGER}, #{personalurl,jdbcType=VARCHAR}, #{licenseurl,jdbcType=VARCHAR}, 
+      #{authorizationurl,jdbcType=VARCHAR}, #{clubstatus,jdbcType=INTEGER}, #{jointype,jdbcType=INTEGER}, 
+      #{joinpassword,jdbcType=VARCHAR}, #{browsetype,jdbcType=INTEGER}, #{phototype,jdbcType=INTEGER}, 
+      #{booktagcount,jdbcType=INTEGER}, #{activitycount,jdbcType=INTEGER}, #{doccount,jdbcType=INTEGER}, 
+      #{admincount,jdbcType=INTEGER}, #{membercount,jdbcType=INTEGER}, #{noticecount,jdbcType=INTEGER}, 
+      #{photocount,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.clubstudy.pojo.ClubInfo" >
+    insert into rc_clubinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clubid != null" >
+        ClubID,
+      </if>
+      <if test="fromuid != null" >
+        Fromuid,
+      </if>
+      <if test="clubname != null" >
+        ClubName,
+      </if>
+      <if test="clubhead != null" >
+        ClubHead,
+      </if>
+      <if test="clubsign != null" >
+        ClubSign,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="clubtype != null" >
+        ClubType,
+      </if>
+      <if test="personalurl != null" >
+        Personalurl,
+      </if>
+      <if test="licenseurl != null" >
+        Licenseurl,
+      </if>
+      <if test="authorizationurl != null" >
+        Authorizationurl,
+      </if>
+      <if test="clubstatus != null" >
+        ClubStatus,
+      </if>
+      <if test="jointype != null" >
+        JoinType,
+      </if>
+      <if test="joinpassword != null" >
+        JoinPassWord,
+      </if>
+      <if test="browsetype != null" >
+        BrowseType,
+      </if>
+      <if test="phototype != null" >
+        PhotoType,
+      </if>
+      <if test="booktagcount != null" >
+        BookTagCount,
+      </if>
+      <if test="activitycount != null" >
+        ActivityCount,
+      </if>
+      <if test="doccount != null" >
+        DocCount,
+      </if>
+      <if test="admincount != null" >
+        AdminCount,
+      </if>
+      <if test="membercount != null" >
+        MemberCount,
+      </if>
+      <if test="noticecount != null" >
+        NoticeCount,
+      </if>
+      <if test="photocount != null" >
+        PhotoCount,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clubid != null" >
+        #{clubid,jdbcType=BIGINT},
+      </if>
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="clubname != null" >
+        #{clubname,jdbcType=VARCHAR},
+      </if>
+      <if test="clubhead != null" >
+        #{clubhead,jdbcType=VARCHAR},
+      </if>
+      <if test="clubsign != null" >
+        #{clubsign,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="clubtype != null" >
+        #{clubtype,jdbcType=INTEGER},
+      </if>
+      <if test="personalurl != null" >
+        #{personalurl,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseurl != null" >
+        #{licenseurl,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizationurl != null" >
+        #{authorizationurl,jdbcType=VARCHAR},
+      </if>
+      <if test="clubstatus != null" >
+        #{clubstatus,jdbcType=INTEGER},
+      </if>
+      <if test="jointype != null" >
+        #{jointype,jdbcType=INTEGER},
+      </if>
+      <if test="joinpassword != null" >
+        #{joinpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="browsetype != null" >
+        #{browsetype,jdbcType=INTEGER},
+      </if>
+      <if test="phototype != null" >
+        #{phototype,jdbcType=INTEGER},
+      </if>
+      <if test="booktagcount != null" >
+        #{booktagcount,jdbcType=INTEGER},
+      </if>
+      <if test="activitycount != null" >
+        #{activitycount,jdbcType=INTEGER},
+      </if>
+      <if test="doccount != null" >
+        #{doccount,jdbcType=INTEGER},
+      </if>
+      <if test="admincount != null" >
+        #{admincount,jdbcType=INTEGER},
+      </if>
+      <if test="membercount != null" >
+        #{membercount,jdbcType=INTEGER},
+      </if>
+      <if test="noticecount != null" >
+        #{noticecount,jdbcType=INTEGER},
+      </if>
+      <if test="photocount != null" >
+        #{photocount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.clubstudy.pojo.ClubInfo" >
+    update rc_clubinfo
+    <set >
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
+      </if>
+      <if test="clubname != null" >
+        ClubName = #{clubname,jdbcType=VARCHAR},
+      </if>
+      <if test="clubhead != null" >
+        ClubHead = #{clubhead,jdbcType=VARCHAR},
+      </if>
+      <if test="clubsign != null" >
+        ClubSign = #{clubsign,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="clubtype != null" >
+        ClubType = #{clubtype,jdbcType=INTEGER},
+      </if>
+      <if test="personalurl != null" >
+        Personalurl = #{personalurl,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseurl != null" >
+        Licenseurl = #{licenseurl,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizationurl != null" >
+        Authorizationurl = #{authorizationurl,jdbcType=VARCHAR},
+      </if>
+      <if test="clubstatus != null" >
+        ClubStatus = #{clubstatus,jdbcType=INTEGER},
+      </if>
+      <if test="jointype != null" >
+        JoinType = #{jointype,jdbcType=INTEGER},
+      </if>
+      <if test="joinpassword != null" >
+        JoinPassWord = #{joinpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="browsetype != null" >
+        BrowseType = #{browsetype,jdbcType=INTEGER},
+      </if>
+      <if test="phototype != null" >
+        PhotoType = #{phototype,jdbcType=INTEGER},
+      </if>
+      <if test="booktagcount != null" >
+        BookTagCount = #{booktagcount,jdbcType=INTEGER},
+      </if>
+      <if test="activitycount != null" >
+        ActivityCount = #{activitycount,jdbcType=INTEGER},
+      </if>
+      <if test="doccount != null" >
+        DocCount = #{doccount,jdbcType=INTEGER},
+      </if>
+      <if test="admincount != null" >
+        AdminCount = #{admincount,jdbcType=INTEGER},
+      </if>
+      <if test="membercount != null" >
+        MemberCount = #{membercount,jdbcType=INTEGER},
+      </if>
+      <if test="noticecount != null" >
+        NoticeCount = #{noticecount,jdbcType=INTEGER},
+      </if>
+      <if test="photocount != null" >
+        PhotoCount = #{photocount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ClubID = #{clubid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.clubstudy.pojo.ClubInfo" >
+    update rc_clubinfo
+    set Fromuid = #{fromuid,jdbcType=BIGINT},
+      ClubName = #{clubname,jdbcType=VARCHAR},
+      ClubHead = #{clubhead,jdbcType=VARCHAR},
+      ClubSign = #{clubsign,jdbcType=VARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      ClubType = #{clubtype,jdbcType=INTEGER},
+      Personalurl = #{personalurl,jdbcType=VARCHAR},
+      Licenseurl = #{licenseurl,jdbcType=VARCHAR},
+      Authorizationurl = #{authorizationurl,jdbcType=VARCHAR},
+      ClubStatus = #{clubstatus,jdbcType=INTEGER},
+      JoinType = #{jointype,jdbcType=INTEGER},
+      JoinPassWord = #{joinpassword,jdbcType=VARCHAR},
+      BrowseType = #{browsetype,jdbcType=INTEGER},
+      PhotoType = #{phototype,jdbcType=INTEGER},
+      BookTagCount = #{booktagcount,jdbcType=INTEGER},
+      ActivityCount = #{activitycount,jdbcType=INTEGER},
+      DocCount = #{doccount,jdbcType=INTEGER},
+      AdminCount = #{admincount,jdbcType=INTEGER},
+      MemberCount = #{membercount,jdbcType=INTEGER},
+      NoticeCount = #{noticecount,jdbcType=INTEGER},
+      PhotoCount = #{photocount,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where ClubID = #{clubid,jdbcType=BIGINT}
+  </update>
+</mapper>
