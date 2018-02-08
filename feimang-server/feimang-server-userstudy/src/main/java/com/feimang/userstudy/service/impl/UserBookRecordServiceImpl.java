@@ -12,6 +12,7 @@ import com.feimang.userstudy.pojo.UserBookRecordImage;
 import com.feimang.userstudy.service.IUserBookRecordService;
 import com.feimang.userstudy.vo.UserBookRecordVO;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
     private UserBookRecordMapper userBookRecordMapper;
     @Autowired
     private ContentBaseMapper contentBaseMapper;
+    //region 推荐图书相关
     /**
      * 获取推荐列表
      * @param userId
@@ -47,7 +49,8 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
         PageHelper.startPage(pageNum, pageSize);
         List<UserBookRecord> userBookRecordList = userBookRecordMapper.getRecommendBooksByUserID(userId);
         if (CollectionUtils.isNotEmpty(userBookRecordList)){
-            return ServerResponse.createBySuccess("获取成功",userBookRecordList);
+            PageInfo pageInfo = new PageInfo(userBookRecordList);
+            return ServerResponse.createBySuccess("获取成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("用户还未推荐图书");
     }
@@ -140,7 +143,8 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
         }
         return ServerResponse.createByErrorMessage("图书未被推荐");
     }
-
+    //endregion
+    //region 书拍相关
     /**
      * 分页获取书拍
      * @param userId 用户id
@@ -249,6 +253,7 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
         }
         return ServerResponse.createByErrorMessage("用户未发布书拍");
     }
+    //endregion
     //测试
     public ServerResponse ceshi(){
         ContentBase contentBase = new ContentBase();

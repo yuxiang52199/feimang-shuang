@@ -127,4 +127,16 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where ReplyID = #{replyid,jdbcType=BIGINT}
   </update>
+  <select id="getReplysByReviewID" resultMap="BaseResultMap" parameterType="long">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_content_reply
+    where ReviewID = #{reviewId}
+  </select>
+  <select id="getReplysLimitByReviewID" resultMap="BaseResultMap" parameterType="long">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_content_reply
+    where ReviewID = #{reviewId} limit 0,3
+  </select>
 </mapper>

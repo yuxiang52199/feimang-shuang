@@ -9,6 +9,7 @@ import com.feimang.userstudy.pojo.BookTag;
 import com.feimang.userstudy.pojo.BookTagAtten;
 import com.feimang.userstudy.service.IBookTagAttenService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class BookTagAttenServiceImpl implements IBookTagAttenService{
     private BookTagAttenMapper bookTagAttenMapper;
     @Autowired
     private BookTagMapper bookTagMapper;
-
+    //region 关注书架相关
     /**
      * 获取用户关注的书架列表
      * @param userId 用户id
@@ -40,7 +41,8 @@ public class BookTagAttenServiceImpl implements IBookTagAttenService{
         PageHelper.startPage(pageNum,pageSize);
         List<BookTagAtten> bookTagAttenList = bookTagAttenMapper.getAttenBookTags(userId);
         if (CollectionUtils.isNotEmpty(bookTagAttenList)){
-            return ServerResponse.createBySuccess("查询成功",bookTagAttenList);
+            PageInfo pageInfo = new PageInfo(bookTagAttenList);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("当前用户未关注书架");
     }
@@ -129,4 +131,5 @@ public class BookTagAttenServiceImpl implements IBookTagAttenService{
         }
         return ServerResponse.createByErrorMessage("用户未关注此书架");
     }
+    //endregion
 }

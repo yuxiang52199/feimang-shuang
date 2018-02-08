@@ -8,6 +8,7 @@ import com.feimang.userstudy.pojo.BookTag;
 import com.feimang.userstudy.service.IBookTagService;
 import com.feimang.userstudy.vo.BookTags;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,13 @@ import java.util.List;
 public class BookTagServiceImpl implements IBookTagService {
     @Autowired
     private BookTagMapper bookTagMapper;
+    //region 书架相关
     /**
      * 获取书架列表
      * @param userId 用户id
      * @return
      */
-    public ServerResponse<List<BookTag>> getBookTags(Long userId,int pageNum,int pageSize){
+    public ServerResponse getBookTags(Long userId,int pageNum,int pageSize){
         if ( userId == null){
             //参数为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -35,7 +37,8 @@ public class BookTagServiceImpl implements IBookTagService {
         PageHelper.startPage(pageNum, pageSize);
         List<BookTag> bookTagList = bookTagMapper.getBookTags(userId);
         if (CollectionUtils.isNotEmpty(bookTagList)){
-            return ServerResponse.createBySuccess("查询成功",bookTagList);
+            PageInfo pageInfo = new PageInfo(bookTagList);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("用户还未添加书架");
     }
@@ -126,4 +129,5 @@ public class BookTagServiceImpl implements IBookTagService {
         }
         return ServerResponse.createByErrorMessage("编辑失败");
     }
+    //endregion
 }

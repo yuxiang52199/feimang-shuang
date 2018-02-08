@@ -8,6 +8,7 @@ import com.feimang.userstudy.pojo.UserBookAtten;
 import com.feimang.userstudy.service.IAttenBookService;
 import com.feimang.userstudy.service.IBookService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -26,12 +27,9 @@ public class AttenBookServiceImpl implements IAttenBookService {
     @Autowired
     private UserBookAttenMapper userBookAttenMapper;
 
-//    @Autowired
-//    private IUserService userService;
-
     @Autowired
     private IBookService bookService;
-
+    //region 图书关注相关
     /**
      * 添加图书关注
      * @param userId 用户id
@@ -66,7 +64,7 @@ public class AttenBookServiceImpl implements IAttenBookService {
      * @param pageSize 每页几条数据
      * @return
      */
-    public ServerResponse<List<UserBookAtten>> getAttenBooks(Long userId, int pageNum,int pageSize){
+    public ServerResponse getAttenBooks(Long userId, int pageNum,int pageSize){
         if (userId == null){
             // 判断参数是否为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -95,7 +93,8 @@ public class AttenBookServiceImpl implements IAttenBookService {
 
         }
         if (CollectionUtils.isNotEmpty(userBookAttens)){
-            return ServerResponse.createBySuccess(userBookAttens);
+            PageInfo pageInfo = new PageInfo(userBookAttens);
+            return ServerResponse.createBySuccess(pageInfo);
         }
         return ServerResponse.createByErrorMessage("用户还未关注过任何图书");
     }
@@ -135,4 +134,5 @@ public class AttenBookServiceImpl implements IAttenBookService {
         }
         return ServerResponse.createByErrorMessage("删除失败");
     }
+    //endregion
 }

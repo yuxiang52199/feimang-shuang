@@ -94,4 +94,10 @@
     from fm_content_collection
     where fromuid = #{userId}
   </select>
+  <update id="delShareCount" parameterType="long">
+    UPDATE  fm_content_base  SET ShareCount=ShareCount-1 WHERE Content_BaseID = #{contentBaseid}
+  </update>
+  <update id="addShareCount" parameterType="long">
+    UPDATE  fm_content_base  SET ShareCount=ShareCount+1 WHERE Content_BaseID = #{contentBaseid}
+  </update>
 </mapper>

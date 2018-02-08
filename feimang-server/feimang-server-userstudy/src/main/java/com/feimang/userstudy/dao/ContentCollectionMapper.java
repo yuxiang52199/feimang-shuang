@@ -20,4 +20,8 @@ public interface ContentCollectionMapper {
     ContentCollection selectByFromuidAndContentbaseId(ContentCollection contentCollection);
     // 查询收藏书拍列表
     List<ContentCollection> selectAllByFromUid(Long userId);
+    // 更新书拍收藏数量-1
+    void delShareCount(Long contentBaseid);
+    // 更新书拍收藏数量+1
+    void addShareCount(Long contentBaseid);
 }

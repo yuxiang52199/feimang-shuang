@@ -7,6 +7,7 @@ import com.feimang.userstudy.dao.FriendsRelationMapper;
 import com.feimang.userstudy.pojo.FriendsRelation;
 import com.feimang.userstudy.service.IFriendsRelationService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
 
     @Autowired
     private FriendsRelationMapper friendsRelationMapper;
+    // region 获取粉丝 关注列表
     /**
      * 获取关注列表
      * @param userId 用户id
@@ -35,7 +37,8 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
         List<FriendsRelation> friendsRelationList = friendsRelationMapper.getAttens(userId);
         if (CollectionUtils.isNotEmpty(friendsRelationList)){
             //todo 使用被关注id 查询用户信息
-            return ServerResponse.createBySuccess("查询成功",friendsRelationList);
+            PageInfo pageInfo = new PageInfo(friendsRelationList);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("用户未关注好友");
     }
@@ -54,11 +57,13 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
         List<FriendsRelation> friendsRelationList = friendsRelationMapper.getFans(userId);
         if (CollectionUtils.isNotEmpty(friendsRelationList)){
             //todo 使用粉丝id 查询用户信息
-            return ServerResponse.createBySuccess("查询成功",friendsRelationList);
+            PageInfo pageInfo = new PageInfo(friendsRelationList);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("用户还未被关注");
     }
-
+    //endregion
+    //region 关注好友 相关
     /**
      * 判断是否关注
      * @param userId 用户id
@@ -157,4 +162,5 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
         }
         return ServerResponse.createByErrorMessage("取消关注失败");
     }
+    //endregion
 }
