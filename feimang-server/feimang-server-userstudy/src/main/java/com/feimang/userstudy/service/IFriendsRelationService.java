@@ -16,4 +16,10 @@ public interface IFriendsRelationService {
     ServerResponse addFriends(Long userId,Long attentionuid);
     // 取消关注
     ServerResponse delFriendsByUserIdAndAttentionuid(Long userId,Long attentionuid);
+    // 获取屏蔽列表
+    ServerResponse getScreens(Long userId,int pageNum,int pageSize);
+    // 添加屏蔽
+    ServerResponse addScreen(Long userID,Long screenID);
+    // 取消屏蔽
+    ServerResponse delScreen(Long userID,Long screenID);
 }

@@ -4,14 +4,16 @@
   <resultMap id="BaseResultMap" type="com.feimang.userstudy.pojo.FriendsRelation" >
     <constructor >
       <idArg column="ConID" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="Formuid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Fromuid" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="Attentionuid" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="LinkStatus" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ScreenTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="IsScreen" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ConID, Formuid, Attentionuid, LinkStatus, CreateTime
+    ConID, Fromuid, Attentionuid, LinkStatus, CreateTime,IsScreen,ScreenTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +26,10 @@
     where ConID = #{conid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
-    insert into fm_friends_relation (ConID, Formuid, Attentionuid, 
-      LinkStatus, CreateTime)
-    values (#{conid,jdbcType=INTEGER}, #{formuid,jdbcType=BIGINT}, #{attentionuid,jdbcType=BIGINT}, 
-      #{linkstatus,jdbcType=INTEGER}, now())
+    insert into fm_friends_relation (ConID, Fromuid, Attentionuid,
+      LinkStatus, CreateTime,IsScreen,ScreenTime)
+    values (#{conid,jdbcType=INTEGER}, #{fromuid,jdbcType=BIGINT}, #{attentionuid,jdbcType=BIGINT},
+      #{linkstatus,jdbcType=INTEGER}, now(),#{isscreen,jdbcType=INTEGER},#{screentime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
     insert into fm_friends_relation
@@ -35,8 +37,8 @@
       <if test="conid != null" >
         ConID,
       </if>
-      <if test="formuid != null" >
-        Formuid,
+      <if test="fromuid != null" >
+        Fromuid,
       </if>
       <if test="attentionuid != null" >
         Attentionuid,
@@ -47,13 +49,19 @@
       <if test="createtime != null" >
         CreateTime,
       </if>
+      <if test="isscreen != null" >
+        IsScreen,
+      </if>
+      <if test="screentime != null" >
+        ScreenTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="conid != null" >
         #{conid,jdbcType=INTEGER},
       </if>
-      <if test="formuid != null" >
-        #{formuid,jdbcType=BIGINT},
+      <if test="fromuid != null" >
+        #{fromuid,jdbcType=BIGINT},
       </if>
       <if test="attentionuid != null" >
         #{attentionuid,jdbcType=BIGINT},
@@ -64,13 +72,19 @@
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="isscreen != null" >
+        #{isscreen,jdbcType=INTEGER},
+      </if>
+      <if test="screentime != null" >
+        #{screentime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
     update fm_friends_relation
     <set >
-      <if test="formuid != null" >
-        Formuid = #{formuid,jdbcType=BIGINT},
+      <if test="fromuid != null" >
+        Fromuid = #{fromuid,jdbcType=BIGINT},
       </if>
       <if test="attentionuid != null" >
         Attentionuid = #{attentionuid,jdbcType=BIGINT},
@@ -81,22 +95,30 @@
       <if test="createtime != null" >
         CreateTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="isscreen != null" >
+        IsScreen = #{isscreen,jdbcType=INTEGER},
+      </if>
+      <if test="screentime != null" >
+        ScreenTime = #{screentime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where ConID = #{conid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.feimang.userstudy.pojo.FriendsRelation" >
     update fm_friends_relation
-    set Formuid = #{formuid,jdbcType=BIGINT},
+    set Fromuid = #{fromuid,jdbcType=BIGINT},
       Attentionuid = #{attentionuid,jdbcType=BIGINT},
       LinkStatus = #{linkstatus,jdbcType=INTEGER},
-      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      ScreenTime = #{screentime,jdbcType=TIMESTAMP},
+      IsScreen = #{isscreen,jdbcType=INTEGER}
     where ConID = #{conid,jdbcType=INTEGER}
   </update>
   <select id="getAttens" parameterType="long" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"/>
     from fm_friends_relation
-    where Formuid = #{userId}
+    where Fromuid = #{userId}
   </select>
   <select id="getFans" parameterType="long" resultMap="BaseResultMap">
     SELECT
@@ -108,12 +130,31 @@
     SELECT
     <include refid="Base_Column_List"/>
     from fm_friends_relation
-    where Formuid = #{userId}
+    where Fromuid = #{userId}
     and Attentionuid = #{attentionuid}
   </select>
   <delete id="delFriendsByUserIdAndAttentionuid" parameterType="map">
     delete from fm_friends_relation
-    where Formuid = #{userId}
+    where Fromuid = #{userId}
     and Attentionuid = #{attentionuid}
   </delete>
+  <select id="getScreens" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_friends_relation
+    where Attentionuid = #{userId}
+    and isScreen = 1
+  </select>
+  <update id="addScreen" parameterType="map">
+    update fm_friends_relation
+    SET isScreen = 1
+    where fromuid = #{screenId}
+    and Attentionuid =#{userID}
+  </update>
+  <update id="delScreen" parameterType="map">
+    update fm_friends_relation
+    SET isScreen = 0
+    where fromuid = #{screenId}
+    and Attentionuid =#{userID}
+  </update>
 </mapper>
