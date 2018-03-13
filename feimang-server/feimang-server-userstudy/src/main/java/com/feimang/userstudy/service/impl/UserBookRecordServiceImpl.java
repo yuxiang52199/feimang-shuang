@@ -13,7 +13,7 @@ import com.feimang.userstudy.pojo.UserBookRecordAtuser;
 import com.feimang.userstudy.pojo.UserBookRecordImage;
 import com.feimang.userstudy.service.IUserBookRecordService;
 import com.feimang.userstudy.vo.UserBookRecordAtuserVO;
-import com.feimang.userstudy.vo.UserBookRecordVO;
+//import com.feimang.userstudy.vo.UserBookRecordVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
@@ -167,7 +167,7 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
         List<UserBookRecord> userBookRecordList = userBookRecordMapper.getBookPhotos(userId);
         // 根据书拍信息 查询书拍的图片
         List<UserBookRecordImage> userBookRecordImageList = userBookRecordImageMapper.getImageByRecordId(userBookRecordList);
-        UserBookRecordVO userBookRecordVO = new UserBookRecordVO();
+        //UserBookRecordVO userBookRecordVO = new UserBookRecordVO();
         //todo 组合VO
         return ServerResponse.createBySuccess("查询成功",userBookRecordList);
     }

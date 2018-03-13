@@ -14,4 +14,6 @@ public interface BankCardMapper {
     int updateByPrimaryKeySelective(BankCard record);
 
     int updateByPrimaryKey(BankCard record);
+
+    BankCard selectByClubId(Long clubid);
 }

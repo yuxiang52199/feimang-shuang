@@ -105,4 +105,11 @@
       BankName = #{bankname,jdbcType=VARCHAR}
     where CBCID = #{cbcid,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByClubId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from rc_bankcard
+    where ClubID = #{clubid,jdbcType=INTEGER}
+  </select>
 </mapper>
