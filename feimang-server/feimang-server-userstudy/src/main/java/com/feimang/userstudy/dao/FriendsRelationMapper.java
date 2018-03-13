@@ -2,6 +2,7 @@ package com.feimang.userstudy.dao;
 
 import com.feimang.userstudy.pojo.FriendsRelation;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -25,4 +26,10 @@ public interface FriendsRelationMapper {
     FriendsRelation isAttenUserByAttentionuid(@Param("userId") Long userId, @Param("attentionuid") Long attentionuid);
     //取消关注
     int delFriendsByUserIdAndAttentionuid(@Param("userId") Long userId, @Param("attentionuid") Long attentionuid);
+    //获取屏蔽列表
+    List<FriendsRelation> getScreens(Long userId);
+    //添加屏蔽
+    void addScreen(@Param("userID") Long userID,@Param("screenId") Long screenId);
+    //取消屏蔽
+    void delScreen(@Param("userID") Long userID,@Param("screenId") Long screenId);
 }

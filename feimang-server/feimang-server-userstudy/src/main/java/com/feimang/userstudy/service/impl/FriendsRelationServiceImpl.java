@@ -62,6 +62,55 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
         }
         return ServerResponse.createByErrorMessage("用户还未被关注");
     }
+
+    /**
+     * 获取屏蔽列表
+     * @param userId
+     * @return
+     */
+    public ServerResponse getScreens(Long userId,int pageNum,int pageSize){
+        if (userId == null){
+            //参数为空
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<FriendsRelation> friendsRelations = friendsRelationMapper.getScreens(userId);
+        if (CollectionUtils.isNotEmpty(friendsRelations)){
+            PageInfo pageInfo = new PageInfo(friendsRelations);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
+        }
+        return ServerResponse.createByErrorMessage("未屏蔽用户");
+    }
+
+    /**
+     * 添加屏蔽用户
+     * @param userID
+     * @param screenID
+     * @return
+     */
+    public ServerResponse addScreen(Long userID,Long screenID){
+        if (userID == null || screenID == null){
+            //参数为空
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        friendsRelationMapper.addScreen(userID, screenID);
+        return ServerResponse.createBySuccess("屏蔽成功");
+    }
+
+    /**
+     * 取消屏蔽用户
+     * @param userID
+     * @param screenID
+     * @return
+     */
+    public ServerResponse delScreen(Long userID,Long screenID){
+        if (userID == null || screenID == null){
+            //参数为空
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        friendsRelationMapper.delScreen(userID, screenID);
+        return ServerResponse.createBySuccess("取消屏蔽成功");
+    }
     //endregion
     //region 关注好友 相关
     /**
@@ -99,7 +148,7 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
             Object attentionFriend = serverResponse.getData();
             FriendsRelation friend = (FriendsRelation) attentionFriend;
             FriendsRelation friendsRelation = new FriendsRelation();
-            friendsRelation.setFormuid(userId);
+            friendsRelation.setFromuid(userId);
             friendsRelation.setAttentionuid(attentionuid);
             friendsRelation.setLinkstatus(Const.FriendnslinkStatus.MUTUAL_CONCERN.getCode());//设置权限为互相关注
             int resultCount = friendsRelationMapper.insert(friendsRelation);
@@ -116,7 +165,7 @@ public class FriendsRelationServiceImpl implements IFriendsRelationService{
         }
         // 被关注者未关注当前用户
         FriendsRelation friendsRelation = new FriendsRelation();
-        friendsRelation.setFormuid(userId);
+        friendsRelation.setFromuid(userId);
         friendsRelation.setAttentionuid(attentionuid);
         friendsRelation.setLinkstatus(Const.FriendnslinkStatus.UNILATERRAL_CONCERN.getCode());//设置状态为 非互相关注
         int resultCount = friendsRelationMapper.insert(friendsRelation);

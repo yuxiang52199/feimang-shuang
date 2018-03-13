@@ -73,4 +73,40 @@ public class FriendsRelationController {
     public ServerResponse delFriends(HttpServletRequest request,Long userId,Long attentionuid){
         return friendsRelationService.delFriendsByUserIdAndAttentionuid(userId, attentionuid);
     }
+
+    /**
+     * 获取屏蔽列表
+     * @param request
+     * @param userId 用户id
+     * @return
+     */
+    @PostMapping("/getScreens")
+    public ServerResponse getScreens(HttpServletRequest request,Long userId,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                     @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+        return friendsRelationService.getScreens(userId, pageNum, pageSize);
+    }
+
+    /**
+     * 添加屏蔽用户
+     * @param request
+     * @param userID
+     * @param screenID
+     * @return
+     */
+    @PostMapping("/addScreen")
+    public ServerResponse addScreen(HttpServletRequest request,Long userID,Long screenID){
+        return friendsRelationService.addScreen(userID, screenID);
+    }
+
+    /**
+     * 取消屏蔽用户
+     * @param request
+     * @param userID
+     * @param screenID
+     * @return
+     */
+    @PostMapping("/delScreen")
+    public ServerResponse delScreen(HttpServletRequest request,Long userID,Long screenID){
+        return friendsRelationService.delScreen(userID, screenID);
+    }
 }

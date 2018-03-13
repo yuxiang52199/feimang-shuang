@@ -2,12 +2,15 @@ package com.feimang.userstudy.controller;
 
 import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.pojo.UserBookRecord;
+import com.feimang.userstudy.pojo.UserBookRecordAtuser;
 import com.feimang.userstudy.service.IUserBookRecordService;
 import com.feimang.userstudy.vo.UserBookRecords;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by yxm on 2018/2/5
@@ -103,8 +106,8 @@ public class UserBookRecordController {
      * @return
      */
     @PostMapping("/addBookPhoto")
-    public ServerResponse addBookPhoto(HttpServletRequest request,UserBookRecord userBookRecord){
-        return userBookRecordService.addBookPhoto(userBookRecord);
+    public ServerResponse addBookPhoto(HttpServletRequest request, UserBookRecord userBookRecord, List<UserBookRecordAtuser> userBookRecordAtusers){
+        return userBookRecordService.addBookPhoto(userBookRecord,userBookRecordAtusers);
     }
 
     /**
@@ -129,8 +132,21 @@ public class UserBookRecordController {
         return userBookRecordService.getBookPhotosByIds(ids);
     }
 
+    /**
+     * 获取用户被@的书拍
+     * @param request
+     * @param touid
+     * @return
+     */
+    @GetMapping("/getAtusers")
+    public ServerResponse getAtusers(HttpServletRequest request,Long touid,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum, @RequestParam(value = "pageNum",defaultValue = "1")int pageSize){
+        return userBookRecordService.getAtusers(touid, pageNum, pageSize);
+    }
+
     @PostMapping("/ceshi11")
     public ServerResponse ceshi111(HttpServletRequest request){
         return userBookRecordService.ceshi();
     }
+
+
 }

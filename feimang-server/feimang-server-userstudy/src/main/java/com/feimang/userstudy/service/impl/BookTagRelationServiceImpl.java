@@ -5,9 +5,12 @@ import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.dao.BookTagMapper;
 import com.feimang.userstudy.dao.BooktagRelationMapper;
 import com.feimang.userstudy.dao.UserBookMapper;
+import com.feimang.userstudy.dao.UserBookRemarkMapper;
 import com.feimang.userstudy.pojo.BooktagRelation;
 import com.feimang.userstudy.pojo.UserBook;
+import com.feimang.userstudy.pojo.UserBookRemark;
 import com.feimang.userstudy.service.IBookTagRelationService;
+import com.feimang.userstudy.vo.BookTagRelationVo;
 import com.feimang.userstudy.vo.BookTagRelations;
 import com.feimang.userstudy.vo.UserBookVO;
 import com.github.pagehelper.PageHelper;
@@ -17,6 +20,7 @@ import org.apache.commons.collections.Transformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +35,8 @@ public class    BookTagRelationServiceImpl implements IBookTagRelationService{
     private UserBookMapper userBookMapper;
     @Autowired
     private BookTagMapper bookTagMapper;
+    @Autowired
+    private UserBookRemarkMapper userBookRemarkMapper;
     //region 书架内图书操作
     /**
      * 获取书架内图书列表
@@ -40,7 +46,7 @@ public class    BookTagRelationServiceImpl implements IBookTagRelationService{
      * @return
      */
     public ServerResponse getBooksByBookTag(Long userId,Integer utid,int pageNum,int pageSize){
-        if ( utid == null){
+        if ( utid == null || userId ==null){
             //参数为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
@@ -48,7 +54,24 @@ public class    BookTagRelationServiceImpl implements IBookTagRelationService{
         //查询
         List<BooktagRelation> booktagRelationList = booktagRelationMapper.getBooksByUTID(userId,utid);
         if (CollectionUtils.isNotEmpty(booktagRelationList)){
-            PageInfo pageInfo = new PageInfo(booktagRelationList);
+            List<BookTagRelationVo> bookTagRelationVos = new ArrayList<>();
+            // 根据每本书的用户id和图书id查询备注
+            for (BooktagRelation booktagRelation : booktagRelationList){
+                BookTagRelationVo bookTagRelationVo = new BookTagRelationVo();
+                bookTagRelationVo.setBookid(booktagRelation.getBookid());
+                bookTagRelationVo.setCreatetime(booktagRelation.getCreatetime());
+                bookTagRelationVo.setFromuid(booktagRelation.getFromuid());
+                bookTagRelationVo.setId(booktagRelation.getId());
+                bookTagRelationVo.setUtid(booktagRelation.getUtid());
+                bookTagRelationVo.setTagbookseq(booktagRelation.getTagbookseq());
+                UserBookRemark userBookRemark = userBookRemarkMapper.getRemarkByFromidAndBookID(booktagRelation.getFromuid(),booktagRelation.getBookid());
+                if (userBookRemark!=null){
+                    //该书含有备注
+                    bookTagRelationVo.setUserBookRemark(userBookRemark);
+                }
+                bookTagRelationVos.add(bookTagRelationVo);
+            }
+            PageInfo pageInfo = new PageInfo(bookTagRelationVos);
             return ServerResponse.createBySuccess("查询成功",pageInfo);
         }
         return ServerResponse.createByErrorMessage("书架内没有图书");

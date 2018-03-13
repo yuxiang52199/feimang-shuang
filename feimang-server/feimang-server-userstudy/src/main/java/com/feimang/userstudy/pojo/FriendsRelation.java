@@ -5,7 +5,7 @@ import java.util.Date;
 public class FriendsRelation {
     private Integer conid;
 
-    private Long formuid;
+    private Long fromuid;
 
     private Long attentionuid;
 
@@ -13,12 +13,34 @@ public class FriendsRelation {
 
     private Date createtime;
 
+    private Integer isscreen;
+
+    private Date screentime;
+
     public FriendsRelation(Integer conid, Long formuid, Long attentionuid, Integer linkstatus, Date createtime) {
         this.conid = conid;
-        this.formuid = formuid;
+        this.fromuid = formuid;
         this.attentionuid = attentionuid;
         this.linkstatus = linkstatus;
         this.createtime = createtime;
+        this.isscreen = isscreen;
+        this.screentime = screentime;
+    }
+
+    public Integer getIsscreen() {
+        return isscreen;
+    }
+
+    public void setIsscreen(Integer isscreen) {
+        this.isscreen = isscreen;
+    }
+
+    public Date getScreentime() {
+        return screentime;
+    }
+
+    public void setScreentime(Date screentime) {
+        this.screentime = screentime;
     }
 
     public FriendsRelation() {
@@ -33,12 +55,12 @@ public class FriendsRelation {
         this.conid = conid;
     }
 
-    public Long getFormuid() {
-        return formuid;
+    public Long getFromuid() {
+        return fromuid;
     }
 
-    public void setFormuid(Long formuid) {
-        this.formuid = formuid;
+    public void setFromuid(Long fromuid) {
+        this.fromuid = fromuid;
     }
 
     public Long getAttentionuid() {

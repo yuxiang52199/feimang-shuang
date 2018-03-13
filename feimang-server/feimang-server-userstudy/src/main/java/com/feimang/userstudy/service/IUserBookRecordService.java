@@ -2,6 +2,7 @@ package com.feimang.userstudy.service;
 
 import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.pojo.UserBookRecord;
+import com.feimang.userstudy.pojo.UserBookRecordAtuser;
 
 import java.util.List;
 
@@ -24,11 +25,13 @@ public interface IUserBookRecordService {
     // 删除书拍
     ServerResponse delBookPhoto(UserBookRecord userBookRecord);
     // 发布书拍
-    ServerResponse addBookPhoto(UserBookRecord userBookRecord);
+    ServerResponse addBookPhoto(UserBookRecord userBookRecord,List<UserBookRecordAtuser> userBookRecordAtusers);
     // 根据ids 获取推荐图书列表
     ServerResponse getRecommendBooksByIds(String ids);
     // 根据ids 获取书拍列表
     ServerResponse getBookPhotosByIds(String ids);
+    // 获取被提醒的书拍
+    ServerResponse getAtusers(Long touid,int pageNum,int pageSize);
     //测试
     ServerResponse ceshi();
 }

@@ -4,12 +4,15 @@ import com.feimang.userstudy.common.Const;
 import com.feimang.userstudy.common.ResponseCode;
 import com.feimang.userstudy.common.ServerResponse;
 import com.feimang.userstudy.dao.ContentBaseMapper;
+import com.feimang.userstudy.dao.UserBookRecordAtuserMapper;
 import com.feimang.userstudy.dao.UserBookRecordImageMapper;
 import com.feimang.userstudy.dao.UserBookRecordMapper;
 import com.feimang.userstudy.pojo.ContentBase;
 import com.feimang.userstudy.pojo.UserBookRecord;
+import com.feimang.userstudy.pojo.UserBookRecordAtuser;
 import com.feimang.userstudy.pojo.UserBookRecordImage;
 import com.feimang.userstudy.service.IUserBookRecordService;
+import com.feimang.userstudy.vo.UserBookRecordAtuserVO;
 import com.feimang.userstudy.vo.UserBookRecordVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,6 +35,8 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
     private UserBookRecordMapper userBookRecordMapper;
     @Autowired
     private ContentBaseMapper contentBaseMapper;
+    @Autowired
+    private UserBookRecordAtuserMapper userBookRecordAtuserMapper;
     //region 推荐图书相关
     /**
      * 获取推荐列表
@@ -185,11 +190,11 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
     }
 
     /**
-     * 发布书拍
+     * 发布书拍 + @提醒谁看
      * @param userBookRecord
      * @return
      */
-    public ServerResponse addBookPhoto(UserBookRecord userBookRecord){
+    public ServerResponse addBookPhoto(UserBookRecord userBookRecord,List<UserBookRecordAtuser> userBookRecordAtusers){
         if (userBookRecord == null){
             //参数为空
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -202,10 +207,20 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
         contentBase.setRewcount(0);
         contentBase.setSharecount(0);//分享数量
         //todo 插入数据 并返回主键
-        //contentBaseMapper.insert(contentBase);
+        //contentBaseMapper.insert(contentBase); 然后将主键放入实体
         userBookRecord.setDelflg(Const.BookTagDelFlg.UNDELETED.getCode());
         userBookRecord.setPhototype(Const.PhotoType.BookPhoto.getCode());
-        userBookRecordMapper.insert(userBookRecord);
+        int id = userBookRecordMapper.insert(userBookRecord);
+        //todo 设置插入返回主键,拿到主键 再做插入
+        // @的人
+        if (CollectionUtils.isNotEmpty(userBookRecordAtusers)){
+            //插入@人的数据 提醒谁看,
+            for (UserBookRecordAtuser userBookRecordAtuser : userBookRecordAtusers){
+                userBookRecordAtuser.setStatus(0);
+                userBookRecordAtuser.setRecordid(Long.valueOf(id));
+            }
+            userBookRecordAtuserMapper.addAtuser(userBookRecordAtusers);
+        }
         return ServerResponse.createBySuccess("发布成功");
     }
 
@@ -254,6 +269,38 @@ public class UserBookRecordServiceImpl implements IUserBookRecordService {
         return ServerResponse.createByErrorMessage("用户未发布书拍");
     }
     //endregion
+
+    /**
+     * 获取被@的列表
+     * @param touid
+     * @return
+     */
+    public ServerResponse getAtusers(Long touid,int pageNum,int pageSize){
+        if (touid == null){
+            //参数为空
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<UserBookRecordAtuser> userBookRecordAtusers = userBookRecordAtuserMapper.getAtusersByTouid(touid);
+        if (CollectionUtils.isNotEmpty(userBookRecordAtusers)){
+            List<UserBookRecordAtuserVO> userBookRecordAtuserVOS = new ArrayList<>();
+            for (UserBookRecordAtuser userBookRecordAtuser : userBookRecordAtusers){
+                UserBookRecordAtuserVO userBookRecordAtuserVO = new UserBookRecordAtuserVO();
+                userBookRecordAtuserVO.setAtid(userBookRecordAtuser.getAtid());
+                userBookRecordAtuserVO.setCreatetime(userBookRecordAtuser.getCreatetime());
+                userBookRecordAtuserVO.setFromuid(userBookRecordAtuser.getFromuid());
+                userBookRecordAtuserVO.setRecordid(userBookRecordAtuser.getRecordid());
+                userBookRecordAtuserVO.setStatus(userBookRecordAtuser.getStatus());
+                userBookRecordAtuserVO.setTouid(userBookRecordAtuser.getTouid());
+                UserBookRecord userBookRecord = userBookRecordMapper.selectByPrimaryKey(userBookRecordAtuser.getRecordid());
+                userBookRecordAtuserVO.setUserBookRecord(userBookRecord);
+                userBookRecordAtuserVOS.add(userBookRecordAtuserVO);
+            }
+            PageInfo pageInfo = new PageInfo(userBookRecordAtuserVOS);
+            return ServerResponse.createBySuccess("查询成功",pageInfo);
+        }
+        return ServerResponse.createByErrorMessage("没有被提醒的书拍");
+    }
     //测试
     public ServerResponse ceshi(){
         ContentBase contentBase = new ContentBase();

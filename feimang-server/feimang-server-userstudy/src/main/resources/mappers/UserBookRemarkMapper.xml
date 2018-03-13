@@ -88,7 +88,7 @@
         Remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="lastupdatetime != null" >
-        LastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+        LastUpdateTime = now(),
       </if>
       <if test="createtime != null" >
         CreateTime = #{createtime,jdbcType=TIMESTAMP},
@@ -105,4 +105,17 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where RemarkID = #{remarkid,jdbcType=BIGINT}
   </update>
+  <select id="getRemarkByFromidAndBookID" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from fm_userbook_remark
+    where Fromuid = #{fromuid}
+    and BookID = #{bookid}
+  </select>
+  <select id="getBookRemarksByFromuid" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM fm_userbook_remark
+    where Fromuid = #{fromuid}
+  </select>
 </mapper>
