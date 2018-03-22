@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.QuestionsMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.Questions" >
+    <constructor >
+      <idArg column="QuID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="QuestionsType" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Questions" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="option1" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="option2" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="option3" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="option4" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="option5" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="option6" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Answer" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="k_type1" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type2" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type3" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type4" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type5" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type6" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type7" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type8" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type9" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type10" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="suid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    QuID, QuestionsType, Questions, option1, option2, option3, option4, option5, option6, 
+    Answer, k_type1, k_type2, k_type3, k_type4, k_type5, k_type6, k_type7, k_type8, k_type9, 
+    k_type10, suid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_questions
+    where QuID = #{quid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_questions
+    where QuID = #{quid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.Questions" >
+    insert into fa_questions (QuID, QuestionsType, Questions, 
+      option1, option2, option3, 
+      option4, option5, option6, 
+      Answer, k_type1, k_type2, 
+      k_type3, k_type4, k_type5, 
+      k_type6, k_type7, k_type8, 
+      k_type9, k_type10, suid
+      )
+    values (#{quid,jdbcType=BIGINT}, #{questionstype,jdbcType=INTEGER}, #{questions,jdbcType=VARCHAR}, 
+      #{option1,jdbcType=VARCHAR}, #{option2,jdbcType=VARCHAR}, #{option3,jdbcType=VARCHAR}, 
+      #{option4,jdbcType=VARCHAR}, #{option5,jdbcType=VARCHAR}, #{option6,jdbcType=VARCHAR}, 
+      #{answer,jdbcType=VARCHAR}, #{kType1,jdbcType=INTEGER}, #{kType2,jdbcType=INTEGER}, 
+      #{kType3,jdbcType=INTEGER}, #{kType4,jdbcType=INTEGER}, #{kType5,jdbcType=INTEGER}, 
+      #{kType6,jdbcType=INTEGER}, #{kType7,jdbcType=INTEGER}, #{kType8,jdbcType=INTEGER}, 
+      #{kType9,jdbcType=INTEGER}, #{kType10,jdbcType=INTEGER}, #{suid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.Questions" >
+    insert into fa_questions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="quid != null" >
+        QuID,
+      </if>
+      <if test="questionstype != null" >
+        QuestionsType,
+      </if>
+      <if test="questions != null" >
+        Questions,
+      </if>
+      <if test="option1 != null" >
+        option1,
+      </if>
+      <if test="option2 != null" >
+        option2,
+      </if>
+      <if test="option3 != null" >
+        option3,
+      </if>
+      <if test="option4 != null" >
+        option4,
+      </if>
+      <if test="option5 != null" >
+        option5,
+      </if>
+      <if test="option6 != null" >
+        option6,
+      </if>
+      <if test="answer != null" >
+        Answer,
+      </if>
+      <if test="kType1 != null" >
+        k_type1,
+      </if>
+      <if test="kType2 != null" >
+        k_type2,
+      </if>
+      <if test="kType3 != null" >
+        k_type3,
+      </if>
+      <if test="kType4 != null" >
+        k_type4,
+      </if>
+      <if test="kType5 != null" >
+        k_type5,
+      </if>
+      <if test="kType6 != null" >
+        k_type6,
+      </if>
+      <if test="kType7 != null" >
+        k_type7,
+      </if>
+      <if test="kType8 != null" >
+        k_type8,
+      </if>
+      <if test="kType9 != null" >
+        k_type9,
+      </if>
+      <if test="kType10 != null" >
+        k_type10,
+      </if>
+      <if test="suid != null" >
+        suid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="quid != null" >
+        #{quid,jdbcType=BIGINT},
+      </if>
+      <if test="questionstype != null" >
+        #{questionstype,jdbcType=INTEGER},
+      </if>
+      <if test="questions != null" >
+        #{questions,jdbcType=VARCHAR},
+      </if>
+      <if test="option1 != null" >
+        #{option1,jdbcType=VARCHAR},
+      </if>
+      <if test="option2 != null" >
+        #{option2,jdbcType=VARCHAR},
+      </if>
+      <if test="option3 != null" >
+        #{option3,jdbcType=VARCHAR},
+      </if>
+      <if test="option4 != null" >
+        #{option4,jdbcType=VARCHAR},
+      </if>
+      <if test="option5 != null" >
+        #{option5,jdbcType=VARCHAR},
+      </if>
+      <if test="option6 != null" >
+        #{option6,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="kType1 != null" >
+        #{kType1,jdbcType=INTEGER},
+      </if>
+      <if test="kType2 != null" >
+        #{kType2,jdbcType=INTEGER},
+      </if>
+      <if test="kType3 != null" >
+        #{kType3,jdbcType=INTEGER},
+      </if>
+      <if test="kType4 != null" >
+        #{kType4,jdbcType=INTEGER},
+      </if>
+      <if test="kType5 != null" >
+        #{kType5,jdbcType=INTEGER},
+      </if>
+      <if test="kType6 != null" >
+        #{kType6,jdbcType=INTEGER},
+      </if>
+      <if test="kType7 != null" >
+        #{kType7,jdbcType=INTEGER},
+      </if>
+      <if test="kType8 != null" >
+        #{kType8,jdbcType=INTEGER},
+      </if>
+      <if test="kType9 != null" >
+        #{kType9,jdbcType=INTEGER},
+      </if>
+      <if test="kType10 != null" >
+        #{kType10,jdbcType=INTEGER},
+      </if>
+      <if test="suid != null" >
+        #{suid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.Questions" >
+    update fa_questions
+    <set >
+      <if test="questionstype != null" >
+        QuestionsType = #{questionstype,jdbcType=INTEGER},
+      </if>
+      <if test="questions != null" >
+        Questions = #{questions,jdbcType=VARCHAR},
+      </if>
+      <if test="option1 != null" >
+        option1 = #{option1,jdbcType=VARCHAR},
+      </if>
+      <if test="option2 != null" >
+        option2 = #{option2,jdbcType=VARCHAR},
+      </if>
+      <if test="option3 != null" >
+        option3 = #{option3,jdbcType=VARCHAR},
+      </if>
+      <if test="option4 != null" >
+        option4 = #{option4,jdbcType=VARCHAR},
+      </if>
+      <if test="option5 != null" >
+        option5 = #{option5,jdbcType=VARCHAR},
+      </if>
+      <if test="option6 != null" >
+        option6 = #{option6,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        Answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="kType1 != null" >
+        k_type1 = #{kType1,jdbcType=INTEGER},
+      </if>
+      <if test="kType2 != null" >
+        k_type2 = #{kType2,jdbcType=INTEGER},
+      </if>
+      <if test="kType3 != null" >
+        k_type3 = #{kType3,jdbcType=INTEGER},
+      </if>
+      <if test="kType4 != null" >
+        k_type4 = #{kType4,jdbcType=INTEGER},
+      </if>
+      <if test="kType5 != null" >
+        k_type5 = #{kType5,jdbcType=INTEGER},
+      </if>
+      <if test="kType6 != null" >
+        k_type6 = #{kType6,jdbcType=INTEGER},
+      </if>
+      <if test="kType7 != null" >
+        k_type7 = #{kType7,jdbcType=INTEGER},
+      </if>
+      <if test="kType8 != null" >
+        k_type8 = #{kType8,jdbcType=INTEGER},
+      </if>
+      <if test="kType9 != null" >
+        k_type9 = #{kType9,jdbcType=INTEGER},
+      </if>
+      <if test="kType10 != null" >
+        k_type10 = #{kType10,jdbcType=INTEGER},
+      </if>
+      <if test="suid != null" >
+        suid = #{suid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where QuID = #{quid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.Questions" >
+    update fa_questions
+    set QuestionsType = #{questionstype,jdbcType=INTEGER},
+      Questions = #{questions,jdbcType=VARCHAR},
+      option1 = #{option1,jdbcType=VARCHAR},
+      option2 = #{option2,jdbcType=VARCHAR},
+      option3 = #{option3,jdbcType=VARCHAR},
+      option4 = #{option4,jdbcType=VARCHAR},
+      option5 = #{option5,jdbcType=VARCHAR},
+      option6 = #{option6,jdbcType=VARCHAR},
+      Answer = #{answer,jdbcType=VARCHAR},
+      k_type1 = #{kType1,jdbcType=INTEGER},
+      k_type2 = #{kType2,jdbcType=INTEGER},
+      k_type3 = #{kType3,jdbcType=INTEGER},
+      k_type4 = #{kType4,jdbcType=INTEGER},
+      k_type5 = #{kType5,jdbcType=INTEGER},
+      k_type6 = #{kType6,jdbcType=INTEGER},
+      k_type7 = #{kType7,jdbcType=INTEGER},
+      k_type8 = #{kType8,jdbcType=INTEGER},
+      k_type9 = #{kType9,jdbcType=INTEGER},
+      k_type10 = #{kType10,jdbcType=INTEGER},
+      suid = #{suid,jdbcType=INTEGER}
+    where QuID = #{quid,jdbcType=BIGINT}
+  </update>
+  <select id="selectListBySuid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from fa_questions
+    where Suid = #{suid}
+  </select>
+</mapper>

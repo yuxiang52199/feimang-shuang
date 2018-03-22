@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.UserQuestionsMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.UserQuestions" >
+    <constructor >
+      <idArg column="UQid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Userid" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="suid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateDatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UQid, Userid, suid, CreateDatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_uesrquestions
+    where UQid = #{uqid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fa_uesrquestions
+    where UQid = #{uqid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.UserQuestions" >
+    insert into fa_uesrquestions (UQid, Userid, suid, 
+      CreateDatetime)
+    values (#{uqid,jdbcType=INTEGER}, #{userid,jdbcType=BIGINT}, #{suid,jdbcType=INTEGER}, 
+      #{createdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.UserQuestions"  keyProperty="uqid"
+          keyColumn="UQid" useGeneratedKeys="true">
+    insert into fa_uesrquestions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uqid != null" >
+        UQid,
+      </if>
+      <if test="userid != null" >
+        Userid,
+      </if>
+      <if test="suid != null" >
+        suid,
+      </if>
+      <if test="createdatetime != null" >
+        CreateDatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uqid != null" >
+        #{uqid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="suid != null" >
+        #{suid,jdbcType=INTEGER},
+      </if>
+      <if test="createdatetime != null" >
+        #{createdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.UserQuestions" >
+    update fa_uesrquestions
+    <set >
+      <if test="userid != null" >
+        Userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="suid != null" >
+        suid = #{suid,jdbcType=INTEGER},
+      </if>
+      <if test="createdatetime != null" >
+        CreateDatetime = #{createdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where UQid = #{uqid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.UserQuestions" >
+    update fa_uesrquestions
+    set Userid = #{userid,jdbcType=BIGINT},
+      suid = #{suid,jdbcType=INTEGER},
+      CreateDatetime = #{createdatetime,jdbcType=TIMESTAMP}
+    where UQid = #{uqid,jdbcType=INTEGER}
+  </update>
+
+</mapper>

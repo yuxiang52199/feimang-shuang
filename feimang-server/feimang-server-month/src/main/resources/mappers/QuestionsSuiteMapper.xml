@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.QuestionsSuiteMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.QuestionsSuite" >
+    <constructor >
+      <idArg column="Qsid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Suid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="flg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Qsid, Suid, flg
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_questions_suite
+    where Qsid = #{qsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fa_questions_suite
+    where Qsid = #{qsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.QuestionsSuite" >
+    insert into fa_questions_suite (Qsid, Suid, flg
+      )
+    values (#{qsid,jdbcType=INTEGER}, #{suid,jdbcType=INTEGER}, #{flg,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.QuestionsSuite" >
+    insert into fa_questions_suite
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qsid != null" >
+        Qsid,
+      </if>
+      <if test="suid != null" >
+        Suid,
+      </if>
+      <if test="flg != null" >
+        flg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qsid != null" >
+        #{qsid,jdbcType=INTEGER},
+      </if>
+      <if test="suid != null" >
+        #{suid,jdbcType=INTEGER},
+      </if>
+      <if test="flg != null" >
+        #{flg,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.QuestionsSuite" >
+    update fa_questions_suite
+    <set >
+      <if test="suid != null" >
+        Suid = #{suid,jdbcType=INTEGER},
+      </if>
+      <if test="flg != null" >
+        flg = #{flg,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Qsid = #{qsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.QuestionsSuite" >
+    update fa_questions_suite
+    set Suid = #{suid,jdbcType=INTEGER},
+      flg = #{flg,jdbcType=INTEGER}
+    where Qsid = #{qsid,jdbcType=INTEGER}
+  </update>
+
+  <select id="getQuestionsSuiteRandom" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from fa_questions_suite
+    where suid not in (select suid from fa_uesrquestions where Userid=#{userId})
+    ORDER BY RAND()  LIMIT 1
+  </select>
+
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.UserKlStructMapper" >
+
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.UserKlStruct" >
+    <id property="tsid" column="TsID" jdbcType="BIGINT" javaType="java.lang.Long" ></id>
+    <result property="userid"  column="UserID" jdbcType="BIGINT" javaType="java.lang.Long" ></result>
+    <result property="klid" column="KLid" jdbcType="INTEGER" javaType="java.lang.Integer" ></result>
+    <result property="score" column="Score" jdbcType="INTEGER" javaType="java.lang.Integer" ></result>
+    <result property="levels" column="levels" jdbcType="INTEGER" javaType="java.lang.Integer" ></result>
+    <result property="uqid" column="UQid" jdbcType="BIGINT" javaType="java.lang.Long" ></result>
+    <association property="knowledge_type" javaType="com.feimang.month.pojo.Knowledge_Type" resultMap="Knowledge"/>
+  </resultMap>
+
+
+  <resultMap id="Knowledge" type="com.feimang.month.pojo.Knowledge_Type" >
+    <id property="klid" column="know_klid"></id>
+    <result property="kType" column="know_type" />
+    <result property="kClass" column="know_class" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    TsID, UserID, KLid, Score, levels, UQid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_userklstruct
+    where TsID = #{tsid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_userklstruct
+    where TsID = #{tsid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.UserKlStruct" >
+    insert into fa_userklstruct (TsID, UserID, KLid, 
+      Score, levels, UQid)
+    values (#{tsid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{klid,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER}, #{levels,jdbcType=INTEGER}, #{uqid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.UserKlStruct"  >
+    insert into fa_userklstruct
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tsid != null" >
+        TsID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="klid != null" >
+        KLid,
+      </if>
+      <if test="score != null" >
+        Score,
+      </if>
+      <if test="levels != null" >
+        levels,
+      </if>
+      <if test="uqid != null" >
+        UQid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tsid != null" >
+        #{tsid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="klid != null" >
+        #{klid,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="levels != null" >
+        #{levels,jdbcType=INTEGER},
+      </if>
+      <if test="uqid != null" >
+        #{uqid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.UserKlStruct" >
+    update fa_userklstruct
+    <set >
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="klid != null" >
+        KLid = #{klid,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        Score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="levels != null" >
+        levels = #{levels,jdbcType=INTEGER},
+      </if>
+      <if test="uqid != null" >
+        UQid = #{uqid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where TsID = #{tsid,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.UserKlStruct" >
+    update fa_userklstruct
+    set UserID = #{userid,jdbcType=BIGINT},
+      KLid = #{klid,jdbcType=INTEGER},
+      Score = #{score,jdbcType=INTEGER},
+      levels = #{levels,jdbcType=INTEGER},
+      UQid = #{uqid,jdbcType=BIGINT}
+    where TsID = #{tsid,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertUserKlStructBatch" parameterType="list">
+    replace into fm_userbook( UserID, KLid, Score,UQid) VALUES
+    <foreach collection="userKlStructList" item="item" index="index" separator=",">
+      (
+      #{item.userid},
+      #{item.klid},
+      #{item.score},
+      #{item.uqid}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectListByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select struct.TsID, struct.UserID, struct.KLid, struct.Score, struct.levels, struct.UQid
+    ,know.klid know_klid,know.k_type know_type ,know.k_class know_class
+     from fa_userklstruct struct inner join fa_knowledge_type know on struct.klid=know.klid
+     WHERE userid=#{userId}
+
+  </select>
+
+</mapper>
