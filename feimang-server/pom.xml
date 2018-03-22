@@ -18,6 +18,8 @@
         <module>feimang-server-user</module>
         <module>feimang-server-userstudy</module>
         <module>feimang-server-clubstudy</module>
+        <module>feimang-server-monthread</module>
+        <module>feimang-server-month</module>
     </modules>
 
     <properties>

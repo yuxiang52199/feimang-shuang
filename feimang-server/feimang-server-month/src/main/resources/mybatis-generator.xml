@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--导入属性配置-->
+    <!--<properties resource="datasource.properties"></properties>-->
+
+    <!--指定特定数据库的jdbc驱动jar包的位置-->
+    <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar" />
+
+    <context id="month" targetRuntime="MyBatis3">
+
+        <!-- optional，旨在创建class时，对注释进行控制 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--jdbc的数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://182.92.103.5:3306/feimang_monthread" userId="root" password="shufang9999">
+        </jdbcConnection>
+
+        <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+
+        <!-- Model模型生成器,用来生成含有主键key的类，记录类 以及查询Example类
+            targetPackage     指定生成的model生成所在的包名
+            targetProject     指定在该项目下所在的路径
+        -->
+        <!--<javaModelGenerator targetPackage="com.mmall.pojo" targetProject=".\src\main\java">-->
+        <javaModelGenerator targetPackage="com.feimang.month.pojo" targetProject="./src/main/java">
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="true"/>
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+
+        <!--mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
+        <!--<sqlMapGenerator targetPackage="mappers" targetProject=".\src\main\resources">-->
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
+                type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
+                type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
+                type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
+        -->
+
+        <!-- targetPackage：mapper接口dao生成的位置 -->
+        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="com.mmall.dao" targetProject=".\src\main\java">-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.feimang.month.dao" targetProject="./src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!--&lt;!&ndash;用户个人信息&ndash;&gt;-->
+        <!--<table tableName="fa_userabstruct" domainObjectName="UserAbstruct" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;图书基本信息&ndash;&gt;-->
+        <!--<table tableName="fa_bookinfo" domainObjectName="BookInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;图书等级&ndash;&gt;-->
+        <!--<table tableName="fa_booklv" domainObjectName="BookLv" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+
+
+        <!--一级二级字库-->
+        <table tableName="fa_gbk2312" domainObjectName="Gbk2312" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--题库试卷-->
+        <table tableName="fa_questions_suite" domainObjectName="QuestionsSuite" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--题库试卷对应题-->
+        <table tableName="fa_questions" domainObjectName="Questions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--用户选择的试卷-->
+
+
+        <table tableName="fa_uesrquestions" domainObjectName="UserQuestions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+
+        <!--用户答题收集-->
+        <table tableName="fa_useranswer" domainObjectName="UserAnswer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--用户答题结果-->
+        <table tableName="fa_userklstruct" domainObjectName="UserKlStruct" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+        <!--知识体系-->
+        <table tableName="fa_knowledge_type" domainObjectName="Knowledge_Type" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+
+        <!--&lt;!&ndash;知识体系对应一级标签&ndash;&gt;-->
+        <!--<table tableName="fa_recommendtag" domainObjectName="RecommendTag" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;一级标签对应二级标签&ndash;&gt;-->
+        <!--<table tableName="fa_recommendtagrel" domainObjectName="RecommendTagRel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;二级标签&ndash;&gt;-->
+        <!--<table tableName="fa_tag" domainObjectName="Tag" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;二级标签对应图书&ndash;&gt;-->
+        <!--<table tableName="fa_booktagrel" domainObjectName="BookTagRel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+
+
+        <!--&lt;!&ndash;用户选择生成方向&ndash;&gt;-->
+        <!--<table tableName="fa_userkl" domainObjectName="UserKl" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;用户选择标签&ndash;&gt;-->
+        <!--<table tableName="fa_usertag" domainObjectName="UserTag" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+
+        <!--&lt;!&ndash;产品表&ndash;&gt;-->
+        <!--<table tableName="fa_product" domainObjectName="Product" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;兑换卡&ndash;&gt;-->
+        <!--<table tableName="fa_card" domainObjectName="Card" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;订单流水&ndash;&gt;-->
+        <!--<table tableName="fa_order" domainObjectName="Order" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;订单产品阅读次数对应表&ndash;&gt;-->
+        <!--<table tableName="fa_order_product_relation" domainObjectName="OrderProductRelation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;产品次数图书对应表&ndash;&gt;-->
+        <!--<table tableName="fa_order_books_relation" domainObjectName="OrderBooksRelation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+
+        <!--&lt;!&ndash;图书评分&ndash;&gt;-->
+        <!--<table tableName="fa_userbook_gradescore" domainObjectName="UserBookGradeScore" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;文章&ndash;&gt;-->
+        <!--<table tableName="fa_article" domainObjectName="Article" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;群&ndash;&gt;-->
+        <!--<table tableName="fa_qun" domainObjectName="Qun" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+
+
+
+
+        <!-- geelynote mybatis插件的搭建 -->
+    </context>
+</generatorConfiguration>
