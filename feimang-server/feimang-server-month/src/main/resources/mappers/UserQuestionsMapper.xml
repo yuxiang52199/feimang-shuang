@@ -83,4 +83,13 @@
     where UQid = #{uqid,jdbcType=INTEGER}
   </update>
 
+  <select id="selectLastByUserID" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from fa_uesrquestions
+    where UserID = #{userid,jdbcType=BIGINT}
+    order by UaID desc
+    limit 0,1
+  </select>
+
 </mapper>

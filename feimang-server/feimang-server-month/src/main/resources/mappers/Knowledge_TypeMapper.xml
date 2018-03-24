@@ -70,4 +70,5 @@
       k_class = #{kClass,jdbcType=VARCHAR}
     where KLID = #{klid,jdbcType=INTEGER}
   </update>
+
 </mapper>

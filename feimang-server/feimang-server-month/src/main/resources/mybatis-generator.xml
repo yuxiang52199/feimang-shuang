@@ -63,33 +63,37 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
-        <!--&lt;!&ndash;用户个人信息&ndash;&gt;-->
+        <!--用户个人信息-->
         <!--<table tableName="fa_userabstruct" domainObjectName="UserAbstruct" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--&lt;!&ndash;图书基本信息&ndash;&gt;-->
-        <!--<table tableName="fa_bookinfo" domainObjectName="BookInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="fa_bookinfo" domainObjectName="BookInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<columnOverride column="authorintro" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--<columnOverride column="catalog" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--<columnOverride column="summary" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</table>-->
         <!--&lt;!&ndash;图书等级&ndash;&gt;-->
         <!--<table tableName="fa_booklv" domainObjectName="BookLv" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
 
-        <!--一级二级字库-->
-        <table tableName="fa_gbk2312" domainObjectName="Gbk2312" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <!--题库试卷-->
-        <table tableName="fa_questions_suite" domainObjectName="QuestionsSuite" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <!--题库试卷对应题-->
-        <table tableName="fa_questions" domainObjectName="Questions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <!--用户选择的试卷-->
+        <!--&lt;!&ndash;一级二级字库&ndash;&gt;-->
+        <!--<table tableName="fa_gbk2312" domainObjectName="Gbk2312" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;题库试卷&ndash;&gt;-->
+        <!--<table tableName="fa_questions_suite" domainObjectName="QuestionsSuite" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;题库试卷对应题&ndash;&gt;-->
+        <!--<table tableName="fa_questions" domainObjectName="Questions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;用户选择的试卷&ndash;&gt;-->
 
 
-        <table tableName="fa_uesrquestions" domainObjectName="UserQuestions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--<table tableName="fa_uesrquestions" domainObjectName="UserQuestions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
 
-        <!--用户答题收集-->
-        <table tableName="fa_useranswer" domainObjectName="UserAnswer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <!--用户答题结果-->
-        <table tableName="fa_userklstruct" domainObjectName="UserKlStruct" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--&lt;!&ndash;用户答题收集&ndash;&gt;-->
+        <!--<table tableName="fa_useranswer" domainObjectName="UserAnswer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--&lt;!&ndash;用户答题结果&ndash;&gt;-->
+        <!--<table tableName="fa_userklstruct" domainObjectName="UserKlStruct" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
-        <!--知识体系-->
-        <table tableName="fa_knowledge_type" domainObjectName="Knowledge_Type" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--&lt;!&ndash;知识体系&ndash;&gt;-->
+        <!--<table tableName="fa_knowledge_type" domainObjectName="Knowledge_Type" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
 
         <!--&lt;!&ndash;知识体系对应一级标签&ndash;&gt;-->
@@ -107,16 +111,16 @@
         <!--&lt;!&ndash;用户选择标签&ndash;&gt;-->
         <!--<table tableName="fa_usertag" domainObjectName="UserTag" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
-        <!--&lt;!&ndash;产品表&ndash;&gt;-->
-        <!--<table tableName="fa_product" domainObjectName="Product" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--&lt;!&ndash;兑换卡&ndash;&gt;-->
-        <!--<table tableName="fa_card" domainObjectName="Card" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--&lt;!&ndash;订单流水&ndash;&gt;-->
-        <!--<table tableName="fa_order" domainObjectName="Order" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--&lt;!&ndash;订单产品阅读次数对应表&ndash;&gt;-->
-        <!--<table tableName="fa_order_product_relation" domainObjectName="OrderProductRelation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--&lt;!&ndash;产品次数图书对应表&ndash;&gt;-->
-        <!--<table tableName="fa_order_books_relation" domainObjectName="OrderBooksRelation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--产品表-->
+        <table tableName="fa_product" domainObjectName="Product" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--兑换卡-->
+        <table tableName="fa_card" domainObjectName="Card" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--订单流水-->
+        <table tableName="fa_order" domainObjectName="Order" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--订单产品阅读次数对应表-->
+        <table tableName="fa_order_product_relation" domainObjectName="OrderProductRelation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--产品次数图书对应表-->
+        <table tableName="fa_order_books_relation" domainObjectName="OrderBooksRelation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
         <!--&lt;!&ndash;图书评分&ndash;&gt;-->
         <!--<table tableName="fa_userbook_gradescore" domainObjectName="UserBookGradeScore" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->

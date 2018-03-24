@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.RecommendTagRelMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.RecommendTagRel" >
+    <constructor >
+      <idArg column="RTRelID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="RTID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="TagID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RTRelID, RTID, TagID, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_recommendtagrel
+    where RTRelID = #{rtrelid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_recommendtagrel
+    where RTRelID = #{rtrelid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.RecommendTagRel" >
+    insert into fa_recommendtagrel (RTRelID, RTID, TagID, 
+      CreateTime)
+    values (#{rtrelid,jdbcType=BIGINT}, #{rtid,jdbcType=BIGINT}, #{tagid,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.RecommendTagRel" >
+    insert into fa_recommendtagrel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rtrelid != null" >
+        RTRelID,
+      </if>
+      <if test="rtid != null" >
+        RTID,
+      </if>
+      <if test="tagid != null" >
+        TagID,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rtrelid != null" >
+        #{rtrelid,jdbcType=BIGINT},
+      </if>
+      <if test="rtid != null" >
+        #{rtid,jdbcType=BIGINT},
+      </if>
+      <if test="tagid != null" >
+        #{tagid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.RecommendTagRel" >
+    update fa_recommendtagrel
+    <set >
+      <if test="rtid != null" >
+        RTID = #{rtid,jdbcType=BIGINT},
+      </if>
+      <if test="tagid != null" >
+        TagID = #{tagid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RTRelID = #{rtrelid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.RecommendTagRel" >
+    update fa_recommendtagrel
+    set RTID = #{rtid,jdbcType=BIGINT},
+      TagID = #{tagid,jdbcType=BIGINT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where RTRelID = #{rtrelid,jdbcType=BIGINT}
+  </update>
+</mapper>

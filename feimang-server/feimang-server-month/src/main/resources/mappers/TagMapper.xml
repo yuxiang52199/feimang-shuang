@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.TagMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.Tag" >
+    <constructor >
+      <idArg column="TagID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TagName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TagCount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TagSource" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="oldTagID" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TagID, TagName, TagCount, TagSource, oldTagID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_tag
+    where TagID = #{tagid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fa_tag
+    where TagID = #{tagid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.Tag" >
+    insert into fa_tag (TagID, TagName, TagCount, 
+      TagSource, oldTagID)
+    values (#{tagid,jdbcType=INTEGER}, #{tagname,jdbcType=VARCHAR}, #{tagcount,jdbcType=INTEGER}, 
+      #{tagsource,jdbcType=INTEGER}, #{oldtagid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.Tag" >
+    insert into fa_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tagid != null" >
+        TagID,
+      </if>
+      <if test="tagname != null" >
+        TagName,
+      </if>
+      <if test="tagcount != null" >
+        TagCount,
+      </if>
+      <if test="tagsource != null" >
+        TagSource,
+      </if>
+      <if test="oldtagid != null" >
+        oldTagID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tagid != null" >
+        #{tagid,jdbcType=INTEGER},
+      </if>
+      <if test="tagname != null" >
+        #{tagname,jdbcType=VARCHAR},
+      </if>
+      <if test="tagcount != null" >
+        #{tagcount,jdbcType=INTEGER},
+      </if>
+      <if test="tagsource != null" >
+        #{tagsource,jdbcType=INTEGER},
+      </if>
+      <if test="oldtagid != null" >
+        #{oldtagid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.Tag" >
+    update fa_tag
+    <set >
+      <if test="tagname != null" >
+        TagName = #{tagname,jdbcType=VARCHAR},
+      </if>
+      <if test="tagcount != null" >
+        TagCount = #{tagcount,jdbcType=INTEGER},
+      </if>
+      <if test="tagsource != null" >
+        TagSource = #{tagsource,jdbcType=INTEGER},
+      </if>
+      <if test="oldtagid != null" >
+        oldTagID = #{oldtagid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where TagID = #{tagid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.Tag" >
+    update fa_tag
+    set TagName = #{tagname,jdbcType=VARCHAR},
+      TagCount = #{tagcount,jdbcType=INTEGER},
+      TagSource = #{tagsource,jdbcType=INTEGER},
+      oldTagID = #{oldtagid,jdbcType=BIGINT}
+    where TagID = #{tagid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByPrimaryKlid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT tag.* FROM fa_recommendtag recommend
+    INNER JOIN fa_recommendtagrel recommendrel ON recommend.`RTID`=recommendrel.`RTID`
+    INNER JOIN `fa_tag` tag ON tag.`TagID`=recommendrel.`TagID`
+    WHERE recommend.KLID =#{klid}
+  </select>
+
+</mapper>

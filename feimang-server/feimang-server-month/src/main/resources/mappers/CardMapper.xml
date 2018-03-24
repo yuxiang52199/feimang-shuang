@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.CardMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.Card" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="mark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="valication" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="pid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="qid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="mid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="start_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="addtime" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, mark, valication, pid, qid, mid, uid, status, type, start_time, end_time, addtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_card
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_card
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.Card" >
+    insert into fa_card (id, mark, valication, 
+      pid, qid, mid, uid, 
+      status, type, start_time, 
+      end_time, addtime)
+    values (#{id,jdbcType=BIGINT}, #{mark,jdbcType=VARCHAR}, #{valication,jdbcType=INTEGER}, 
+      #{pid,jdbcType=INTEGER}, #{qid,jdbcType=INTEGER}, #{mid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP},
+      #{endTime,jdbcType=TIMESTAMP}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.Card" >
+    insert into fa_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="valication != null" >
+        valication,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="qid != null" >
+        qid,
+      </if>
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="valication != null" >
+        #{valication,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="qid != null" >
+        #{qid,jdbcType=INTEGER},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.Card" >
+    update fa_card
+    <set >
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="valication != null" >
+        valication = #{valication,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="qid != null" >
+        qid = #{qid,jdbcType=INTEGER},
+      </if>
+      <if test="mid != null" >
+        mid = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.Card" >
+    update fa_card
+    set mark = #{mark,jdbcType=VARCHAR},
+      valication = #{valication,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      qid = #{qid,jdbcType=INTEGER},
+      mid = #{mid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      addtime = #{addtime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByMark" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from fa_card
+    where mark = #{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

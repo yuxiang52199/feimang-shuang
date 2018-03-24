@@ -4,32 +4,14 @@ package com.feimang.month.common;
  * Created by geely
  */
 public class Const {
-    //用户关注
-    public enum FriendnslinkStatus{
-        UNILATERRAL_CONCERN(0,"非互相关注"),
-        MUTUAL_CONCERN(1,"互相关注");
+    //每次生成计划方向选择
+    public enum KLFlg{
+        KL_LENGTH(0,"取长"),
+        KL_SHORT(1,"补短"),
+        KL_CUSTOM(2,"自定义"),;
         private String value;
         private int code;
-        FriendnslinkStatus(int code,String value){
-            this.code = code;
-            this.value = value;
-        }
-
-        public int getCode() {
-            return code;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-    //书架中的是否删除
-    public enum BookTagDelFlg{
-        UNDELETED(0,"未删除"),
-        DELETED(1,"已删除");
-        private String value;
-        private int code;
-        BookTagDelFlg(int code,String value){
+        KLFlg(int code,String value){
             this.code = code;
             this.value = value;
         }
@@ -43,13 +25,12 @@ public class Const {
         }
     }
 
-    //图书状态 0书拍 1推荐图书
-    public enum PhotoType{
-        BookPhoto(0,"书拍"),
-        Recommend(1,"推荐图书");
+    public enum CardStatus{
+        CARD_NO(0,"未使用"),
+        CARD_YES(1,"已使用");
         private String value;
         private int code;
-        PhotoType(int code,String value){
+        CardStatus(int code,String value){
             this.code = code;
             this.value = value;
         }
@@ -62,4 +43,66 @@ public class Const {
             return value;
         }
     }
+
+    public enum PlatformStatus{
+        PlatformStatus_NO(0,"未支付"),
+        PlatformStatus_YES(1,"已支付"),
+        PlatformStatus_FAIL(2,"已失败"),
+        PlatformStatus_COMPLETE(3,"已结束"),
+        PlatformStatus_Invalid(4,"已失效");
+        private String value;
+        private int code;
+        PlatformStatus(int code,String value){
+            this.code = code;
+            this.value = value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+    public enum PlatformType{
+        PlatformType_CARD(0,"兑换卡"),
+        PlatformType_WEIXIN(1,"微信");
+        private String value;
+        private int code;
+        PlatformType(int code,String value){
+            this.code = code;
+            this.value = value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+    public enum RelationStatus{
+        RelationStatus_NO(0,"未确认"),
+        RelationStatus_YES(1,"已确认"),
+        RelationStatus_DELIVER(2,"已发货"),
+        RelationStatus_RECEIPT(3,"已收货"),
+        RelationStatus_COMPLETE(4,"已完成");
+        private String value;
+        private int code;
+        RelationStatus(int code,String value){
+            this.code = code;
+            this.value = value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
 }

@@ -14,4 +14,6 @@ public interface UserQuestionsMapper {
     int updateByPrimaryKeySelective(UserQuestions record);
 
     int updateByPrimaryKey(UserQuestions record);
+
+    UserQuestions selectLastByUserID(Long userid);
 }

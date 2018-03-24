@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/feimang-eureka" />
     <file type="web" url="file://$PROJECT_DIR$/feimang-server/feimang-server-clubstudy" />
     <file type="web" url="file://$PROJECT_DIR$/feimang-server/feimang-server-userstudy" />
     <file type="web" url="file://$PROJECT_DIR$/shufang-demo" />
@@ -10,7 +11,13 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/feimang-user-server/pom.xml" />
+        <option value="$PROJECT_DIR$/feimang-client/feimang-client-monthread/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/feimang-server/feimang-server-monthread/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.UserKlMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.UserKl" >
+    <constructor >
+      <idArg column="UkID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UserID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="flg" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UkID, UserID, flg
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_userkl
+    where UkID = #{ukid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_userkl
+    where UkID = #{ukid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.UserKl" >
+    insert into fa_userkl (UkID, UserID, flg
+      )
+    values (#{ukid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{flg,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.UserKl" >
+    insert into fa_userkl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ukid != null" >
+        UkID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="flg != null" >
+        flg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ukid != null" >
+        #{ukid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="flg != null" >
+        #{flg,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.UserKl" >
+    update fa_userkl
+    <set >
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="flg != null" >
+        flg = #{flg,jdbcType=INTEGER},
+      </if>
+    </set>
+    where UkID = #{ukid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.UserKl" >
+    update fa_userkl
+    set UserID = #{userid,jdbcType=BIGINT},
+      flg = #{flg,jdbcType=INTEGER}
+    where UkID = #{ukid,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from fa_userkl
+    where UserID = #{userid,jdbcType=BIGINT}
+  </select>
+
+</mapper>
