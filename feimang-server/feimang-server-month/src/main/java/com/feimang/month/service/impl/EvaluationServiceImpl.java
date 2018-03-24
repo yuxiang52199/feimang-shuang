@@ -83,23 +83,35 @@ public class EvaluationServiceImpl implements IEvaluationService {
         if(assignmentVo == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
+        /**
+         * 判断集合是否为空：CollectionUtils.isEmpty
+         */
         if(CollectionUtils.isEmpty(assignmentVo.getGbk2312Vos())||CollectionUtils.isEmpty(assignmentVo.getQuestionsVos())){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-
+        /**
+         *  正确答案存入：27个问题中正确的==》userAnswer
+         *  把正确的答案在那个每个维度的最大值存入==》userKlStruct
+         *  记录用户答过某套题==》userQuestions
+         */
         List<UserAnswer> userAnswers=new ArrayList<>();
         UserAnswer userAnswer = new UserAnswer();
         List<UserKlStruct> userKlStructs = new ArrayList<>();
         UserQuestions userQuestions = new UserQuestions();
         userQuestions.setUserid(userId);
         userQuestions.setSuid(assignmentVo.getSuid());
-
+        /**
+         * 插入记录用户答过某题的记录==》问题，我看到了有当前时间这个字段，没有这个字段插入，如何放？？？插入的返回值？是代表‘插入是否失败’：uqid是插入的id号？
+         */
         int uqid=userQuestionsMapper.insertSelective(userQuestions);
 
         if(uqid<=0){
             return ServerResponse.createByErrorMessage("答题失败!");
         }
 
+        /**
+         * CollectionUtils.select：提取集合中字段；返回后台的文字都是认识的，则需要一个过程，知道有几个就可以了
+         */
         //region 认字题
         //获取认字题答对数量
         int gbk2312VoCount=((List<Gbk2312Vo>)CollectionUtils.select(assignmentVo.getGbk2312Vos(), new Predicate() {
@@ -130,9 +142,14 @@ public class EvaluationServiceImpl implements IEvaluationService {
 
         //region 选择题
 
-        //获取对应题库
+        //获取对应题库：某套题
         List<Questions> questions = questionsMapper.selectListBySuid(assignmentVo.getSuid());
-
+        /**
+         * QuestionsVo：题号和回答。实体对象遍历集合。因为对CollectionUtils.select不熟，大概理解que：用户答案；tempQue：标准答案
+         *  关于return 是根据 用户答题的id 和 正确的答案中问题id 一样 且答案一样的时候  ==》 返回数据
+         *  当有返回值的时候，说明用户回答正确：则把本题相对应的维度给用户赋值
+         *  关于赋值规则：当本题的某个维度大于用户此维度，则把题的维度赋值给用户
+         */
         for (QuestionsVo que:assignmentVo.getQuestionsVos()) {
 
             List<Questions> tempQuestions= (List<Questions>)CollectionUtils.select(questions, new Predicate() {
@@ -176,7 +193,11 @@ public class EvaluationServiceImpl implements IEvaluationService {
                     userAnswer.setkType10(tempQuestions.get(0).getkType10());
                 }
                 //endregion
+                /**
+                 * 这里应该有关于有正确答案的整条数据插入==》useranswer
+                 */
             }
+
 
         }
 

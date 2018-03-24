@@ -2,7 +2,7 @@ package com.feimang.month.vo;
 
 import java.util.List;
 
-public class AssignmentVo {
+    public class AssignmentVo {
 
     private List<Gbk2312Vo> gbk2312Vos;
 
