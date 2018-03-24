@@ -1,52 +1,61 @@
 package com.feimang.month.service.impl;
 
+import com.feimang.month.common.Const;
 import com.feimang.month.common.ResponseCode;
 import com.feimang.month.common.ServerResponse;
 import com.feimang.month.dao.*;
 import com.feimang.month.pojo.*;
 import com.feimang.month.service.IEvaluationService;
-import com.feimang.month.vo.AssignmentVo;
-import com.feimang.month.vo.EvaluationVo;
-import com.feimang.month.vo.Gbk2312Vo;
-import com.feimang.month.vo.QuestionsVo;
-import com.mysql.fabric.Server;
+import com.feimang.month.vo.*;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.AbstractDriverBasedDataSource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.plaf.synth.Region;
-import java.security.AuthProvider;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service("evaluationService")
 public class EvaluationServiceImpl implements IEvaluationService {
 
-//    @Autowired
-//    public Knowledge_TypeMapper knowledge_typeMapper;
+    //region 成员变量
+    @Autowired
+    private Gbk2312Mapper gbk2312Mapper;
 
     @Autowired
-    public Gbk2312Mapper gbk2312Mapper;
+    private QuestionsSuiteMapper questionsSuiteMapper;
 
     @Autowired
-    public QuestionsSuiteMapper questionsSuiteMapper;
+    private QuestionsMapper questionsMapper;
 
     @Autowired
-    public QuestionsMapper questionsMapper;
+    private UserQuestionsMapper userQuestionsMapper;
 
     @Autowired
-    public UserQuestionsMapper userQuestionsMapper;
+    private UserAnswerMapper userAnswerMapper;
 
     @Autowired
-    public UserAnswerMapper userAnswerMapper;
+    private UserKlStructMapper userKlStructMapper;
 
     @Autowired
-    public UserKlStructMapper userKlStructMapper;
+    private TagMapper tagMapper;
 
+    @Autowired
+    private UserKlMapper userKlMapper;
 
+    @Autowired
+    private UserAbstructMapper userAbstructMapper;
+
+    @Autowired
+    private UserTagMapper userTagMapper;
+
+    //endregion
+
+    //region 测评部分
     /**
      * 随机获取一套试题
      * @param userId
@@ -79,6 +88,7 @@ public class EvaluationServiceImpl implements IEvaluationService {
      * @param assignmentVo
      * @return  com.feimang.month.common.ServerResponse
      */
+    @Transactional
     public ServerResponse postAssignment(Long userId,AssignmentVo assignmentVo){
         if(assignmentVo == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -260,9 +270,119 @@ public class EvaluationServiceImpl implements IEvaluationService {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
 
-        List<UserKlStruct> userKlStructs = userKlStructMapper.selectListByUserId(userId);
+        //获取最新一次的测评
+        UserQuestions userQuestions= userQuestionsMapper.selectLastByUserID(userId);
 
+        if(userQuestions==null||userQuestions.getUqid()==null||userQuestions.getUqid()==0){
+            return  ServerResponse.createByErrorMessage("请该用户先参加测评!");
+        }
+
+        //获取本次测评对应的结果
+        List<UserKlStruct> userKlStructs = userKlStructMapper.selectListByUQid(userQuestions.getUqid());
         return ServerResponse.createBySuccess(userKlStructs);
     }
+
+    //endregion
+
+    //region 生成计划方向
+
+    /**
+     * 根据生成计划方向表选 选出标签
+     * @param userId
+     * @param flg
+     * @return  com.feimang.month.common.ServerResponse
+     */
+    public ServerResponse getTagByKlFlg(Long userId,Integer flg){
+
+        if(userId == null||flg==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        //获取最新一次的测评
+        UserQuestions userQuestions= userQuestionsMapper.selectLastByUserID(userId);
+
+        if(userQuestions==null||userQuestions.getUqid()==null||userQuestions.getUqid()==0){
+            return  ServerResponse.createByErrorMessage("请该用户先参加测评!");
+        }
+        //获取本次测评对应的结果
+        List<UserKlStruct> userKlStructs = userKlStructMapper.selectListByUQid(userQuestions.getUqid());
+        //按得分排序
+        Collections.sort(userKlStructs, new Comparator<UserKlStruct>() {
+            @Override
+            public int compare(UserKlStruct o1, UserKlStruct o2) {
+                return o1.getScore().compareTo(o2.getScore());
+            }
+        });
+
+        //取长
+        if(flg== Const.KLFlg.KL_LENGTH.getCode()){
+            //获取前三个维度
+            List<UserKlStruct> tempList=userKlStructs.subList(0,3);
+            for (UserKlStruct struct:tempList
+                 ) {
+                List<Tag> tags=tagMapper.selectListByPrimaryKlid(struct.getKlid());
+                struct.getKnowledge_type().setTags(tags);
+
+            }
+            return ServerResponse.createBySuccess(tempList);
+        }
+        //补短
+        if(flg== Const.KLFlg.KL_SHORT.getCode()){
+            //获取后三个维度
+            List<UserKlStruct> tempList=userKlStructs.subList(7,9);
+            for (UserKlStruct struct:tempList
+                    ) {
+                List<Tag> tags=tagMapper.selectListByPrimaryKlid(struct.getKlid());
+                struct.getKnowledge_type().setTags(tags);
+
+            }
+            return ServerResponse.createBySuccess(tempList);
+        }
+        //自定义
+        if(flg== Const.KLFlg.KL_CUSTOM.getCode()){
+            //获取所有维度
+            for (UserKlStruct struct:userKlStructs
+                    ) {
+                List<Tag> tags=tagMapper.selectListByPrimaryKlid(struct.getKlid());
+                struct.getKnowledge_type().setTags(tags);
+
+            }
+            return ServerResponse.createBySuccess(userKlStructs);
+        }
+        return ServerResponse.createByErrorMessage("获取失败!");
+    }
+
+
+    /**
+     * 提交生成计划方向
+     * @param klResultVo
+     * @return  com.feimang.month.common.ServerResponse
+     */
+    @Transactional
+    public ServerResponse postKlResult(Long userId,KlResultVo klResultVo){
+
+        if(klResultVo==null||klResultVo.getUserAbstruct()==null||klResultVo.getUserKl()==null||CollectionUtils.isEmpty(klResultVo.getUserTags()) ){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        //修改用户信息
+        userAbstructMapper.updateByPrimaryKeySelective(klResultVo.getUserAbstruct());
+
+        //设置选择计划方向
+        UserKl userKl=userKlMapper.selectByPrimaryKey(userId);
+        if(userKl==null){
+            userKlMapper.insertSelective(klResultVo.getUserKl());
+        }
+        else {
+            userKlMapper.updateByPrimaryKeySelective(klResultVo.getUserKl());
+        }
+        //设置标签
+        //删除历史选择
+        userTagMapper.deleteByUserId(userId);
+        //插入新选择的标签
+        userTagMapper.insertUserTagBatch(klResultVo.getUserTags());
+
+        return ServerResponse.createBySuccessMessage("提交成功！");
+    }
+
+    //endregion
 
 }

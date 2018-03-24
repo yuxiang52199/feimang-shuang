@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.BookLvMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.BookLv" >
+    <constructor >
+      <idArg column="LvID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BOOKID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="AGEtype_0_3" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AGEtype_4_6" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AGEtype_7_9" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AGEtype_10_12" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AGEtype_13_18" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AGEtype_19_28" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AGEtype_29_45" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AGEtype_46_60" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AGEtype_61" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SEXtype" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Levels" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type1" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type2" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type3" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type4" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type5" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type6" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type7" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type8" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type9" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="k_type10" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="qty_base" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="qty_now" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="describe" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LvID, BOOKID, AGEtype_0_3, AGEtype_4_6, AGEtype_7_9, AGEtype_10_12, AGEtype_13_18, 
+    AGEtype_19_28, AGEtype_29_45, AGEtype_46_60, AGEtype_61, SEXtype, Levels, k_type1, 
+    k_type2, k_type3, k_type4, k_type5, k_type6, k_type7, k_type8, k_type9, k_type10, 
+    qty_base, qty_now, describe
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_booklv
+    where LvID = #{lvid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_booklv
+    where LvID = #{lvid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.BookLv" >
+    insert into fa_booklv (LvID, BOOKID, AGEtype_0_3, 
+      AGEtype_4_6, AGEtype_7_9, AGEtype_10_12, 
+      AGEtype_13_18, AGEtype_19_28, AGEtype_29_45, 
+      AGEtype_46_60, AGEtype_61, SEXtype, 
+      Levels, k_type1, k_type2, 
+      k_type3, k_type4, k_type5, 
+      k_type6, k_type7, k_type8, 
+      k_type9, k_type10, qty_base, 
+      qty_now, describe)
+    values (#{lvid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, #{agetype03,jdbcType=INTEGER}, 
+      #{agetype46,jdbcType=INTEGER}, #{agetype79,jdbcType=INTEGER}, #{agetype1012,jdbcType=INTEGER}, 
+      #{agetype1318,jdbcType=INTEGER}, #{agetype1928,jdbcType=INTEGER}, #{agetype2945,jdbcType=INTEGER}, 
+      #{agetype4660,jdbcType=INTEGER}, #{agetype61,jdbcType=INTEGER}, #{sextype,jdbcType=INTEGER}, 
+      #{levels,jdbcType=INTEGER}, #{kType1,jdbcType=INTEGER}, #{kType2,jdbcType=INTEGER}, 
+      #{kType3,jdbcType=INTEGER}, #{kType4,jdbcType=INTEGER}, #{kType5,jdbcType=INTEGER}, 
+      #{kType6,jdbcType=INTEGER}, #{kType7,jdbcType=INTEGER}, #{kType8,jdbcType=INTEGER}, 
+      #{kType9,jdbcType=INTEGER}, #{kType10,jdbcType=INTEGER}, #{qtyBase,jdbcType=INTEGER}, 
+      #{qtyNow,jdbcType=INTEGER}, #{describe,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.BookLv" >
+    insert into fa_booklv
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lvid != null" >
+        LvID,
+      </if>
+      <if test="bookid != null" >
+        BOOKID,
+      </if>
+      <if test="agetype03 != null" >
+        AGEtype_0_3,
+      </if>
+      <if test="agetype46 != null" >
+        AGEtype_4_6,
+      </if>
+      <if test="agetype79 != null" >
+        AGEtype_7_9,
+      </if>
+      <if test="agetype1012 != null" >
+        AGEtype_10_12,
+      </if>
+      <if test="agetype1318 != null" >
+        AGEtype_13_18,
+      </if>
+      <if test="agetype1928 != null" >
+        AGEtype_19_28,
+      </if>
+      <if test="agetype2945 != null" >
+        AGEtype_29_45,
+      </if>
+      <if test="agetype4660 != null" >
+        AGEtype_46_60,
+      </if>
+      <if test="agetype61 != null" >
+        AGEtype_61,
+      </if>
+      <if test="sextype != null" >
+        SEXtype,
+      </if>
+      <if test="levels != null" >
+        Levels,
+      </if>
+      <if test="kType1 != null" >
+        k_type1,
+      </if>
+      <if test="kType2 != null" >
+        k_type2,
+      </if>
+      <if test="kType3 != null" >
+        k_type3,
+      </if>
+      <if test="kType4 != null" >
+        k_type4,
+      </if>
+      <if test="kType5 != null" >
+        k_type5,
+      </if>
+      <if test="kType6 != null" >
+        k_type6,
+      </if>
+      <if test="kType7 != null" >
+        k_type7,
+      </if>
+      <if test="kType8 != null" >
+        k_type8,
+      </if>
+      <if test="kType9 != null" >
+        k_type9,
+      </if>
+      <if test="kType10 != null" >
+        k_type10,
+      </if>
+      <if test="qtyBase != null" >
+        qty_base,
+      </if>
+      <if test="qtyNow != null" >
+        qty_now,
+      </if>
+      <if test="describe != null" >
+        describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lvid != null" >
+        #{lvid,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="agetype03 != null" >
+        #{agetype03,jdbcType=INTEGER},
+      </if>
+      <if test="agetype46 != null" >
+        #{agetype46,jdbcType=INTEGER},
+      </if>
+      <if test="agetype79 != null" >
+        #{agetype79,jdbcType=INTEGER},
+      </if>
+      <if test="agetype1012 != null" >
+        #{agetype1012,jdbcType=INTEGER},
+      </if>
+      <if test="agetype1318 != null" >
+        #{agetype1318,jdbcType=INTEGER},
+      </if>
+      <if test="agetype1928 != null" >
+        #{agetype1928,jdbcType=INTEGER},
+      </if>
+      <if test="agetype2945 != null" >
+        #{agetype2945,jdbcType=INTEGER},
+      </if>
+      <if test="agetype4660 != null" >
+        #{agetype4660,jdbcType=INTEGER},
+      </if>
+      <if test="agetype61 != null" >
+        #{agetype61,jdbcType=INTEGER},
+      </if>
+      <if test="sextype != null" >
+        #{sextype,jdbcType=INTEGER},
+      </if>
+      <if test="levels != null" >
+        #{levels,jdbcType=INTEGER},
+      </if>
+      <if test="kType1 != null" >
+        #{kType1,jdbcType=INTEGER},
+      </if>
+      <if test="kType2 != null" >
+        #{kType2,jdbcType=INTEGER},
+      </if>
+      <if test="kType3 != null" >
+        #{kType3,jdbcType=INTEGER},
+      </if>
+      <if test="kType4 != null" >
+        #{kType4,jdbcType=INTEGER},
+      </if>
+      <if test="kType5 != null" >
+        #{kType5,jdbcType=INTEGER},
+      </if>
+      <if test="kType6 != null" >
+        #{kType6,jdbcType=INTEGER},
+      </if>
+      <if test="kType7 != null" >
+        #{kType7,jdbcType=INTEGER},
+      </if>
+      <if test="kType8 != null" >
+        #{kType8,jdbcType=INTEGER},
+      </if>
+      <if test="kType9 != null" >
+        #{kType9,jdbcType=INTEGER},
+      </if>
+      <if test="kType10 != null" >
+        #{kType10,jdbcType=INTEGER},
+      </if>
+      <if test="qtyBase != null" >
+        #{qtyBase,jdbcType=INTEGER},
+      </if>
+      <if test="qtyNow != null" >
+        #{qtyNow,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.BookLv" >
+    update fa_booklv
+    <set >
+      <if test="bookid != null" >
+        BOOKID = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="agetype03 != null" >
+        AGEtype_0_3 = #{agetype03,jdbcType=INTEGER},
+      </if>
+      <if test="agetype46 != null" >
+        AGEtype_4_6 = #{agetype46,jdbcType=INTEGER},
+      </if>
+      <if test="agetype79 != null" >
+        AGEtype_7_9 = #{agetype79,jdbcType=INTEGER},
+      </if>
+      <if test="agetype1012 != null" >
+        AGEtype_10_12 = #{agetype1012,jdbcType=INTEGER},
+      </if>
+      <if test="agetype1318 != null" >
+        AGEtype_13_18 = #{agetype1318,jdbcType=INTEGER},
+      </if>
+      <if test="agetype1928 != null" >
+        AGEtype_19_28 = #{agetype1928,jdbcType=INTEGER},
+      </if>
+      <if test="agetype2945 != null" >
+        AGEtype_29_45 = #{agetype2945,jdbcType=INTEGER},
+      </if>
+      <if test="agetype4660 != null" >
+        AGEtype_46_60 = #{agetype4660,jdbcType=INTEGER},
+      </if>
+      <if test="agetype61 != null" >
+        AGEtype_61 = #{agetype61,jdbcType=INTEGER},
+      </if>
+      <if test="sextype != null" >
+        SEXtype = #{sextype,jdbcType=INTEGER},
+      </if>
+      <if test="levels != null" >
+        Levels = #{levels,jdbcType=INTEGER},
+      </if>
+      <if test="kType1 != null" >
+        k_type1 = #{kType1,jdbcType=INTEGER},
+      </if>
+      <if test="kType2 != null" >
+        k_type2 = #{kType2,jdbcType=INTEGER},
+      </if>
+      <if test="kType3 != null" >
+        k_type3 = #{kType3,jdbcType=INTEGER},
+      </if>
+      <if test="kType4 != null" >
+        k_type4 = #{kType4,jdbcType=INTEGER},
+      </if>
+      <if test="kType5 != null" >
+        k_type5 = #{kType5,jdbcType=INTEGER},
+      </if>
+      <if test="kType6 != null" >
+        k_type6 = #{kType6,jdbcType=INTEGER},
+      </if>
+      <if test="kType7 != null" >
+        k_type7 = #{kType7,jdbcType=INTEGER},
+      </if>
+      <if test="kType8 != null" >
+        k_type8 = #{kType8,jdbcType=INTEGER},
+      </if>
+      <if test="kType9 != null" >
+        k_type9 = #{kType9,jdbcType=INTEGER},
+      </if>
+      <if test="kType10 != null" >
+        k_type10 = #{kType10,jdbcType=INTEGER},
+      </if>
+      <if test="qtyBase != null" >
+        qty_base = #{qtyBase,jdbcType=INTEGER},
+      </if>
+      <if test="qtyNow != null" >
+        qty_now = #{qtyNow,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LvID = #{lvid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.BookLv" >
+    update fa_booklv
+    set BOOKID = #{bookid,jdbcType=BIGINT},
+      AGEtype_0_3 = #{agetype03,jdbcType=INTEGER},
+      AGEtype_4_6 = #{agetype46,jdbcType=INTEGER},
+      AGEtype_7_9 = #{agetype79,jdbcType=INTEGER},
+      AGEtype_10_12 = #{agetype1012,jdbcType=INTEGER},
+      AGEtype_13_18 = #{agetype1318,jdbcType=INTEGER},
+      AGEtype_19_28 = #{agetype1928,jdbcType=INTEGER},
+      AGEtype_29_45 = #{agetype2945,jdbcType=INTEGER},
+      AGEtype_46_60 = #{agetype4660,jdbcType=INTEGER},
+      AGEtype_61 = #{agetype61,jdbcType=INTEGER},
+      SEXtype = #{sextype,jdbcType=INTEGER},
+      Levels = #{levels,jdbcType=INTEGER},
+      k_type1 = #{kType1,jdbcType=INTEGER},
+      k_type2 = #{kType2,jdbcType=INTEGER},
+      k_type3 = #{kType3,jdbcType=INTEGER},
+      k_type4 = #{kType4,jdbcType=INTEGER},
+      k_type5 = #{kType5,jdbcType=INTEGER},
+      k_type6 = #{kType6,jdbcType=INTEGER},
+      k_type7 = #{kType7,jdbcType=INTEGER},
+      k_type8 = #{kType8,jdbcType=INTEGER},
+      k_type9 = #{kType9,jdbcType=INTEGER},
+      k_type10 = #{kType10,jdbcType=INTEGER},
+      qty_base = #{qtyBase,jdbcType=INTEGER},
+      qty_now = #{qtyNow,jdbcType=INTEGER},
+      describe = #{describe,jdbcType=VARCHAR}
+    where LvID = #{lvid,jdbcType=BIGINT}
+  </update>
+</mapper>

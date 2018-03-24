@@ -20,5 +20,5 @@ public interface UserKlStructMapper {
 
     void insertUserKlStructBatch(@Param("userBooks") List<UserKlStruct> userKlStructList);
 
-    List<UserKlStruct> selectListByUserId(Long userId);
+    List<UserKlStruct> selectListByUQid(Integer uqid);
 }

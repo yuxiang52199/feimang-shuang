@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.OrderProductRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.OrderProductRelation" >
+    <constructor >
+      <idArg column="O_P_RelationID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UserID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Order_Number" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Relation_Number" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Relation_Status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Receiving_Number" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Receiving_Type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Receiving_City" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Receiving_Address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Receiving_Phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Receiving_Name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Receiving_Time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="Delivery_Time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    O_P_RelationID, UserID, Order_Number, Relation_Number, Relation_Status, Receiving_Number, 
+    Receiving_Type, Receiving_City, Receiving_Address, Receiving_Phone, Receiving_Name, 
+    Receiving_Time, Delivery_Time, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_order_product_relation
+    where O_P_RelationID = #{oPRelationid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_order_product_relation
+    where O_P_RelationID = #{oPRelationid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.OrderProductRelation" >
+    insert into fa_order_product_relation (O_P_RelationID, UserID, Order_Number, 
+      Relation_Number, Relation_Status, Receiving_Number, 
+      Receiving_Type, Receiving_City, Receiving_Address, 
+      Receiving_Phone, Receiving_Name, Receiving_Time, 
+      Delivery_Time, CreateTime)
+    values (#{oPRelationid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{relationNumber,jdbcType=INTEGER}, #{relationStatus,jdbcType=INTEGER}, #{receivingNumber,jdbcType=VARCHAR}, 
+      #{receivingType,jdbcType=INTEGER}, #{receivingCity,jdbcType=VARCHAR}, #{receivingAddress,jdbcType=VARCHAR}, 
+      #{receivingPhone,jdbcType=VARCHAR}, #{receivingName,jdbcType=VARCHAR}, #{receivingTime,jdbcType=TIMESTAMP}, 
+      #{deliveryTime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.OrderProductRelation"  keyProperty="oPRelationid"
+          keyColumn="O_P_RelationID" useGeneratedKeys="true">
+    insert into fa_order_product_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oPRelationid != null" >
+        O_P_RelationID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="orderNumber != null" >
+        Order_Number,
+      </if>
+      <if test="relationNumber != null" >
+        Relation_Number,
+      </if>
+      <if test="relationStatus != null" >
+        Relation_Status,
+      </if>
+      <if test="receivingNumber != null" >
+        Receiving_Number,
+      </if>
+      <if test="receivingType != null" >
+        Receiving_Type,
+      </if>
+      <if test="receivingCity != null" >
+        Receiving_City,
+      </if>
+      <if test="receivingAddress != null" >
+        Receiving_Address,
+      </if>
+      <if test="receivingPhone != null" >
+        Receiving_Phone,
+      </if>
+      <if test="receivingName != null" >
+        Receiving_Name,
+      </if>
+      <if test="receivingTime != null" >
+        Receiving_Time,
+      </if>
+      <if test="deliveryTime != null" >
+        Delivery_Time,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oPRelationid != null" >
+        #{oPRelationid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="relationNumber != null" >
+        #{relationNumber,jdbcType=INTEGER},
+      </if>
+      <if test="relationStatus != null" >
+        #{relationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="receivingNumber != null" >
+        #{receivingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingType != null" >
+        #{receivingType,jdbcType=INTEGER},
+      </if>
+      <if test="receivingCity != null" >
+        #{receivingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null" >
+        #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingPhone != null" >
+        #{receivingPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingName != null" >
+        #{receivingName,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingTime != null" >
+        #{receivingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.OrderProductRelation" >
+    update fa_order_product_relation
+    <set >
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        Order_Number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="relationNumber != null" >
+        Relation_Number = #{relationNumber,jdbcType=INTEGER},
+      </if>
+      <if test="relationStatus != null" >
+        Relation_Status = #{relationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="receivingNumber != null" >
+        Receiving_Number = #{receivingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingType != null" >
+        Receiving_Type = #{receivingType,jdbcType=INTEGER},
+      </if>
+      <if test="receivingCity != null" >
+        Receiving_City = #{receivingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null" >
+        Receiving_Address = #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingPhone != null" >
+        Receiving_Phone = #{receivingPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingName != null" >
+        Receiving_Name = #{receivingName,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingTime != null" >
+        Receiving_Time = #{receivingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryTime != null" >
+        Delivery_Time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where O_P_RelationID = #{oPRelationid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.OrderProductRelation" >
+    update fa_order_product_relation
+    set UserID = #{userid,jdbcType=BIGINT},
+      Order_Number = #{orderNumber,jdbcType=VARCHAR},
+      Relation_Number = #{relationNumber,jdbcType=INTEGER},
+      Relation_Status = #{relationStatus,jdbcType=INTEGER},
+      Receiving_Number = #{receivingNumber,jdbcType=VARCHAR},
+      Receiving_Type = #{receivingType,jdbcType=INTEGER},
+      Receiving_City = #{receivingCity,jdbcType=VARCHAR},
+      Receiving_Address = #{receivingAddress,jdbcType=VARCHAR},
+      Receiving_Phone = #{receivingPhone,jdbcType=VARCHAR},
+      Receiving_Name = #{receivingName,jdbcType=VARCHAR},
+      Receiving_Time = #{receivingTime,jdbcType=TIMESTAMP},
+      Delivery_Time = #{deliveryTime,jdbcType=TIMESTAMP},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where O_P_RelationID = #{oPRelationid,jdbcType=BIGINT}
+  </update>
+</mapper>

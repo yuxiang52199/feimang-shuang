@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.BookTagRelMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.BookTagRel" >
+    <constructor >
+      <idArg column="TBID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="TagID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BookID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BookWeight" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TBID, TagID, BookID, BookWeight, CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_booktagrel
+    where TBID = #{tbid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_booktagrel
+    where TBID = #{tbid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.BookTagRel" >
+    insert into fa_booktagrel (TBID, TagID, BookID, 
+      BookWeight, CreateTime)
+    values (#{tbid,jdbcType=BIGINT}, #{tagid,jdbcType=INTEGER}, #{bookid,jdbcType=BIGINT}, 
+      #{bookweight,jdbcType=REAL}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.BookTagRel" >
+    insert into fa_booktagrel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tbid != null" >
+        TBID,
+      </if>
+      <if test="tagid != null" >
+        TagID,
+      </if>
+      <if test="bookid != null" >
+        BookID,
+      </if>
+      <if test="bookweight != null" >
+        BookWeight,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tbid != null" >
+        #{tbid,jdbcType=BIGINT},
+      </if>
+      <if test="tagid != null" >
+        #{tagid,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="bookweight != null" >
+        #{bookweight,jdbcType=REAL},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.BookTagRel" >
+    update fa_booktagrel
+    <set >
+      <if test="tagid != null" >
+        TagID = #{tagid,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        BookID = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="bookweight != null" >
+        BookWeight = #{bookweight,jdbcType=REAL},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TBID = #{tbid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.BookTagRel" >
+    update fa_booktagrel
+    set TagID = #{tagid,jdbcType=INTEGER},
+      BookID = #{bookid,jdbcType=BIGINT},
+      BookWeight = #{bookweight,jdbcType=REAL},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP}
+    where TBID = #{tbid,jdbcType=BIGINT}
+  </update>
+</mapper>

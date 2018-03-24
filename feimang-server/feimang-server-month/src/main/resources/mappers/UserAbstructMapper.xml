@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.UserAbstructMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.UserAbstruct" >
+    <constructor >
+      <idArg column="UaID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UserID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="NickName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserHead" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BirthDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="Sex" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="VocationID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Reading_v" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Receiving_City" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Receiving_Address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Receiving_Phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Receiving_Name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OpenID" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UaID, UserID, NickName, UserHead, BirthDate, Sex, VocationID, Reading_v, Receiving_City, 
+    Receiving_Address, Receiving_Phone, Receiving_Name, OpenID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_userabstruct
+    where UaID = #{uaid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_userabstruct
+    where UaID = #{uaid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.UserAbstruct" >
+    insert into fa_userabstruct (UaID, UserID, NickName, 
+      UserHead, BirthDate, Sex, 
+      VocationID, Reading_v, Receiving_City, 
+      Receiving_Address, Receiving_Phone, Receiving_Name, 
+      OpenID)
+    values (#{uaid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, 
+      #{userhead,jdbcType=VARCHAR}, #{birthdate,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER}, 
+      #{vocationid,jdbcType=INTEGER}, #{readingV,jdbcType=INTEGER}, #{receivingCity,jdbcType=VARCHAR}, 
+      #{receivingAddress,jdbcType=VARCHAR}, #{receivingPhone,jdbcType=VARCHAR}, #{receivingName,jdbcType=VARCHAR}, 
+      #{openid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.UserAbstruct" >
+    insert into fa_userabstruct
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uaid != null" >
+        UaID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="nickname != null" >
+        NickName,
+      </if>
+      <if test="userhead != null" >
+        UserHead,
+      </if>
+      <if test="birthdate != null" >
+        BirthDate,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="vocationid != null" >
+        VocationID,
+      </if>
+      <if test="readingV != null" >
+        Reading_v,
+      </if>
+      <if test="receivingCity != null" >
+        Receiving_City,
+      </if>
+      <if test="receivingAddress != null" >
+        Receiving_Address,
+      </if>
+      <if test="receivingPhone != null" >
+        Receiving_Phone,
+      </if>
+      <if test="receivingName != null" >
+        Receiving_Name,
+      </if>
+      <if test="openid != null" >
+        OpenID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uaid != null" >
+        #{uaid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userhead != null" >
+        #{userhead,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null" >
+        #{birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="vocationid != null" >
+        #{vocationid,jdbcType=INTEGER},
+      </if>
+      <if test="readingV != null" >
+        #{readingV,jdbcType=INTEGER},
+      </if>
+      <if test="receivingCity != null" >
+        #{receivingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null" >
+        #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingPhone != null" >
+        #{receivingPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingName != null" >
+        #{receivingName,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.UserAbstruct" >
+    update fa_userabstruct
+    <set >
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="nickname != null" >
+        NickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userhead != null" >
+        UserHead = #{userhead,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null" >
+        BirthDate = #{birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="vocationid != null" >
+        VocationID = #{vocationid,jdbcType=INTEGER},
+      </if>
+      <if test="readingV != null" >
+        Reading_v = #{readingV,jdbcType=INTEGER},
+      </if>
+      <if test="receivingCity != null" >
+        Receiving_City = #{receivingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null" >
+        Receiving_Address = #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingPhone != null" >
+        Receiving_Phone = #{receivingPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingName != null" >
+        Receiving_Name = #{receivingName,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        OpenID = #{openid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UaID = #{uaid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.UserAbstruct" >
+    update fa_userabstruct
+    set UserID = #{userid,jdbcType=BIGINT},
+      NickName = #{nickname,jdbcType=VARCHAR},
+      UserHead = #{userhead,jdbcType=VARCHAR},
+      BirthDate = #{birthdate,jdbcType=TIMESTAMP},
+      Sex = #{sex,jdbcType=INTEGER},
+      VocationID = #{vocationid,jdbcType=INTEGER},
+      Reading_v = #{readingV,jdbcType=INTEGER},
+      Receiving_City = #{receivingCity,jdbcType=VARCHAR},
+      Receiving_Address = #{receivingAddress,jdbcType=VARCHAR},
+      Receiving_Phone = #{receivingPhone,jdbcType=VARCHAR},
+      Receiving_Name = #{receivingName,jdbcType=VARCHAR},
+      OpenID = #{openid,jdbcType=VARCHAR}
+    where UaID = #{uaid,jdbcType=BIGINT}
+  </update>
+</mapper>

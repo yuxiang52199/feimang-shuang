@@ -4,10 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/feimang-client/feimang-client.iml" filepath="$PROJECT_DIR$/feimang-client/feimang-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/feimang-client/feimang-client-app/feimang-client-app.iml" filepath="$PROJECT_DIR$/feimang-client/feimang-client-app/feimang-client-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/feimang-client/feimang-client-monthread/feimang-client-monthread.iml" filepath="$PROJECT_DIR$/feimang-client/feimang-client-monthread/feimang-client-monthread.iml" />
       <module fileurl="file://$PROJECT_DIR$/feimang-eureka/feimang-eureka.iml" filepath="$PROJECT_DIR$/feimang-eureka/feimang-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/feimang-server/feimang-server.iml" filepath="$PROJECT_DIR$/feimang-server/feimang-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/feimang-server/feimang-server-book/feimang-server-book.iml" filepath="$PROJECT_DIR$/feimang-server/feimang-server-book/feimang-server-book.iml" />
       <module fileurl="file://$PROJECT_DIR$/feimang-server/feimang-server-clubstudy/feimang-server-clubstudy.iml" filepath="$PROJECT_DIR$/feimang-server/feimang-server-clubstudy/feimang-server-clubstudy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/feimang-server/feimang-server-month/feimang-server-month.iml" filepath="$PROJECT_DIR$/feimang-server/feimang-server-month/feimang-server-month.iml" />
       <module fileurl="file://$PROJECT_DIR$/feimang-server/feimang-server-user/feimang-server-user.iml" filepath="$PROJECT_DIR$/feimang-server/feimang-server-user/feimang-server-user.iml" />
       <module fileurl="file://$PROJECT_DIR$/feimang-server/feimang-server-userstudy/feimang-server-userstudy.iml" filepath="$PROJECT_DIR$/feimang-server/feimang-server-userstudy/feimang-server-userstudy.iml" />
       <module fileurl="file://$PROJECT_DIR$/feimang-shuang.iml" filepath="$PROJECT_DIR$/feimang-shuang.iml" />

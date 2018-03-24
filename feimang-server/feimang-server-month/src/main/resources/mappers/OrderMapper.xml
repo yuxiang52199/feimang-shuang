@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feimang.month.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.feimang.month.pojo.Order" >
+    <constructor >
+      <idArg column="OrderID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UserId" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Order_Number" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ProductID" jdbcType="INTEGER" javaType="java.lang.Long" />
+      <arg column="Pay_Platform" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Platform_Number" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Platform_Status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UpdateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OrderID, UserId, Order_Number, ProductID, Pay_Platform, Platform_Number, Platform_Status, 
+    CreateTime, UpdateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fa_order
+    where OrderID = #{orderid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fa_order
+    where OrderID = #{orderid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.feimang.month.pojo.Order" >
+    insert into fa_order (OrderID, UserId, Order_Number, 
+      ProductID, Pay_Platform, Platform_Number, 
+      Platform_Status, CreateTime, UpdateTime
+      )
+    values (#{orderid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{productid,jdbcType=INTEGER}, #{payPlatform,jdbcType=INTEGER}, #{platformNumber,jdbcType=VARCHAR},
+      #{platformStatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.feimang.month.pojo.Order" >
+    insert into fa_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        OrderID,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="orderNumber != null" >
+        Order_Number,
+      </if>
+      <if test="productid != null" >
+        ProductID,
+      </if>
+      <if test="payPlatform != null" >
+        Pay_Platform,
+      </if>
+      <if test="platformNumber != null" >
+        Platform_Number,
+      </if>
+      <if test="platformStatus != null" >
+        Platform_Status,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="payPlatform != null" >
+        #{payPlatform,jdbcType=INTEGER},
+      </if>
+      <if test="platformNumber != null" >
+        #{platformNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="platformStatus != null" >
+        #{platformStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feimang.month.pojo.Order" >
+    update fa_order
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        Order_Number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        ProductID = #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="payPlatform != null" >
+        Pay_Platform = #{payPlatform,jdbcType=INTEGER},
+      </if>
+      <if test="platformNumber != null" >
+        Platform_Number = #{platformNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="platformStatus != null" >
+        Platform_Status = #{platformStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where OrderID = #{orderid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feimang.month.pojo.Order" >
+    update fa_order
+    set UserId = #{userid,jdbcType=BIGINT},
+      Order_Number = #{orderNumber,jdbcType=VARCHAR},
+      ProductID = #{productid,jdbcType=INTEGER},
+      Pay_Platform = #{payPlatform,jdbcType=INTEGER},
+      Platform_Number = #{platformNumber,jdbcType=VARCHAR},
+      Platform_Status = #{platformStatus,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where OrderID = #{orderid,jdbcType=BIGINT}
+  </update>
+</mapper>
