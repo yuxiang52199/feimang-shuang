@@ -7,6 +7,8 @@ public class OrderBooksRelation {
 
     private Long oPRelationid;
 
+    private Long userid;
+
     private Long bookid;
 
     private Integer relationStatus;
@@ -39,6 +41,14 @@ public class OrderBooksRelation {
 
     public void setoPRelationid(Long oPRelationid) {
         this.oPRelationid = oPRelationid;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
     public Long getBookid() {

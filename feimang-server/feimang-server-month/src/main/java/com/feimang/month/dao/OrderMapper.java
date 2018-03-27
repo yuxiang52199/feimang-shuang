@@ -2,6 +2,8 @@ package com.feimang.month.dao;
 
 import com.feimang.month.pojo.Order;
 
+import java.util.HashMap;
+
 public interface OrderMapper {
     int deleteByPrimaryKey(Long orderid);
 
@@ -14,4 +16,7 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    Order selectByMap(HashMap map);
+
 }
