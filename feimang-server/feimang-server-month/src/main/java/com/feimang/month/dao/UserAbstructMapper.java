@@ -14,4 +14,6 @@ public interface UserAbstructMapper {
     int updateByPrimaryKeySelective(UserAbstruct record);
 
     int updateByPrimaryKey(UserAbstruct record);
+
+    UserAbstruct selectByUserId(Long userId);
 }

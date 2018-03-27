@@ -141,21 +141,4 @@
       UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
     where OrderID = #{orderid,jdbcType=BIGINT}
   </update>
-
-  <select id="selectByMap" resultMap="BaseResultMap" parameterType="map" >
-    select
-    <include refid="Base_Column_List" />
-    from fa_order
-    <where>
-      <if test="userid != null">
-        UserID = #{userid}
-      </if>
-      <if test="orderNumber != null">
-        AND rder_Number = #{orderNumber}
-      </if>
-      <if test="platformStatus != null ">
-        AND Platform_Status = #{platformStatus}
-      </if>
-    </where>
-  </select>
 </mapper>

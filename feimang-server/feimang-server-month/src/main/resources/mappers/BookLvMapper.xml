@@ -340,6 +340,4 @@
       describe = #{describe,jdbcType=VARCHAR}
     where LvID = #{lvid,jdbcType=BIGINT}
   </update>
-
-
 </mapper>

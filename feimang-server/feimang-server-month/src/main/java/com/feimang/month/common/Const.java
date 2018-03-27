@@ -83,7 +83,7 @@ public class Const {
             return value;
         }
     }
-    public enum ProductRelationStatus{
+    public enum RelationStatus{
         RelationStatus_NO(0,"未确认"),
         RelationStatus_YES(1,"已确认"),
         RelationStatus_DELIVER(2,"已发货"),
@@ -91,27 +91,7 @@ public class Const {
         RelationStatus_COMPLETE(4,"已完成");
         private String value;
         private int code;
-        ProductRelationStatus(int code,String value){
-            this.code = code;
-            this.value = value;
-        }
-
-        public int getCode() {
-            return code;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-
-    public enum BookRelationStatus{
-        RelationStatus_UNREAD(0,"未读"),
-        RelationStatus_READING(1,"正在读"),
-        RelationStatus_READ(2,"已读");
-        private String value;
-        private int code;
-        BookRelationStatus(int code,String value){
+        RelationStatus(int code,String value){
             this.code = code;
             this.value = value;
         }

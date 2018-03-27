@@ -2,8 +2,6 @@ package com.feimang.month.dao;
 
 import com.feimang.month.pojo.OrderProductRelation;
 
-import java.util.List;
-
 public interface OrderProductRelationMapper {
     int deleteByPrimaryKey(Long oPRelationid);
 
@@ -16,7 +14,4 @@ public interface OrderProductRelationMapper {
     int updateByPrimaryKeySelective(OrderProductRelation record);
 
     int updateByPrimaryKey(OrderProductRelation record);
-
-    List<OrderProductRelation> selectListByOrderNumber(String orderNumber);
-
 }

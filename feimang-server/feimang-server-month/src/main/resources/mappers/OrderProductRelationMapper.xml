@@ -200,10 +200,4 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where O_P_RelationID = #{oPRelationid,jdbcType=BIGINT}
   </update>
-  <select id="selectListByOrderNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
-    from fa_order_product_relation
-    where Order_Number = #{orderNumber}
-  </select>
 </mapper>
