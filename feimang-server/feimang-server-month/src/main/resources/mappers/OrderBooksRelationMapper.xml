@@ -5,13 +5,14 @@
     <constructor >
       <idArg column="O_B_RelationID" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="O_P_RelationID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="UserID" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="BookID" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="Relation_Status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="CreateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    O_B_RelationID, O_P_RelationID, BookID, Relation_Status, CreateTime
+    O_B_RelationID, O_P_RelationID,UserID, BookID, Relation_Status, CreateTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -24,9 +25,9 @@
     where O_B_RelationID = #{oBRelationid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.feimang.month.pojo.OrderBooksRelation" >
-    insert into fa_order_books_relation (O_B_RelationID, O_P_RelationID, BookID, 
+    insert into fa_order_books_relation (O_B_RelationID, O_P_RelationID,UserID, BookID,
       Relation_Status, CreateTime)
-    values (#{oBRelationid,jdbcType=BIGINT}, #{oPRelationid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, 
+    values (#{oBRelationid,jdbcType=BIGINT}, #{oPRelationid,jdbcType=BIGINT},#{userid,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT},
       #{relationStatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.feimang.month.pojo.OrderBooksRelation" >
@@ -37,6 +38,9 @@
       </if>
       <if test="oPRelationid != null" >
         O_P_RelationID,
+      </if>
+      <if test="userid != null" >
+        UserID,
       </if>
       <if test="bookid != null" >
         BookID,
@@ -55,6 +59,9 @@
       <if test="oPRelationid != null" >
         #{oPRelationid,jdbcType=BIGINT},
       </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
       <if test="bookid != null" >
         #{bookid,jdbcType=BIGINT},
       </if>
@@ -71,6 +78,9 @@
     <set >
       <if test="oPRelationid != null" >
         O_P_RelationID = #{oPRelationid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=BIGINT},
       </if>
       <if test="bookid != null" >
         BookID = #{bookid,jdbcType=BIGINT},
@@ -92,4 +102,28 @@
       CreateTime = #{createtime,jdbcType=TIMESTAMP}
     where O_B_RelationID = #{oBRelationid,jdbcType=BIGINT}
   </update>
+
+  <insert id="insertByFv_l" parameterType="map" >
+   insert into fa_order_books_relations(O_P_RelationID,UserID,BookID)
+   select #{oPRelationid},#{userid}, BookID from insertByFv_l
+   WHERE UserID =#{userid}
+   order by rand()
+   limit 4
+  </insert>
+
+  <insert id="insertByFv_S" parameterType="map" >
+    insert into fa_order_books_relations(O_P_RelationID,UserID,BookID)
+    select #{oPRelationid},#{userid}, BookID from insertByFv_S
+    WHERE UserID =#{userid}
+    order by rand()
+    limit 4
+  </insert>
+
+  <insert id="insertByFv_u" parameterType="map" >
+    insert into fa_order_books_relations(O_P_RelationID,UserID,BookID)
+    select #{oPRelationid},#{userid}, BookID from insertByFv_u
+    WHERE UserID =#{userid}
+    order by rand()
+    limit 4
+  </insert>
 </mapper>
