@@ -30,17 +30,17 @@ public class pageController {
 
 
 
-    /**
-     * 首页
-     * @return
-     */
-    @RequestMapping("/")
-    public String page(){
-
-        System.out.println(wechatMpProperties.toString());
-
-        return "system/index";
-    }
+//    /**
+//     * 首页
+//     * @return
+//     */
+//    @RequestMapping("/")
+//    public String page(){
+//
+//        System.out.println(wechatMpProperties.toString());
+//
+//        return "system/index";
+//    }
 
 
     /**
