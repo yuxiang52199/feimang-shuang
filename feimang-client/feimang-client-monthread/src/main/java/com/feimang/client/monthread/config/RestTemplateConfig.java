@@ -51,7 +51,7 @@ public class RestTemplateConfig{
             }
         }
         messageConverters.add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
-        session
+        //session
         return restTemplate;
     }
 }

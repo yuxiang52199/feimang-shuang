@@ -3,7 +3,9 @@ package com.feimang.client.monthread.controller;
 import com.feimang.client.monthread.config.WebSecurityConfig;
 
 import com.feimang.client.monthread.pojo.ResultVo;
+import com.feimang.client.monthread.pojo.UserAbstruct;
 import com.feimang.client.monthread.pojo.UserStudy;
+import com.feimang.client.monthread.service.MonthUserService;
 import com.feimang.client.monthread.vo.UserStudyVo;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -28,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -40,7 +44,10 @@ public class EvaluationController {
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
-    protected WxMpService wxMpService;
+    private WxMpService wxMpService;
+
+    @Autowired
+    private MonthUserService monthUserService;
 
     /**
      * 测评首页
@@ -65,9 +72,11 @@ public class EvaluationController {
             //数据转换器
             ObjectMapper mapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
             mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
+            Map<String, String> map = new HashMap<>();
+            map.put("thirduserid", wxMpUser.getOpenId());
+            map.put("unionid", wxMpUser.getUnionId());
             //判断用户是否存在
-            ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://apis.feimang.com/api/FM_UserStudy/GetUserStudyByWXUserID?thirduserid=oUV0dt8PCHuxyBsAu4lxJKF21NLI&unionid=okR1Lt7znbRHVC9cDl5fIbr7ilBs", String.class);
+            ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://apis.feimang.com/api/FM_UserStudy/GetUserStudyByWXUserID?thirduserid={thirduserid}&unionid={unionid}", String.class,map);
             UserStudyVo userStudyVo = mapper.readValue(responseEntity.getBody().toString(), UserStudyVo.class);
             String userId=null;
             if(userStudyVo.getUserStudy()==null){
@@ -88,11 +97,20 @@ public class EvaluationController {
                 userId=userStudyVo.getUserStudy().getUserID().toString();
             }
             //将用户信息注册到阅分库
+            UserAbstruct userAbstruct = new UserAbstruct();
+            userAbstruct.setNickname(wxMpUser.getNickname());
+            userAbstruct.setUserid(Long.parseLong(userId));
+            userAbstruct.setOpenid(wxMpUser.getOpenId());
+            int status= monthUserService.insertUserRegistration(userAbstruct).getStatus();
+            if(status!=0){
+                return "error";
+            }
 
             //保存到session中
             HttpSession session = request.getSession();
             session.setAttribute(WebSecurityConfig.SESSION_KEY,userId);
 
+            model.addAttribute("wxMpUser",wxMpUser);
             return "evaluation/index";
 
         } catch (WxErrorException e) {
@@ -101,7 +119,5 @@ public class EvaluationController {
             return "error";
         }
     }
-
-
 
 }

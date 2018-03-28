@@ -41,17 +41,18 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter{
     private class SecurityInterceptor extends HandlerInterceptorAdapter{
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object handler) throws IOException {
-            HttpSession session = request.getSession();
-            System.out.println("拦截url判断session");
-//            判断是否已有该用户登录的session
-            if(session.getAttribute(SESSION_KEY) != null){
-                return true;
-            }
-
-//            跳转到登录页
-            String url = "/error";
-            response.sendRedirect(url);
-            return false;
+            return true;
+//            HttpSession session = request.getSession();
+//            System.out.println("拦截url判断session");
+////            判断是否已有该用户登录的session
+//            if(session.getAttribute(SESSION_KEY) != null){
+//                return true;
+//            }
+//
+////            跳转到登录页
+//            String url = "/error";
+//            response.sendRedirect(url);
+//            return false;
         }
     }
 }

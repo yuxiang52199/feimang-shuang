@@ -21,10 +21,11 @@ public class UserServiceImpl implements IUserService {
     //用户注册
     public ServerResponse insertUserRegistration(UserAbstruct userAbstruct){
 
-        if(userAbstruct.getUserid() == null || userAbstruct.getBirthdate()==null ||userAbstruct.getSex()==null){
+        if(userAbstruct.getUserid() == null ){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
-        if(userAbstructMapper.selectByUserId(userAbstruct.getUserid())==null){
+//        System.out.println(userAbstructMapper.selectByUserId(userAbstruct.getUserid()));
+        if(userAbstructMapper.selectByUserId(userAbstruct.getUserid())!=null){
             return ServerResponse.createBySuccessMessage("已经注册");
         }
         userAbstructMapper.insertSelective(userAbstruct);

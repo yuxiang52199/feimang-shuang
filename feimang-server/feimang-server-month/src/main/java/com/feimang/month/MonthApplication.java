@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
 @MapperScan("com.feimang.month.dao")
-//@EnableDiscoveryClient
-//@EnableFeignClients
-
+@EnableDiscoveryClient
+@EnableFeignClients
 public class MonthApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder(
@@ -22,7 +21,6 @@ public class MonthApplication {
         // SpringApplication.run(UserApplication.class,args);
         //SpringBootApplication.run
         // SpringApplication.run(DemoApplication.class, args);
-
     }
 
     @GetMapping("/hello")
