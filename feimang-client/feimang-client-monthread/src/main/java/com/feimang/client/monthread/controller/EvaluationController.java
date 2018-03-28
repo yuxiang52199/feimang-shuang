@@ -1,8 +1,7 @@
 package com.feimang.client.monthread.controller;
 
 import com.feimang.client.monthread.config.WebSecurityConfig;
-import com.feimang.client.monthread.pojo.Book;
-import com.feimang.client.monthread.pojo.NewBook;
+
 import com.feimang.client.monthread.pojo.ResultVo;
 import com.feimang.client.monthread.pojo.UserStudy;
 import com.feimang.client.monthread.vo.UserStudyVo;
@@ -15,11 +14,11 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.*;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +27,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.transform.Result;
-import java.beans.Visibility;
 import java.io.IOException;
-import java.util.*;
+
 
 @Controller
 @EnableAutoConfiguration
