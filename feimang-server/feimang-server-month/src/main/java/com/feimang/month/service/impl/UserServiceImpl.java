@@ -12,8 +12,6 @@ import org.apache.commons.collections.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
@@ -28,6 +26,9 @@ public class UserServiceImpl implements IUserService {
 
         if(userAbstruct.getUserid() == null || userAbstruct.getBirthdate()==null ||userAbstruct.getSex()==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        if(userAbstructMapper.selectByUserId(userAbstruct.getUserid())==null){
+            return ServerResponse.createBySuccessMessage("已经注册");
         }
         userAbstructMapper.insertSelective(userAbstruct);
 
@@ -61,7 +62,7 @@ public class UserServiceImpl implements IUserService {
         UserRDBVo userRDBVo = new UserRDBVo();
         userRDBVo.setReadingBooks(orderBooksRelationMapper.selectBooksByUserId(userId));
         userRDBVo.setReadingDates(orderBooksRelationMapper.selectDaysByUserId(userId));
-        userRDBVo.setUserAbstruct(userAbstructMapper.selectByPrimaryKey(userId));
+        userRDBVo.setUserAbstruct(userAbstructMapper.selectByUserId(userId));
 
         return ServerResponse.createBySuccess(userRDBVo);
     }
