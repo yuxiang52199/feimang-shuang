@@ -1,0 +1,93 @@
+#loading{ width: 20%; height: 70px; position: fixed; z-index: 3; left:50%; top:44%; transform: translate(-50%,-50%); background-color: rgba(0,0,0,.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;}
+@keyframes line-scale-pulse-out {
+  0% {transform: scaley(1); }
+  50% {transform: scaley(0.4); }
+  100% {transform: scaley(1); } }
+
+.line-scale-pulse-out > i {
+  background-color: #fff;
+  width: 3px;
+  height: 30px;
+  border-radius: 2px;
+  margin: 2px;
+          animation-fill-mode: both;
+  display: inline-block;
+          animation: line-scale-pulse-out 0.9s 0s infinite cubic-bezier(.85, .25, .37, .85); }
+  .line-scale-pulse-out > i:nth-child(2), .line-scale-pulse-out > i:nth-child(4) {
+            animation-delay: 0.2s !important; }
+  .line-scale-pulse-out > i:nth-child(1), .line-scale-pulse-out > i:nth-child(5) {
+            animation-delay: 0.4s !important; }
+
+/* 用户头部--dudu */
+.user_ico{
+  display: flex; align-items: center;
+  .pic{margin-right: .2rem;width: .8rem; height: .8rem; overflow: hidden; border-radius: 50%;
+  	img{width: 100%;}
+  }
+}
+
+.du_user{
+	padding: .3rem;
+	.head{display: flex; align-items: center; justify-content: space-between;}
+	.cont{
+		display: flex; align-items: center; justify-content: space-around;
+		.item{
+			text-align: center;
+		}
+	}
+}
+
+#tabs{
+	width: 100%; overflow: hidden; height: 0.8rem;
+	.swiper-slide{background-color: #ddd; height: 100%; display: flex; align-items: center; justify-content: center;
+		&.active{background-color: #b7ffff}
+	}
+}
+
+.sec{
+	padding: .3rem;
+}
+
+.du_book{
+	&>div{display: flex; padding: .2rem;}
+	.pic{ width: 1.3rem; height: 1.5rem; background-color: #ddd; margin-right: .2rem; display: flex; align-items: center; justify-content: center; overflow: hidden;
+		img{width: 100%;}
+	}
+	.cont{flex: 1;
+		h4{text-align: right;}
+	}
+}
+
+.btn{display: inline-block; background-color: #ddd; padding: .1rem .3rem; margin-bottom: .1rem;}
+.btn_wide{display: inline-block; background-color: #ddd; padding: .1rem; width: 100%;margin-bottom: .1rem;}
+.tool{text-align: center; padding: .3rem; border-top: 1px #ccc solid;}
+
+.wx_cont{
+	width:100%; height:100%; display: flex; align-items: center; justify-content: center; text-align: center;
+	h2{margin-bottom: .1rem; margin-top: -2rem;}
+}
+
+#chart{height: 6rem; padding: .2rem;}
+.van-uploader{
+	font-size: .4rem; width: 2rem; height: 2rem;
+	 background-color: #fff; position: relative; border: 1px #ccc solid;
+	.fr{
+		position: absolute; width:100%; height:100%; left:0; top:0; display: flex; align-items: center; justify-content: center;
+	}
+	.bg{position: absolute; width:100%; height:100%; left:0; top:0;
+		background-size: cover; background-repeat: no-repeat; background-position: center center; 
+	}
+}
+
+.rate_cont{
+	text-align: center; 
+	.yd-rate{justify-content: center;
+		a{font-size: 0.6rem;}
+	}
+	h2{font-size: 0.3rem;}
+}
+
+.pop_comment{
+	padding: 0.4rem;
+	.btns{text-align: center;}
+}

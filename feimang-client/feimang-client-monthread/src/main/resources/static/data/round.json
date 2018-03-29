@@ -1,0 +1,82 @@
+{
+	"all_round":6,		
+	"current_round":1,		
+	"rounds":[
+		{
+			"status":2,	
+			"----注释":"0为锁定状态，1为解锁状态，2为完成状态" ,		
+			"tit1":"1历史：25 | 文学23",
+			"tit2":"1历史：25 | 文学23",
+			"books":[
+					{
+						"src":"images/pp3.jpg",
+						"lock_desc":"这是已经解锁的文字介绍1这是已经解锁的文字介绍1这是已经解锁的文字介绍1",
+						"book_name":"这是书名",
+						"author":"这是国藉+作者",
+						"book_id":123,
+						"status":3		
+					},{
+						"src":"images/pp3.jpg",
+						"lock_desc":"这是已经解锁的文字介绍2",
+						"book_name":"这是书名",
+						"author":"这是国藉+作者",
+						"book_id":123,
+						"status":3
+					},{
+						"src":"images/pp4.jpg",
+						"lock_desc":"这是已经解锁的文字介绍",
+						"book_name":"这是书名",
+						"author":"这是国藉+作者",
+						"book_id":123,
+						"status":3
+					},{
+						"src":"images/pp4.jpg",
+						"lock_desc":"这是已经解锁的文字介绍",
+						"book_name":"这是书名",
+						"author":"这是国藉+作者",
+						"book_id":123,
+						"status":3
+					}
+				]
+		},
+
+		{
+			"status":1,	
+			"tit1":"2历史：25 | 文学23",
+			"tit2":"2历史：25 | 文学23",
+			"books":[
+					{
+						"src":"images/pp1.jpg",
+						"lock_desc":"这是未解锁的文字介绍这是未解锁的文字介绍这是未解锁的文字介绍",
+						"book_name":"这是书名1",
+						"author":"这是国藉+作者",
+						"book_id":123,
+						"status":0,
+						"----注释":"0为锁定状态，1为打开未读状态，2为正在阅读，3为读完状态" 		
+					},{
+						"src":"images/pp1.jpg",
+						"lock_desc":"这是未解锁的文字介绍",
+						"book_name":"这是书名2",
+						"author":"这是国藉+作者",
+						"book_id":123,
+						"status":1
+					},{
+						"src":"images/pp1.jpg",
+						"lock_desc":"这是未解锁的文字介绍",
+						"book_name":"这是书名3",
+						"author":"这是国藉+作者",
+						"book_id":123,
+						"status":2
+					},{
+						"src":"images/pp1.jpg",
+						"lock_desc":"这是未解锁的文字介绍",
+						"book_name":"这是书名4",
+						"author":"这是国藉+作者",
+						"book_id":123,
+						"status":3
+					}
+				]
+		}
+	]
+	
+}

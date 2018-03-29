@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <title>飞芒月读计划</title>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/du.css">
+    <style>
+
+    </style>
+  </head>
+    <body>
+      
+      <div id="app" v-cloak>
+        <du_pic_upload @success="sucH"></du_pic_upload>
+        <du_pic_upload @success="sucH"></du_pic_upload>
+        <du_pic_upload @success="sucH"></du_pic_upload>
+        
+        
+      </div>
+    </body>
+  </html>
+<script src="plugins/vue2.5.9.js"></script>
+<script src="plugins/axios.min.js"></script>
+<script src="plugins/vant.min.js"></script>
+<script src="plugins/ydui.flexible1.1.3.js"></script>
+<script src="plugins/moment-with-locales.min.js"></script>
+<script src="plugins/httpVueLoader.js"></script>
+<script src="plugins/lodash.min.js"></script>
+<script src="plugins/swiper.min.js"></script>
+<script src="js/fetch.js"></script>
+<script src="js/common.js"></script>
+
+<script>
+  Vue.use(vant.Lazyload).use(vant.Uploader);
+
+  new Vue({
+    components: {
+      'du_pic_upload': 'url:component/du_pic_upload.vue'
+    },
+    el: '#app',
+    mounted: function() {
+     
+    },
+    data: {
+      bg:""
+    },
+    methods: {
+      sucH :function (url) {
+        console.log(url);
+      }
+    }
+  })
+</script>
+

@@ -1,0 +1,111 @@
+{ 
+   "nav_hot":[
+       {"tit":"米面粮油","id":41,"src":"images/i1.svg"},
+       {"tit":"厨房调料","id":42,"src":"images/i2.svg"},
+       {"tit":"酒水饮料","id":43,"src":"images/i3.svg"},
+       {"tit":"休闲零食","id":44,"src":"images/i4.svg"},
+       {"tit":"家居用品","id":45,"src":"images/i5.svg"},
+       {"tit":"洗护日用","id":46,"src":"images/i6.svg"},
+       {"tit":"厨卫纸品","id":47,"src":"images/i7.svg"},
+       {"tit":"家纺厨具","id":48,"src":"images/i8.svg"},
+       {"tit":"母婴用品","id":49,"src":"images/i9.svg"},
+       {"tit":"更多","id":50,"src":"images/i10.svg"}
+     ],
+
+ "shop_focus": {
+   "sid": "19761",
+    "tit": "新萍鲜面店（嘉德苑店）",
+    "thum": "images/shop1.png",
+    "shop_hours": "",
+    "shop_txt": " - 约29分钟",
+    "seller_is_closed": 1,
+    "month_sales": "20",
+    "rank": 0,
+    "transit": "0元起送，距离783m，基础运费1.50元",
+    "shop_style": "",
+    "tit_sub": "美嘉优购专送",
+    "tit_zs": 0,
+    "num_of_cart": "0"
+ },
+
+
+ "dztj": [
+    {"sid": 12947, "tit": "厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc1.png"},
+    {"sid": 12949, "tit": "厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc2.png"},
+    {"sid": 12953, "tit": "厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc3.png"},
+    {"sid": 12949, "tit": "厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc4.png"},
+    {"sid": 12953, "tit": "厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc1.png"},
+    {"sid": 12954, "tit": "厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc2.png"}
+],
+
+ "slide_pic":[
+    {"src":"images/bb1.png","url":"1.html"},
+    {"src":"images/bb2.png","url":"2.html"},
+    {"src":"images/bb1.png","url":"3.html"}
+ ],
+"xsqg": {
+    "list":[
+        {"sid": 12947, "tit": "限时抢购厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc8.png"},
+        {"sid": 12951, "tit": "厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc8.png"},
+        {"sid": 12953, "tit": "厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc8.png"},
+        {"sid": 12952, "tit": "厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc7.png"},
+        {"sid": 12956, "tit": "限时抢购厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc7.png"},
+        {"sid": 12964, "tit": "厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc7.png"}
+    ],
+    "time_end":"2018/03/22 09:18:30"
+},
+
+
+
+
+"mjygtj": [
+        {
+            "sid": 12947,
+            "tit": "长城窖酿解百纳干红 葡萄酒750ml*6瓶",
+            "price": 2.9,
+            "price_ori": 3.1,
+            "hot": true,
+            "src": "images/cc1.png"
+        },
+        {
+            "sid": 12949,
+            "tit": "厨房调味瓶",
+            "price": 2.9,
+            "price_ori": 3.1,
+            "hot": true,
+            "src": "images/cc3.png"
+        },
+        {
+            "sid": 12953,
+            "tit": "长城窖酿解百纳干红 葡萄酒750ml*6瓶",
+            "price": 3.5,
+            "price_ori": 3.7,
+            "hot": true,
+            "src": "images/cc2.png"
+        },
+        {
+            "sid": 12954,
+            "tit": "厨房调味瓶",
+            "price": 3.5,
+            "price_ori": 3.7,
+            "hot": true,
+            "src": "images/cc3.png"
+        },
+        {
+            "sid": 12949,
+            "tit": "厨房调味瓶",
+            "price": 2.9,
+            "price_ori": 3.1,
+            "hot": true,
+            "src": "images/cc3.png"
+        },
+        {
+            "sid": 12953,
+            "tit": "厨房调味瓶",
+            "price": 3.5,
+            "price_ori": 3.7,
+            "hot": true,
+            "src": "images/cc2.png"
+        }
+    ]
+}

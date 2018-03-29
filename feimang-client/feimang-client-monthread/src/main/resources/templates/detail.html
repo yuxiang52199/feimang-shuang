@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <title>测评</title>
+    <link rel="stylesheet" href="css/common.css">
+  </head>
+    <body>
+      <div id="app" class="bgimg" v-cloak>
+      <div class="h50"></div>
+        <section class="d_card">
+          <div class="left">
+            <img :src="book_desc.pic">
+          </div>
+          <div class="center">
+            <h3>{{book_desc.title}}</h3>
+            <h4>{{book_desc.country}}，{{book_desc.author}}</h4>
+            <span class="time">{{book_desc.date}}/{{book_desc.publisher}}</span>
+          </div>
+        </section>
+
+        <ul class="d_desc" :class="{'isShow':d_descHeight}">
+          <li>
+            <h2>内容简介1</h2>
+            <p>{{book_desc.bookDesc}}</p>
+          </li>
+          <li>
+            <h2>内容简介</h2>
+            <p>{{book_desc.authorDesc}}</p>
+          </li>
+          <li>
+            <h2>内容简介</h2>
+            <p>{{book_desc.catalogue}}</p>
+          </li>
+        </ul>
+        <div class="change_btn" @click="d_descHeight=!d_descHeight"><i class='iconfont' :class="[d_descHeight?'icon-yincangxiangqing':'icon-zhankai']"></i></div>
+
+        <section class="d_pad">
+          <van-tabs :active="active" @click="handleTabClick" >
+            <van-tab title="我的书拍">
+            </van-tab>
+            <van-tab title="全部书拍">
+            </van-tab>
+
+            <van-list
+              v-model="loading"
+              :finished="finished"
+              :offset="20"
+              :immediate-check="false"
+              @load="onLoad"
+              v-show="active==0"
+            >
+              <ul class="list_pad">
+                <li v-for="item in list_pad">
+                  <div class="date">{{item.time}}</div>
+                  <du_expand :txt="item.txt" :words="112"> </du_expand>
+                  <div class="h30"></div>
+                  <div class="pic_list">
+                    <div class="img" v-for="img in item.imgs"><img :src="img"></div>
+                  </div>
+                </li>
+              </ul>
+            </van-list>
+            <van-list
+              v-model="loading2"
+              :finished="finished2"
+              :offset="20"
+              :immediate-check="false"
+              @load="onLoad2"
+              v-show="active==1"
+            >
+              <ul class="list_pad">
+                <li v-for="item in list_pad2">
+                  <div class="top">
+                    <div class="pic"><img :src="item.pic"></div><span class="name">{{item.name}}</span>
+                  </div>
+                  <div :class="[{ 'ml': active}, 'date']">{{item.time}}</div>
+                  <du_expand :txt="item.txt" :words="112"> </du_expand>
+                  <div class="h30"></div>
+                  <div class="pic_list">
+                    <div class="img" v-for="img in item.imgs"><img :src="img"></div>
+                  </div>
+                </li>
+              </ul>
+            </van-list>
+          </van-tabs>
+        </section>
+
+        
+      </div>
+    </body>
+  </html>
+<script src="plugins/vue2.5.9.js"></script>
+<script src="plugins/axios.min.js"></script>
+<script src="plugins/vant.min.js"></script>
+<script src="plugins/ydui.flexible1.1.3.js"></script>
+<script src="plugins/moment-with-locales.min.js"></script>
+<script src="plugins/httpVueLoader.js"></script>
+<script src="plugins/lodash.min.js"></script>
+<script src="js/fetch.js"></script>
+<script src="js/common.js"></script>
+
+<script>
+  // Vue.use(vant.Lazyload).use(vant.Loading).use(vant.Dialog);
+  new Vue({
+    components: {
+      'du_expand': 'url:component/du_expand.vue'
+    },
+    el: '#app',
+    mounted: function() {
+      var self = this;
+      get("/book_detail").then(function (res) {
+        self.book_desc = res;
+      })
+
+      get("/list_pad").then(function (res) {
+        self.list_pad = res.list;
+        self.loading = false;
+        if (self.list_pad.length>10) {
+          self.finished = true;
+        }
+        
+      })
+
+      get("/list_pad2").then(function (res) {
+        self.list_pad2 = res.list2;
+        self.loading2 = false;
+        if (self.list_pad2.length>5) {
+          self.finished2 = true;
+        }
+        
+      })
+    },
+    data: {
+      book_desc:{},
+      active:0,
+      d_descHeight:false,
+      list_pad: [],
+      list_pad2: [],
+      loading: false,
+      loading2: false,
+      finished: false,
+      finished2: false,
+      
+    },
+    methods: {
+      onLoad:function () {
+        console.log("111111");
+        var self = this;
+        
+        get("/list_pad").then(function (res) {
+          self.list_pad = self.list_pad.concat(res.list);
+          self.loading = false;
+          if (self.list_pad.length>10) {
+            self.finished = true;
+          }
+          
+        })
+        
+      },
+
+      onLoad2:function () {
+        console.log("22222");
+        var self = this;
+        
+        get("/list_pad2").then(function (res) {
+          self.list_pad2 = self.list_pad2.concat(res.list2);
+          self.loading2 = false;
+          if (self.list_pad2.length>5) {
+            self.finished2 = true;
+          }
+          
+        })
+        
+      },
+      handleTabClick:function (val) {
+        this.active=val;
+      },
+
+      
+
+      
+
+    }
+  })
+</script>

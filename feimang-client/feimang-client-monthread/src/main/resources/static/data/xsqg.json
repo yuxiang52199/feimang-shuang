@@ -1,0 +1,13 @@
+{
+	"xsqg":{
+	    "time_end":"2018/03/22 09:18:30"
+	    "list":[
+	        {"sid": 12947, "tit": "限时抢购厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc8.png"},
+	        {"sid": 12951, "tit": "厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc8.png"},
+	        {"sid": 12953, "tit": "厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc8.png"},
+	        {"sid": 12952, "tit": "厨房调味瓶", "price": 2.9, "price_ori": 3.1, "hot": true, "src": "images/cc7.png"},
+	        {"sid": 12956, "tit": "限时抢购厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc7.png"},
+	        {"sid": 12964, "tit": "厨房调味瓶", "price": 3.5, "price_ori": 3.7, "hot": true, "src": "images/cc7.png"}
+	    ]
+	}
+}

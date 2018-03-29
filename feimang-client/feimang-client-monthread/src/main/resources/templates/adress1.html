@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <title>修改地址</title>
+    <link rel="stylesheet" href="css/common.css">
+  </head>
+    <body class="bgimg">
+      <div id="app" v-cloak class="p30">
+        
+        
+        <div class="adress_box">
+          <div class="info">
+            <div class="row1">{{name}}　{{phone}}</div>
+            <div class="row2">{{adress}}</div>
+          </div>
+        
+        <a href="adress2.html" class="btn_w2">修改地址</a>
+        </div>
+      </div>
+    </body>
+  </html>
+<script src="plugins/vue2.5.9.js"></script>
+<script src="plugins/axios.min.js"></script>
+<script src="plugins/vant.min.js"></script>
+<script src="plugins/ydui.flexible1.1.3.js"></script>
+<script src="plugins/ydui1.2.1.js"></script>
+<script src="plugins/moment-with-locales.min.js"></script>
+<script src="plugins/httpVueLoader.js"></script>
+<script src="plugins/lodash.min.js"></script>
+<script src="js/fetch.js"></script>
+<script src="js/common.js"></script>
+
+<script>
+  // Vue.use(vant.Lazyload).use(vant.Loading).use(vant.Dialog);
+  new Vue({
+    el: '#app',
+    mounted: function() {
+      
+    },
+    data: {
+      name:"莫问我",
+      phone:"13834343434",
+      adress:"京市海淀区三环到四环之间苏州街长远天地B1京市海淀区三环到四环之间苏州街长远天地B1-12A",
+    },
+    methods: {
+
+    }
+  })
+</script>

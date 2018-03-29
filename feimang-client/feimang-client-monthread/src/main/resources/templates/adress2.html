@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <title>修改地址</title>
+    <link rel="stylesheet" href="css/common.css">
+  </head>
+    <body class="bgimg">
+      <div id="app" v-cloak class="p30">
+        
+        <div class="adress_box2">
+          <yd-cell-group style="margin-bottom:0.24rem;">
+              <yd-cell-item>
+                  <span slot="left">姓名:</span>
+                  <yd-input class="right" slot="right"  v-model="name"  placeholder="" ref="ref_name"></yd-input>
+              </yd-cell-item>
+              <yd-cell-item>
+                  <span slot="left">电话:</span>
+                  <yd-input class="right" slot="right"  v-model="phone"   placeholder="" ref="ref_address"></yd-input>
+              </yd-cell-item>
+              <yd-cell-item arrow>
+                  <span slot="left">所在地区:</span>
+                  <input class="right" slot="right" type="text" readonly  onfocus="this.blur()" placeholder="请选择省市区" @click.stop="show=!show" v-model="all_address" >
+              </yd-cell-item>
+              <yd-cell-item>
+                  <span slot="left">地址:</span>
+                  <yd-input class="right" slot="right" :show-clear-icon="false" v-model="address"   placeholder="详细地址,街道、小区、门牌号 "></yd-input>
+              </yd-cell-item>
+        </div>
+        <div style="height: 3rem;"></div>
+        <div class="btn_w2">完成</div>
+        <!-- 地址列表弹窗 -->
+        <yd-cityselect v-model="show" :callback="result" :items="district" ></yd-cityselect>
+        </div>
+        
+      </div>
+    </body>
+  </html>
+<script src="plugins/vue2.5.9.js"></script>
+<script src="plugins/axios.min.js"></script>
+<script src="plugins/vant.min.js"></script>
+<script src="plugins/ydui.flexible1.1.3.js"></script>
+<script src="plugins/ydui1.2.1.js"></script>
+<script src="plugins/moment-with-locales.min.js"></script>
+<script src="plugins/httpVueLoader.js"></script>
+<script src="plugins/lodash.min.js"></script>
+<script src="js/fetch.js"></script>
+<script src="js/common.js"></script>
+<script src="js/adress.js"></script>
+<script src="js/pc_city.js"></script>
+
+<script>
+  // Vue.use(vant.Lazyload).use(vant.Loading).use(vant.Dialog);
+  new Vue({
+    el: '#app',
+    mounted: function() {
+      
+    },
+    data: {
+      district: district,
+      name: "",
+      phone: "",
+      address: "",
+      all_address: "",
+      show:false, // 地址列表弹窗
+    },
+    methods: {
+
+      result: function (ret) {
+            this.all_address = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
+            // 选中地址 code
+            /*this.userInfo.provinceCode=ret.itemValue1;
+            this.userInfo.cityCode=ret.itemValue2;
+            this.userInfo.districtCode=ret.itemValue3;*/
+        },
+
+    }
+  })
+</script>

@@ -61,7 +61,7 @@ public class EvaluationServiceImpl implements IEvaluationService {
      * @param userId
      * @return  void
      */
-    public ServerResponse getTestQuestionsRandom(Long userId){
+    public ServerResponse<EvaluationVo> getTestQuestionsRandom(Long userId){
 
         if(userId == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -89,7 +89,7 @@ public class EvaluationServiceImpl implements IEvaluationService {
      * @return  com.feimang.month.common.ServerResponse
      */
     @Transactional
-    public ServerResponse postAssignment(Long userId,AssignmentVo assignmentVo){
+    public ServerResponse postAssignment(AssignmentVo assignmentVo){
         if(assignmentVo == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
@@ -108,7 +108,7 @@ public class EvaluationServiceImpl implements IEvaluationService {
         UserAnswer userAnswer = new UserAnswer();
         List<UserKlStruct> userKlStructs = new ArrayList<>();
         UserQuestions userQuestions = new UserQuestions();
-        userQuestions.setUserid(userId);
+        userQuestions.setUserid(assignmentVo.getUserId());
         userQuestions.setSuid(assignmentVo.getSuid());
         /**
          * 插入记录用户答过某题的记录==》问题，我看到了有当前时间这个字段，没有这个字段插入，如何放？？？插入的返回值？是代表‘插入是否失败’：uqid是插入的id号？
@@ -218,7 +218,7 @@ public class EvaluationServiceImpl implements IEvaluationService {
         for(int i=1;i<=10;i++){
             UserKlStruct userKlStruct = new UserKlStruct();
             userKlStruct.setKlid(i);
-            userKlStruct.setUserid(userId);
+            userKlStruct.setUserid(assignmentVo.getUserId());
             userKlStruct.setUqid(uqid);
 
             //region 赋值
@@ -286,7 +286,7 @@ public class EvaluationServiceImpl implements IEvaluationService {
      * @param userId
      * @return  com.feimang.month.common.ServerResponse
      */
-    public ServerResponse getKnowledge(Long userId){
+    public ServerResponse<List<UserKlStruct>> getKnowledge(Long userId){
         if(userId == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }

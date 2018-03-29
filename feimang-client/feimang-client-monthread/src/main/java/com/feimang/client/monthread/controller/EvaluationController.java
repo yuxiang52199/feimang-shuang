@@ -1,11 +1,16 @@
 package com.feimang.client.monthread.controller;
 
+import com.feimang.client.monthread.common.ServerResponse;
 import com.feimang.client.monthread.config.WebSecurityConfig;
 
 import com.feimang.client.monthread.pojo.ResultVo;
 import com.feimang.client.monthread.pojo.UserAbstruct;
+import com.feimang.client.monthread.pojo.UserKlStruct;
 import com.feimang.client.monthread.pojo.UserStudy;
+import com.feimang.client.monthread.service.EvaluationService;
 import com.feimang.client.monthread.service.MonthUserService;
+import com.feimang.client.monthread.vo.AssignmentVo;
+import com.feimang.client.monthread.vo.EvaluationVo;
 import com.feimang.client.monthread.vo.UserStudyVo;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -23,7 +28,10 @@ import org.springframework.http.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +39,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 @Controller
-@EnableAutoConfiguration
 public class EvaluationController {
 
     //https://api.douban.com/v2/book/isbn/9787111562429
@@ -43,81 +51,149 @@ public class EvaluationController {
 
     @Autowired
     private RestTemplate restTemplate;
-    @Autowired
-    private WxMpService wxMpService;
+
+//    @Autowired
+//    private WxMpService wxMpService;
 
     @Autowired
     private MonthUserService monthUserService;
 
+    @Autowired
+    private EvaluationService evaluationService;
     /**
      * 测评首页
      * @return
      */
     @RequestMapping("/")
-    public String evaluationIndex(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String evaluation(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        WxMpOAuth2AccessToken accessToken;
-        WxMpUser wxMpUser;
-
-        String code=request.getParameter("code");
-        if(StringUtils.isEmpty(code))
-        {
-            model.addAttribute("error","请在微信中打开网页");
-            return "error";
-        }
-        try {
-            accessToken = this.wxMpService.oauth2getAccessToken(request.getParameter("code"));
-            wxMpUser = this.wxMpService.getUserService()
-                    .userInfo(accessToken.getOpenId());
-            //数据转换器
-            ObjectMapper mapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
-            mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            Map<String, String> map = new HashMap<>();
-            map.put("thirduserid", wxMpUser.getOpenId());
-            map.put("unionid", wxMpUser.getUnionId());
-            //判断用户是否存在
-            ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://apis.feimang.com/api/FM_UserStudy/GetUserStudyByWXUserID?thirduserid={thirduserid}&unionid={unionid}", String.class,map);
-            UserStudyVo userStudyVo = mapper.readValue(responseEntity.getBody().toString(), UserStudyVo.class);
-            String userId=null;
-            if(userStudyVo.getUserStudy()==null){
-                //如果不存在 去主数据中注册用户信息
-                UserStudy userStudy = new UserStudy();
-                userStudy.setThirdUserID(wxMpUser.getOpenId());
-                userStudy.setUnionID(wxMpUser.getUnionId());
-                userStudy.setAccountType(2);
-                userStudy.setNickName(wxMpUser.getNickname());
-                userStudy.setUserHead(wxMpUser.getHeadImgUrl());
-                ResponseEntity<String> responseEntity1= restTemplate.postForEntity("https://apis.feimang.com/api/FM_UserStudy/NewRegUserStudy",userStudy,String.class);
-                ResultVo resultVo = mapper.readValue(responseEntity1.getBody().toString(), ResultVo.class);
-                if(resultVo.getCode()==10000&&StringUtils.isEmpty(resultVo.getToken())){
-                    userId=resultVo.getToken();
-                }
-            }
-            else{
-                userId=userStudyVo.getUserStudy().getUserID().toString();
-            }
-            //将用户信息注册到阅分库
-            UserAbstruct userAbstruct = new UserAbstruct();
-            userAbstruct.setNickname(wxMpUser.getNickname());
-            userAbstruct.setUserid(Long.parseLong(userId));
-            userAbstruct.setOpenid(wxMpUser.getOpenId());
-            int status= monthUserService.insertUserRegistration(userAbstruct).getStatus();
-            if(status!=0){
-                return "error";
-            }
+//        WxMpOAuth2AccessToken accessToken;
+//        WxMpUser wxMpUser;
+//
+//        String code=request.getParameter("code");
+//        if(StringUtils.isEmpty(code))
+//        {
+//            model.addAttribute("error","请在微信中打开网页");
+//            return "error";
+//        }
+//        try {
+//            accessToken = this.wxMpService.oauth2getAccessToken(request.getParameter("code"));
+//            wxMpUser = this.wxMpService.getUserService()
+//                    .userInfo(accessToken.getOpenId());
+//            //数据转换器
+//            ObjectMapper mapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
+//            mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//            Map<String, String> map = new HashMap<>();
+//            map.put("thirduserid", wxMpUser.getOpenId());
+//            map.put("unionid", wxMpUser.getUnionId());
+//            //判断用户是否存在
+//            ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://apis.feimang.com/api/FM_UserStudy/GetUserStudyByWXUserID?thirduserid={thirduserid}&unionid={unionid}", String.class,map);
+//            UserStudyVo userStudyVo = mapper.readValue(responseEntity.getBody().toString(), UserStudyVo.class);
+//            String userId=null;
+//            if(userStudyVo.getUserStudy()==null){
+//                //如果不存在 去主数据中注册用户信息
+//                UserStudy userStudy = new UserStudy();
+//                userStudy.setThirdUserID(wxMpUser.getOpenId());
+//                userStudy.setUnionID(wxMpUser.getUnionId());
+//                userStudy.setAccountType(2);
+//                userStudy.setNickName(wxMpUser.getNickname());
+//                userStudy.setUserHead(wxMpUser.getHeadImgUrl());
+//                ResponseEntity<String> responseEntity1= restTemplate.postForEntity("https://apis.feimang.com/api/FM_UserStudy/NewRegUserStudy",userStudy,String.class);
+//                ResultVo resultVo = mapper.readValue(responseEntity1.getBody().toString(), ResultVo.class);
+//                if(resultVo.getCode()==10000&&StringUtils.isEmpty(resultVo.getToken())){
+//                    userId=resultVo.getToken();
+//                }
+//            }
+//            else{
+//                userId=userStudyVo.getUserStudy().getUserID().toString();
+//            }
+//            //将用户信息注册到阅分库
+//            UserAbstruct userAbstruct = new UserAbstruct();
+//            userAbstruct.setNickname(wxMpUser.getNickname());
+//            userAbstruct.setUserid(Long.parseLong(userId));
+//            userAbstruct.setOpenid(wxMpUser.getOpenId());
+//            int status= monthUserService.insertUserRegistration(userAbstruct).getStatus();
+//            if(status!=0){
+//                return "error";
+//            }
 
             //保存到session中
             HttpSession session = request.getSession();
-            session.setAttribute(WebSecurityConfig.SESSION_KEY,userId);
+            //session.setAttribute(WebSecurityConfig.SESSION_KEY,userId);
+        session.setAttribute(WebSecurityConfig.SESSION_KEY,234);
 
-            model.addAttribute("wxMpUser",wxMpUser);
-            return "evaluation/index";
-
-        } catch (WxErrorException e) {
-
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
+            //model.addAttribute("wxMpUser",wxMpUser);
+            return "evaluation";
+//
+//        } catch (WxErrorException e) {
+//
+//            model.addAttribute("error", e.getMessage());
+//            return "error";
+//        }
     }
+
+    /**
+     * 获取测评试题数据
+     * @param request
+     * @param response
+     * @return  java.lang.String
+     */
+    @RequestMapping(value = "/getEvaluation",method = RequestMethod.GET)
+    @ResponseBody
+    public EvaluationVo getEvaluation(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //保存到session中
+        HttpSession session = request.getSession();
+        session.setAttribute(WebSecurityConfig.SESSION_KEY,234);
+
+        EvaluationVo evaluation= evaluationService.getTestQuestionsRandom(Long.parseLong("234")).getData();
+        return evaluation;
+    }
+
+    /**
+     * 提交测评结果
+     * @param
+     * @return  com.feimang.client.monthread.common.ServerResponse
+     */
+    @RequestMapping(value = "/postAssignment",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse postAssignment(){
+
+        AssignmentVo assignmentVo = new AssignmentVo();
+        return evaluationService.postAssignment(assignmentVo);
+    }
+
+    /**
+     * 进入到测评结果页
+     * @param model
+     * @param request
+     * @param response
+     * @return  java.lang.String
+     */
+    @RequestMapping(value = "/postAssignment")
+    public String evaluation_result(Model model, HttpServletRequest request, HttpServletResponse response){
+
+        return "evaluation_result";
+    }
+    /**
+     * 获取测评结果数据
+     * @param request
+     * @param response
+     * @return  java.lang.String
+     */
+    @RequestMapping(value = "/postAssignment",method = RequestMethod.GET)
+    public  List<UserKlStruct> getEvaluationResult(HttpServletRequest request, HttpServletResponse response){
+
+        HttpSession session = request.getSession();
+        String userid=session.getAttribute(WebSecurityConfig.SESSION_KEY).toString();
+
+        List<UserKlStruct> userKlStructs = evaluationService.getKnowledge(Long.parseLong(userid)).getData();
+        return userKlStructs;
+    }
+
+
+
+
+
+
 
 }

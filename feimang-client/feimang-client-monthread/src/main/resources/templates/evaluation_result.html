@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <title>飞芒月读计划_测评结果</title>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/du.css">
+  </head>
+    <body class="bgimg">
+      <div id='loading'> <div class='line-scale-pulse-out'> <i></i><i></i><i></i><i></i><i></i> </div></div>
+      
+      <div id="app" class="p40">
+          <div class="result_top">
+            <img src="images/ii04.png">
+          </div>
+          <du_chart :data="chart_data" ref="chart"></du_chart>
+         
+          <div class="h30"></div>
+          <div class="result_msg">正是这样的组合 <br>成就了我世上独一无二的气质~</div>
+          <div class="h30"></div>
+          <a href="share_evaluation_result.html" class="btn_w2" >分享给我的朋友</a>
+        </div>
+      </div>
+    </body>
+  </html>
+<script src="plugins/vue2.5.9.js"></script>
+<script src="plugins/axios.min.js"></script>
+<script src="plugins/vant.min.js"></script>
+<script src="plugins/ydui.flexible1.1.3.js"></script>
+<script src="plugins/moment-with-locales.min.js"></script>
+<script src="plugins/httpVueLoader.js"></script>
+<script src="plugins/lodash.min.js"></script>
+<script src="plugins/echarts.min.js"></script>
+<script src="js/fetch.js"></script>
+<script src="js/common.js"></script>
+
+<script>
+  Vue.use(vant.Lazyload);
+
+  new Vue({
+    components: {
+      'du_user': 'url:component/du_user.vue',
+      'du_btn_list': 'url:component/du_btn_list.vue',
+      'du_chart': 'url:component/du_chart.vue'
+    },
+    el: '#app',
+    mounted: function() {
+      var self = this;
+      get("/chart", {} )
+      .then(
+          function (res) {
+            self.chart_data= res.list;
+            self.$refs.chart.init(self.chart_data);
+          }
+      )
+    },
+    data: {
+      chart_data:[]
+    },
+    methods: {}
+  })
+</script>
+

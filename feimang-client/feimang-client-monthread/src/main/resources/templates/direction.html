@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <title>测评</title>
+    <link rel="stylesheet" href="css/common.css">
+  </head>
+    <body class="bgimg">
+      <div id="app" v-cloak class="p30">
+        <div class="tool_msg">*请如实填写，帮助选书更精准哦。</div>
+
+        
+        
+        <section class="direction_form">
+          <yd-cell-group  color="#36a66a">
+            <yd-cell-item class="sex">
+                <span slot="left">性别：</span>
+                <yd-radio-group v-model="radio2" slot="right">
+                    <yd-radio val="1">男</yd-radio>
+                    <yd-radio val="2">女</yd-radio>
+                </yd-radio-group>
+            </yd-cell-item>
+            <yd-cell-item arrow>
+                <span slot="left">Date：</span>
+                <yd-datetime type="date" v-model="datetime4" slot="right"></yd-datetime>
+            </yd-cell-item>
+          </yd-cell-group>
+
+          <h3 class="tit3">请选择你的阅读方向</h3>
+          <yd-cell-group  class='second'>
+              <yd-cell-item type="radio">
+                  <span slot="left">深耕派：继续阅读力指数高的</span>
+                  <input slot="right" type="radio" value="1" v-model="picked"/>
+              </yd-cell-item>
+          
+              <yd-cell-item type="radio">
+                  <span slot="left">开荒派：尝试阅读力指数低的</span>
+                  <input slot="right" type="radio" value="2" v-model="picked"/>
+              </yd-cell-item>
+          
+              <yd-cell-item type="radio">
+                  <span slot="left">随性派：自定义选择阅读类别</span>
+                  <input slot="right" type="radio" value="3" v-model="picked"/>
+              </yd-cell-item>
+          </yd-cell-group>
+        </section>
+
+        <!-- <section class="check_lable">
+          <ul class="list">
+            <li v-for="item in listArr">
+              <div class="tit">{{item.name}}</div>
+              <yd-checkbox-group v-model="item.checkArr" color="#36a66a">
+                  <yd-checkbox v-for="cell in item.option" :val="cell.val" :key="cell.val">{{ cell.lable }}</yd-checkbox>
+              </yd-checkbox-group>
+            </li>
+          </ul>
+        </section> -->
+
+        
+        <ul class="check_lable_list">
+          <li v-for="item in listArr">
+            <div class="tit">{{item.name}}</div>
+            <van-checkbox-group v-model="item.checkArr" @change="checkbox_change">
+              <van-checkbox shape="square"
+                v-for="cell in item.option"
+                :key="cell.val"
+                :name="cell.val"
+              >
+                {{ cell.lable }}
+              </van-checkbox>
+            </van-checkbox-group>
+          </li>
+        </ul>
+
+        <div class="btn_w2" @click="submit">确定</div>
+
+        
+        
+        
+      </div>
+    </body>
+  </html>
+<script src="plugins/vue2.5.9.js"></script>
+<script src="plugins/axios.min.js"></script>
+<script src="plugins/vant.min.js"></script>
+<script src="plugins/ydui.flexible1.1.3.js"></script>
+<script src="plugins/ydui1.2.1.js"></script>
+<script src="plugins/moment-with-locales.min.js"></script>
+<script src="plugins/httpVueLoader.js"></script>
+<script src="plugins/lodash.min.js"></script>
+<script src="js/fetch.js"></script>
+<script src="js/common.js"></script>
+
+<script>
+  // Vue.use(vant.Lazyload).use(vant.Loading).use(vant.Dialog);
+  new Vue({
+    components: {
+      'du_geo': 'url:component/du_geo.vue'
+    },
+    el: '#app',
+    mounted: function() {
+      var self = this;
+      get("/list_direction").then(function (res) {
+        self.list=res.list;
+        self.list.map(function (item) {
+          Vue.set(item,'checkArr',[]);
+        });
+        self.filterArr();
+
+      })
+    },
+    data: {
+      radio2:"",
+      picked:"1",
+      datetime4:"",
+      sex:"",
+      age:"",
+      list:"",
+      listArr:"",
+      radio:"1",
+      show:false,
+      error_message:"",
+      acount:"",
+      
+    },
+    watch:{
+      picked:function (val) {
+        this.listArr.forEach(function (item) {
+          item.checkArr=[];
+        })
+        this.filterArr();
+      }
+    },
+    methods: {
+      onConfirm:function () {
+        // ajax 请求验证卡号是否存在
+        if (this.acount==1) {
+          this.show = true;
+          this.error_message = "输入的飞芒卡号码无效"
+        } else {
+          this.error_message = ""
+          this.show = false;
+        }
+        
+      },
+      checkbox_change:function (val) {
+        console.log(val);
+      },
+
+      /*radio_change:function (val) {
+        this.listArr.forEach(function (item) {
+          item.checkArr=[];
+        })
+        this.filterArr();
+
+      },*/
+
+      filterArr:function () {
+        if (this.picked==1) {
+          this.listArr = this.list.filter(function (item) {
+            return item.type==1;
+          })
+          console.log(this.listArr);
+        } else if(this.picked==2) {
+          this.listArr = this.list.filter(function (item) {
+            return item.type==2;
+          })
+        } else if(this.picked==3) {
+          this.listArr = this.list;
+        }
+      },
+
+      submit:function () {
+        
+          var params=[];
+          this.listArr.forEach(function (item) {
+            params.push({id:item.id,answer:item.checkArr})
+          })
+          console.log(params);
+          /*post("component",params).then(function () {
+            
+          })*/
+        
+      }
+      
+
+      
+
+      
+
+    }
+  })
+</script>

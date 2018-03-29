@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <title>测评</title>
+    <link rel="stylesheet" href="css/common.css">
+    <!-- <link rel="stylesheet" href="css/du.css"> -->
+  </head>
+    <body>
+      <div id="app" v-cloak class="bgimg">
+        <section>
+          <van-cell-group>
+            <van-field
+              v-model="message"
+              type="textarea"
+              placeholder="写点对这本书的看法~"
+              rows="5"
+              autosize
+            />
+          </van-cell-group>
+        </section>
+        <div class="h20"></div>
+
+        <section class="uploadPad_bar bgcf">
+          <div class="h50"></div>
+          <div class="upload_bar">
+            <du_pic_upload @success="sucH"></du_pic_upload>
+            <du_pic_upload @success="sucH"></du_pic_upload>
+            <du_pic_upload @success="sucH"></du_pic_upload>
+          </div>
+          <div class="card">
+            <div class="left"><img :src="book_pic"></div>
+            <div class="right">
+              <h2>{{book_name}}</h2>
+              <h3>{{author}} / {{publisher}} <br>{{date}}</h3>
+            </div>
+          </div>
+        </section>
+
+        <div class="h50"></div>
+        <div class="h50"></div>
+        <div class="btn_w2">发布</div>
+        
+        
+      </div>
+    </body>
+  </html>
+<script src="plugins/vue2.5.9.js"></script>
+<script src="plugins/axios.min.js"></script>
+<script src="plugins/vant.min.js"></script>
+<script src="plugins/ydui.flexible1.1.3.js"></script>
+<script src="plugins/moment-with-locales.min.js"></script>
+<script src="plugins/httpVueLoader.js"></script>
+<script src="plugins/lodash.min.js"></script>
+<script src="js/fetch.js"></script>
+<script src="js/common.js"></script>
+
+<script>
+  // Vue.use(vant.Lazyload).use(vant.Loading).use(vant.Dialog);
+  new Vue({
+    el: '#app',
+    components: {
+      'du_pic_upload': 'url:component/du_pic_upload.vue'
+    },
+    mounted: function() {
+      var self = this;
+      
+    },
+    data: {
+      message:"",
+      book_pic:"images/pp1.jpg",
+      book_name:"互联网+方法革命", 
+      author:"乔良,王湘穗",
+      publisher:"中国友谊出版社",
+      date:"2015-06-20",
+    },
+    methods: {
+      
+
+      sucH:function (url) {
+        console.log(url);
+      }
+      
+
+      
+
+    }
+  })
+</script>

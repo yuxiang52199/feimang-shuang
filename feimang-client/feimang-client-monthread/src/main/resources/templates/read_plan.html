@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
+    <title>飞芒月读计划</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/du.css">
+  </head>
+    <body>
+      <div id='loading'> <div class='line-scale-pulse-out'> <i></i><i></i><i></i><i></i><i></i> </div></div>
+      
+      <div id="app" v-cloak>
+        <du_user ref="du_user"></du_user>
+        <div class="h10">
+          
+        </div>
+
+        <van-tabs :active="current_round"  @click="tab_click" sticky swipeable>
+          <van-tab
+            v-for="index in all_round"
+            :key="index"
+            :title="'第' + index + '次'"
+            :disabled="index > used_round_index"
+            >
+          </van-tab>
+
+          <section class="round_item bgcf p30" v-show="ddd==current_round" v-for="item,ddd in rounds">
+          {{item.status}}-----
+            <div class="tit1">{{item.tit1}}</div>
+            <div class="tit2">{{item.tit2}}</div>
+            <div class="books">
+              <du_book
+                :data="ii"
+                :key="ii.book"
+                @start="start_read"
+                @complete="complete_read"
+                v-for="ii in item.books">
+              </du_book>
+            </div>
+            <div class="tool">
+              <a href="direction.html" class="btn" v-if="item.status==0">更改计划方向</a>
+              <div class="btn" v-if="item.status==0" @click="get_others">换一批</div>
+              <div class="btn_wide" v-if="item.status==0" @click="to_step1">确认本次月读计划</div>
+              <div class="btn_wide" v-if="item.status==1"  @click="to_step2">确认月读包送达显示图书</div>
+              <div class="btn_wide" v-if="item.status==2"  @click="to_step3">完成本次计划</div>
+
+              <a class="btn" v-if="item.status>=2" href="wx.html">微信群</a>
+              <a class="btn" v-if="item.status>=2" href="#" @click="share_my_plan">分享我的月读计划</a>
+            </div>
+          </section>
+        </van-tabs>
+
+        <div class="h20"></div>
+
+        
+
+        <van-popup v-model="show_pop" position="bottom" class="pop_comment">
+          <h2>请评价您刚读过的《{{current_book.book_name}}》这本书：</h2>
+
+          <div class="rate_cont">
+            <rate :length="5" v-model="value_rate"></rate>
+            <h2>{{value_rate}}分</h2>
+          </div>
+          <div class="h30"></div>
+          <div class="btns">
+            <div class="btn" @click="show_pop=false;value_rate=0;">取消</div>
+            <div class="btn" @click="submit_comment(current_book.book_id,value_rate)">确定</div>
+          </div>
+        </van-popup>
+<!-- 容器状态：0为锁定状态，1为签收前状态 ,2为签收后可阅读状态，3为完成状态 -->
+<!-- 书本状态：0锁定 1等收货 2未读 3正在阅读 4已读完 -->
+      </div>
+    </body>
+  </html>
+<script src="plugins/vue2.5.9.js"></script>
+<script src="plugins/axios.min.js"></script>
+<script src="plugins/ydui.flexible1.1.3.js"></script>
+<script src="plugins/vant.min.js"></script>
+<script src="plugins/moment-with-locales.min.js"></script>
+<script src="plugins/httpVueLoader.js"></script>
+<script src="plugins/lodash.min.js"></script>
+<script src="js/fetch.js"></script>
+<script src="js/common.js"></script>
+<!-- <script src="plugins/vue-rate.js"></script> -->
+
+<script>
+  Vue.use(vant.Lazyload);
+
+  new Vue({
+    components: {
+      'du_user': 'url:component/du_user.vue',
+      'du_book': 'url:component/du_book.vue',
+      'rate': 'url:component/rate.vue'
+    },
+    el: '#app',
+    mounted: function() {
+      var self = this;
+      this.to_step0();
+    },
+    data: {
+      all_round:6,      //所有轮次
+      show_pop:false,   //星评弹窗显示状态
+      current_round:0,  //用于切换当前操作轮的变量
+      rounds:[],        //轮次！
+      current_book:{},   //当前正在操作的书
+      value_rate:0   //当前评分值
+    },
+    computed:{
+      used_round_index:function () {
+        return this.rounds.length;
+      }
+    },
+    methods: {
+      tab_click:function (i) {
+        this.current_round = i;
+      },
+      get_others:function () {
+        console.log("读初始接口");
+        var self = this;
+        get("/plan_others", {} )
+        .then(
+            function (res) {
+              self.rounds = res.rounds;
+            }
+        );
+      },
+
+      // 读初始状态
+      to_step0:function () {
+        var self = this;
+        get("/plan_step0", {} )
+        .then(
+            function (res) {
+              self.all_round = res.all_round;
+              self.current_round = res.current_round;
+              self.rounds = res.rounds;
+            }
+        );
+      },
+
+      // 确认本次月读计划
+      to_step1:function () {  
+        var self = this;
+        if(this.$refs.du_user.$data.my.addr.add_detail){
+          //确认当前计划
+          get("/plan_step1", {} )
+          .then(
+              function (res) {
+                self.rounds = res.rounds;
+              }
+          )
+        }else{
+          //查找地址信息
+          this.$dialog.confirm({
+            message: '您还没有创建收货地址',
+            confirmButtonText:'创建地址',
+            cancelButtonText:'取消'
+          }).then(function () {
+            window.location.href="my_addr.html"
+          }).catch(function () {
+          });
+        }
+      },
+
+      // 确认月读包送达
+      to_step2:function () {  
+        var self = this;
+        get("/plan_step2", {} )
+        .then(
+            function (res) {
+              self.rounds = res.rounds;
+            }
+        )
+      },
+
+      // 点击完成本次计划按钮
+      to_step3:function () {  
+        console.log('ddddddd');
+        var self = this;
+        var ii = 0;
+        var cbooks = this.rounds[this.current_round].books;
+        for (var i = 0; i < cbooks.length; i++) {
+          ii+=cbooks[i].status;
+        }
+        if(ii==16){
+          this.$dialog.confirm({
+            message: '恭喜完成本次的月读计划，快递人员会尽快上门取本次月读包。现在打开下次计划？',
+            confirmButtonText:'确定',
+            cancelButtonText:'取消'
+          }).then(
+            function () {
+            // 真正提交到服务器-计划完成
+
+            get("/plan_step4", {} )
+              .then(
+                  function (res) {
+                    console.log(res);
+                    self.rounds = res.rounds;
+                    self.current_round = res.current_round;
+                  }
+              )
+          });
+        }else{
+          this.$toast.fail("您还有未读完的图书，所有图书读完后可完成本次计划");
+        }
+      },
+
+
+      // 开始阅读某本书
+      start_read:function (id) {  
+        console.log(id+"号的状态修改");
+        var self = this;
+        get("/plan_step2", {id:id} )
+        .then(
+            function (res) {
+              console.log(id+"号的状态修改带来的回调");
+              self.rounds = res.rounds;
+            }
+        )
+      },
+
+      // 读完某本书，将打开评价弹窗
+      complete_read:function (item) {  
+        console.log("请评价您刚读过的《"+item.book_name+"》这本书：");
+        this.current_book = item;
+        this.show_pop = true;
+        
+      },
+
+      submit_comment:function(id,val){
+        // 把评分上传并返回变化状态
+        var self = this;
+        get("/plan_step3", {id:id,value:val} )
+        .then(
+            function (res) {
+              console.log(id+"号的状态修改带来的回调，将完成本次计划");
+              self.rounds = res.rounds;
+              self.show_pop = false;
+            }
+        )
+      },
+      // 分享我的阅读计划，必须至少读完一本书
+      share_my_plan:function (id) {  
+        var books = this.rounds[this.current_round].books;
+        if(_.some(books, ['status',4])){
+          window.location.href = "share_my_plan.html";
+        }else{
+          this.$toast.fail("请至少读完一本书再分享月读计划");
+        }
+      }
+    }
+  })
+</script>
+
