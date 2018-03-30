@@ -3,16 +3,18 @@ package com.feimang.client.monthread.VueVo;
 import java.util.List;
 
 public class AnswerVueVo {
-    private Integer id;
+    private Long quid;
 
     private List<Integer> answer;
 
-    public Integer getId() {
-        return id;
+    private Integer suid;
+
+    public Long getQuid() {
+        return quid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setQuid(Long quid) {
+        this.quid = quid;
     }
 
     public List<Integer> getAnswer() {
@@ -23,11 +25,20 @@ public class AnswerVueVo {
         this.answer = answer;
     }
 
+    public Integer getSuid() {
+        return suid;
+    }
+
+    public void setSuid(Integer suid) {
+        this.suid = suid;
+    }
+
     @Override
     public String toString() {
         return "AnswerVueVo{" +
-                "id=" + id +
+                "quid=" + quid +
                 ", answer=" + answer +
+                ", suid=" + suid +
                 '}';
     }
 }

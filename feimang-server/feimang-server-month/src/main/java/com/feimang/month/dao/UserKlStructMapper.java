@@ -18,7 +18,7 @@ public interface UserKlStructMapper {
 
     int updateByPrimaryKey(UserKlStruct record);
 
-    void insertUserKlStructBatch(@Param("userBooks") List<UserKlStruct> userKlStructList);
+    void insertUserKlStructBatch(@Param("userKlStructList") List<UserKlStruct> userKlStructList);
 
     List<UserKlStruct> selectListByUQid(Integer uqid);
 }

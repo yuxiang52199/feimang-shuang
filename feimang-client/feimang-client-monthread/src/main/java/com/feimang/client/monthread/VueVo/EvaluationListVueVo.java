@@ -8,6 +8,8 @@ public class EvaluationListVueVo {
 
     private int toast;
 
+    private Integer suid;
+
     public List<EvaluationVueVo> getList() {
         return list;
     }
@@ -24,11 +26,20 @@ public class EvaluationListVueVo {
         this.toast = toast;
     }
 
+    public Integer getSuid() {
+        return suid;
+    }
+
+    public void setSuid(Integer suid) {
+        this.suid = suid;
+    }
+
     @Override
     public String toString() {
         return "EvaluationListVueVo{" +
                 "list=" + list +
                 ", toast=" + toast +
+                ", suid=" + suid +
                 '}';
     }
 }

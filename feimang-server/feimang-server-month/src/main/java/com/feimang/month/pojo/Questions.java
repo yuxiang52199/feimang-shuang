@@ -152,7 +152,8 @@ public class Questions {
     }
 
     public Integer getkType1() {
-        return kType1;
+
+        return kType1==null?0:kType1;
     }
 
     public void setkType1(Integer kType1) {
@@ -160,7 +161,7 @@ public class Questions {
     }
 
     public Integer getkType2() {
-        return kType2;
+        return kType2==null?0:kType2;
     }
 
     public void setkType2(Integer kType2) {
@@ -168,7 +169,7 @@ public class Questions {
     }
 
     public Integer getkType3() {
-        return kType3;
+        return kType3==null?0:kType3;
     }
 
     public void setkType3(Integer kType3) {
@@ -176,7 +177,7 @@ public class Questions {
     }
 
     public Integer getkType4() {
-        return kType4;
+        return kType4==null?0:kType4;
     }
 
     public void setkType4(Integer kType4) {
@@ -184,7 +185,7 @@ public class Questions {
     }
 
     public Integer getkType5() {
-        return kType5;
+        return kType5==null?0:kType5;
     }
 
     public void setkType5(Integer kType5) {
@@ -192,7 +193,7 @@ public class Questions {
     }
 
     public Integer getkType6() {
-        return kType6;
+        return kType6==null?0:kType6;
     }
 
     public void setkType6(Integer kType6) {
@@ -200,7 +201,7 @@ public class Questions {
     }
 
     public Integer getkType7() {
-        return kType7;
+        return kType7==null?0:kType7;
     }
 
     public void setkType7(Integer kType7) {
@@ -208,7 +209,7 @@ public class Questions {
     }
 
     public Integer getkType8() {
-        return kType8;
+        return kType8==null?0:kType8;
     }
 
     public void setkType8(Integer kType8) {
@@ -216,7 +217,7 @@ public class Questions {
     }
 
     public Integer getkType9() {
-        return kType9;
+        return kType9==null?0:kType9;
     }
 
     public void setkType9(Integer kType9) {
@@ -224,7 +225,7 @@ public class Questions {
     }
 
     public Integer getkType10() {
-        return kType10;
+        return kType10==null?0:kType10;
     }
 
     public void setkType10(Integer kType10) {

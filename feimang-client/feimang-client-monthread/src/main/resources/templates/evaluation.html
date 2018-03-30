@@ -59,8 +59,10 @@
         self.mydata = res;
         self.mydata.list.map(function (item) {
           Vue.set(item,'answer',[]);
-        })
+        });
+        alert(JSON.stringify(self.mydata.list));
       })
+
     },
     data: {
       mydata:{},
@@ -77,15 +79,13 @@
         } else {
           var params=[];
           this.mydata.list.forEach(function (item) {
-            params.push({id:item.id,answer:item.answer})
+            params.push({quid:item.quid,answer:item.answer,suid:item.suid})
           })
           console.log(params);
-
-//          post("component",params).then(function (data) {
-//
-//           window.location.href="/evaluation_result"
-//
-//          })
+           // window.location.href="/evaluation_result"
+          post("/postAssignment",params).then(function (res) {
+              alert(JSON.stringify(res));
+          })
         }
       }
 

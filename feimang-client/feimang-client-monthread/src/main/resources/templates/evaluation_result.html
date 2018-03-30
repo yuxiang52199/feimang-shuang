@@ -50,7 +50,7 @@
     el: '#app',
     mounted: function() {
       var self = this;
-      get("/chart", {} )
+      get("/getEvaluationResult", {} )
       .then(
           function (res) {
             self.chart_data= res.list;

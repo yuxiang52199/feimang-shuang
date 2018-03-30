@@ -148,6 +148,18 @@ public class EvaluationServiceImpl implements IEvaluationService {
             userAnswer.setkType10(25);
             //endregion
         }
+        else {
+            userAnswer.setkType1(0);
+            userAnswer.setkType2(0);
+            userAnswer.setkType3(0);
+            userAnswer.setkType4(0);
+            userAnswer.setkType5(0);
+            userAnswer.setkType6(0);
+            userAnswer.setkType7(0);
+            userAnswer.setkType8(0);
+            userAnswer.setkType9(0);
+            userAnswer.setkType10(0);
+        }
         //endregion
 
         //region 选择题
@@ -166,7 +178,14 @@ public class EvaluationServiceImpl implements IEvaluationService {
                 @Override
                 public boolean evaluate(Object object) {
                     Questions tempQue=(Questions) object;
-                    return que.getQuid()==tempQue.getQuid()&&que.getAnswer()==tempQue.getAnswer();
+                    System.out.println(que.getQuid());
+                    System.out.println(tempQue.getQuid());
+                    System.out.println(que.getAnswer());
+                    System.out.println(tempQue.getAnswer());
+                    boolean bo1=que.getQuid().equals(tempQue.getQuid());
+                    boolean bo2=que.getAnswer().equals(tempQue.getAnswer());
+                    boolean bo=bo1&&bo2;
+                    return bo;
                 }
             });
             if (!CollectionUtils.isEmpty(tempQuestions)){
@@ -277,6 +296,7 @@ public class EvaluationServiceImpl implements IEvaluationService {
 
         //批量插入
         userKlStructMapper.insertUserKlStructBatch(userKlStructs);
+        System.out.println(userKlStructs);
 
         return  ServerResponse.createBySuccessMessage("提交成功");
     }
@@ -299,7 +319,7 @@ public class EvaluationServiceImpl implements IEvaluationService {
         }
 
         //获取本次测评对应的结果
-        List<UserKlStruct> userKlStructs = userKlStructMapper.selectListByUQid(userQuestions.getUqid());
+        List<UserKlStruct> userKlStructs = userKlStructMapper.selectListByUQid(2);
         return ServerResponse.createBySuccess(userKlStructs);
     }
 

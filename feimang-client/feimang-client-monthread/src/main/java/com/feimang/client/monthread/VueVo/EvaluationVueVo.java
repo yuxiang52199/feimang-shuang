@@ -4,8 +4,10 @@ import java.util.List;
 
 public class EvaluationVueVo {
     private Long id ;
+    private Long quid;
     private Integer type;
     private Integer flag;
+    private Integer suid;
     private String tit;
     private List<OptionVueVo> option;
 
@@ -15,6 +17,14 @@ public class EvaluationVueVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getQuid() {
+        return quid;
+    }
+
+    public void setQuid(Long quid) {
+        this.quid = quid;
     }
 
     public Integer getType() {
@@ -31,6 +41,14 @@ public class EvaluationVueVo {
 
     public void setFlag(Integer flag) {
         this.flag = flag;
+    }
+
+    public Integer getSuid() {
+        return suid;
+    }
+
+    public void setSuid(Integer suid) {
+        this.suid = suid;
     }
 
     public String getTit() {
@@ -53,8 +71,10 @@ public class EvaluationVueVo {
     public String toString() {
         return "EvaluationVueVo{" +
                 "id=" + id +
+                ", quid=" + quid +
                 ", type=" + type +
                 ", flag=" + flag +
+                ", suid=" + suid +
                 ", tit='" + tit + '\'' +
                 ", option=" + option +
                 '}';
