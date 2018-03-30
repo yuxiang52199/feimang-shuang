@@ -353,7 +353,7 @@ public class EvaluationController {
      */
     @RequestMapping(value = "/getEvaluationResult",method = RequestMethod.GET)
     @ResponseBody
-    public   List<EvaluationResultVueVo>  getEvaluationResult(HttpServletRequest request, HttpServletResponse response){
+    public   EvaluationResultListVueVo  getEvaluationResult(HttpServletRequest request, HttpServletResponse response){
 
         HttpSession session = request.getSession();
         String userid=session.getAttribute(WebSecurityConfig.SESSION_KEY).toString();
@@ -368,7 +368,8 @@ public class EvaluationController {
             evaluationResultVueVo.setVal(userKlStruct.getScore());
             list.add(evaluationResultVueVo);
         }
-        return list;
+        evaluationResultListVueVo.setList(list);
+        return evaluationResultListVueVo;
     }
 
 
