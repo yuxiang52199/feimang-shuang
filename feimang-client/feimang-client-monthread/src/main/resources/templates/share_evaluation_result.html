@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <title>飞芒月读计划_测评结果</title>
-    <link rel="stylesheet" href="css/swiper.min.css">
+    <title>分享_测评结果</title>
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/du.css">
   </head>
     <body class="bgimg">
       <div id='loading'> <div class='line-scale-pulse-out'> <i></i><i></i><i></i><i></i><i></i> </div></div>
@@ -18,20 +16,19 @@
               <div class="pic"><img v-lazy="my.src||'images/user.png'"></div>
               <span class="name">{{my.name}}</span>
             </a>
-            <div class="tit">阅读力测评结果如下</div>
+            <div class="tit">我的阅读力结构原来是这样的！你也来测一测~</div>
           </div>
             
             
           
           <du_chart :data="chart_data" ref="chart"></du_chart>
          
-          <div class="share_result_msg">每一座荒城都有温柔童话，每一座孤岛都有繁星萦绕。</div>
-          <div class="h50"></div>
+          <div class="share_result_msg">每一座荒城都有温柔童话 <br>每一座孤岛都有繁星萦绕</div>
+          <div class="h20"></div>
           <div class="share_result_wx">
             <img src="images/wx.png">
-            <br>飞芒书房公众号
+            <br>长按识别二维码 关注飞芒书房
           </div>
-          <div class="h50"></div>
         </div>
       </div>
     </body>

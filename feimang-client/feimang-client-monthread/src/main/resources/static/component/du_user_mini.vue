@@ -6,7 +6,7 @@
           <div class="pic"><img v-lazy="my.src||'images/user.png'"></div>
           <h2 class="name">{{my.name}}</h2>
         </div>
-        <i class='iconfont icon-xiaojiantou'></i>
+        <i class='iconfont icon-qianjin'></i>
     </a>
   </div>
 </template>

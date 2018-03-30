@@ -3,25 +3,36 @@
   <head>
     <meta charset="utf-8">
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <title>飞芒月读计划</title>
-    <link rel="stylesheet" href="css/swiper.min.css">
+    <title>分享_阅读计划</title>
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/du.css">
   </head>
-    <body class="bg">
+    <body class="bgimg">
       <div id='loading'> <div class='line-scale-pulse-out'> <i></i><i></i><i></i><i></i><i></i> </div></div>
       
-      <div id="app">
-        <du_user ref="du_user"></du_user>
-        <div class="bgcf" style="padding:0 0.4rem">
+      <div id="app" class="p30">
+          <div class="share_result_top">
+            <img class="logo" src="images/logo_mini.png">
+            <div class="h30"></div>
+            <div class="share_result_msg">我的阅读力稳步提升中……一起来啊~</div>
+            <div class="h10"></div>
+            <a href="my.html" class="user">
+              <div class="pic"><img v-lazy="my.src||'images/user.png'"></div>
+              <span class="name">{{my.name}}</span>
+              <div class="tit">阅读力又增强啦</div>
+            </a>
+          </div>
+            
+            
+          
           <du_chart :data="chart_data" ref="chart"></du_chart>
-          <du_btn_list :data="chart_data">+</du_btn_list>
-          <div class="h30"></div>
+         
+          <div class="share_result_msg" style="font-weight: bold;">怕什么真理无穷，进一步有进一步的欢喜~</div>
+          <div class="h20"></div>
+          <div class="share_result_wx">
+            <img src="images/wx.png">
+            <br>飞芒书屋公众号
+          </div>
         </div>
-        
-
-        <div class="h20"></div>
-
       </div>
     </body>
   </html>
@@ -41,12 +52,12 @@
 
   new Vue({
     components: {
-      'du_user': 'url:component/du_user.vue',
-      'du_btn_list': 'url:component/du_btn_list.vue',
+      'du_user_mini': 'url:component/du_user_mini.vue',
       'du_chart': 'url:component/du_chart.vue'
     },
     el: '#app',
     mounted: function() {
+
       var self = this;
       get("/chart", {} )
       .then(
@@ -55,9 +66,20 @@
             self.$refs.chart.init(self.chart_data);
           }
       )
+
+      get("/user", {} )
+      .then(
+          function (res) {
+            self.my = res;
+          },
+          function (err) {
+            console.log(err);
+          }
+      )
     },
     data: {
-      chart_data:[]
+      chart_data:[],
+      my:{}
     },
     methods: {}
   })

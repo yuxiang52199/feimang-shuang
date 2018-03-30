@@ -1,6 +1,8 @@
 package com.feimang.client.monthread.vo;
 
-import com.feimang.month.pojo.Gbk2312;
+import com.feimang.client.monthread.pojo.Gbk2312;
+import com.feimang.client.monthread.pojo.Questions;
+
 
 import java.util.List;
 

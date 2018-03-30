@@ -49,7 +49,7 @@
             <div class="h30"></div>
             <div class="jcsb">
               <span class="btn" @click="$emit('complete',data)">读完</span>
-              <a class="btn" :href=" 'pad.html?id=' + data.book_id ">发布书拍</a>
+              <a class="btn" :href=" 'uploadPad.html?id=' + data.book_id ">发布书拍</a>
             </div>
           </div>
         </div>

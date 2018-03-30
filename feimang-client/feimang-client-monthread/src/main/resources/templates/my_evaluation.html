@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
     <title>我的测评</title>
-    <link rel="stylesheet" href="css/swiper.min.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/du.css">
   </head>
     <body class="bgimg">
       <div id='loading'> <div class='line-scale-pulse-out'> <i></i><i></i><i></i><i></i><i></i> </div></div>
@@ -14,11 +12,13 @@
       <div id="app" class="p40">
           <div class="h20"></div>
           <div>{{date}}日测试结果</div>
+          <div class="h50"></div>
           <du_chart :data="chart_data" ref="chart"></du_chart>
          
-          <div class="h30"></div>
+          <div style="height: 1rem;"></div>
           <div class="result_msg">正是这样的组合 <br>成就了我世上独一无二的气质~</div>
-          <div class="h30"></div>
+          <div class="h50"></div>
+          <div class="h20"></div>
           <a href="share_evaluation_result.html" class="btn_w2" >重新测评</a>
         </div>
       </div>

@@ -5,67 +5,76 @@
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
     <title>飞芒月读计划</title>
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/du.css">
   </head>
-    <body>
+    <body class="bgimg">
       <div id='loading'> <div class='line-scale-pulse-out'> <i></i><i></i><i></i><i></i><i></i> </div></div>
       
       <div id="app" v-cloak>
-        <du_user ref="du_user"></du_user>
-        <div class="h10">
-          
+        <du_user_mini ref="du_user_mini"></du_user_mini>
+        <div class="h10"> </div>
+
+        <div class="nav bgcf">
+          <div class="h40"></div>
+
+          <h2>我的月读进度</h2>
+          <div class="h30"></div>
+          <div class="cont">
+            <a href="#"
+              v-for="item,index in all_round"
+              :key="item"
+              :class="[{'active':current_round==index}, {'disabled':index+1 > used_round_index} ]"
+              @click="tab_click(index)"
+            >{{item}}</a>
+          </div>
         </div>
 
-        <van-tabs :active="current_round"  @click="tab_click" sticky swipeable>
-          <van-tab
-            v-for="index in all_round"
-            :key="index"
-            :title="'第' + index + '次'"
-            :disabled="index > used_round_index"
-            >
-          </van-tab>
-
-          <section class="round_item bgcf p30" v-show="ddd==current_round" v-for="item,ddd in rounds">
-          {{item.status}}-----
-            <div class="tit1">{{item.tit1}}</div>
-            <div class="tit2">{{item.tit2}}</div>
-            <div class="books">
-              <du_book
-                :data="ii"
-                :key="ii.book"
-                @start="start_read"
-                @complete="complete_read"
-                v-for="ii in item.books">
-              </du_book>
-            </div>
-            <div class="tool">
-              <a href="direction.html" class="btn" v-if="item.status==0">更改计划方向</a>
-              <div class="btn" v-if="item.status==0" @click="get_others">换一批</div>
-              <div class="btn_wide" v-if="item.status==0" @click="to_step1">确认本次月读计划</div>
-              <div class="btn_wide" v-if="item.status==1"  @click="to_step2">确认月读包送达显示图书</div>
-              <div class="btn_wide" v-if="item.status==2"  @click="to_step3">完成本次计划</div>
-
-              <a class="btn" v-if="item.status>=2" href="wx.html">微信群</a>
-              <a class="btn" v-if="item.status>=2" href="#" @click="share_my_plan">分享我的月读计划</a>
-            </div>
-          </section>
-        </van-tabs>
-
         <div class="h20"></div>
+        <section class="round_item bgcf p40" v-show="ddd==current_round" v-for="item,ddd in rounds">
 
+          <du_btn_list :data="item.rise" pre="+"></du_btn_list>
+
+          <div class="books">
+            <du_book
+              :data="ii"
+              :key="ii.book"
+              @start="start_read"
+              @complete="complete_read"
+              v-for="ii in item.books">
+            </du_book>
+          </div>
+
+          <div class="h30"></div>
+
+          <div class="tool">
+            <a href="direction.html" class="btn_nobg" v-if="item.status==0">更改计划方向</a>
+            <div class="btn_nobg" v-if="item.status==0" @click="get_others">换一批</div>
+            <div class="h10"></div>
+
+            <div class="btn_wide" v-if="item.status==0" @click="to_step1">就选这4本了</div>
+            <div class="h10"></div>
+
+            <div class="btn_wide" v-if="item.status==1"  @click="to_step2">确认月读包送达显示图书</div>
+            <div class="btn_wide" v-if="item.status==2"  @click="to_step3">完成本次计划</div>
+            
+            <div class="h20"></div>
+            <div class="jcsb">
+              <a class="btn_gray" v-if="item.status>=2" href="wxCode.html">微信群</a>
+              <a class="btn_gray" v-if="item.status>=2" href="#" @click="share_my_plan">分享月读计划</a>
+            </div>
+          </div>
+        </section>
         
-
         <van-popup v-model="show_pop" position="bottom" class="pop_comment">
           <h2>请评价您刚读过的《{{current_book.book_name}}》这本书：</h2>
 
           <div class="rate_cont">
             <rate :length="5" v-model="value_rate"></rate>
-            <h2>{{value_rate}}分</h2>
+            <h2>{{value_rate*2}}分</h2>
           </div>
           <div class="h30"></div>
           <div class="btns">
             <div class="btn" @click="show_pop=false;value_rate=0;">取消</div>
-            <div class="btn" @click="submit_comment(current_book.book_id,value_rate)">确定</div>
+            <div class="btn" @click="submit_comment(current_book.book_id,value_rate*2)">确定</div>
           </div>
         </van-popup>
 <!-- 容器状态：0为锁定状态，1为签收前状态 ,2为签收后可阅读状态，3为完成状态 -->
@@ -89,7 +98,8 @@
 
   new Vue({
     components: {
-      'du_user': 'url:component/du_user.vue',
+      'du_user_mini': 'url:component/du_user_mini.vue',
+      'du_btn_list': 'url:component/du_btn_list.vue',
       'du_book': 'url:component/du_book.vue',
       'rate': 'url:component/rate.vue'
     },
@@ -113,7 +123,12 @@
     },
     methods: {
       tab_click:function (i) {
-        this.current_round = i;
+        console.log(i,this.used_round_index);
+        if(i<this.used_round_index){
+          this.current_round = i;
+        }else{
+          this.$toast("完成上次的月读计划后，本次自动解锁哦~");
+        }
       },
       get_others:function () {
         console.log("读初始接口");
@@ -142,12 +157,13 @@
       // 确认本次月读计划
       to_step1:function () {  
         var self = this;
-        if(this.$refs.du_user.$data.my.addr.add_detail){
+        if(this.$refs.du_user_mini.$data.my.addr.add_detail){
           //确认当前计划
           get("/plan_step1", {} )
           .then(
               function (res) {
                 self.rounds = res.rounds;
+                self.$toast("点击后，去们会尽快安排发件......");
               }
           )
         }else{
@@ -157,7 +173,7 @@
             confirmButtonText:'创建地址',
             cancelButtonText:'取消'
           }).then(function () {
-            window.location.href="my_addr.html"
+            window.location.href="adress_show.html"
           }).catch(function () {
           });
         }
@@ -176,7 +192,6 @@
 
       // 点击完成本次计划按钮
       to_step3:function () {  
-        console.log('ddddddd');
         var self = this;
         var ii = 0;
         var cbooks = this.rounds[this.current_round].books;
@@ -202,7 +217,7 @@
               )
           });
         }else{
-          this.$toast.fail("您还有未读完的图书，所有图书读完后可完成本次计划");
+          this.$toast("您还有未读完的图书，所有图书读完后可完成本次计划");
         }
       },
 
@@ -234,7 +249,6 @@
         get("/plan_step3", {id:id,value:val} )
         .then(
             function (res) {
-              console.log(id+"号的状态修改带来的回调，将完成本次计划");
               self.rounds = res.rounds;
               self.show_pop = false;
             }
@@ -246,7 +260,7 @@
         if(_.some(books, ['status',4])){
           window.location.href = "share_my_plan.html";
         }else{
-          this.$toast.fail("请至少读完一本书再分享月读计划");
+          this.$toast("请至少读完一本书再分享月读计划");
         }
       }
     }

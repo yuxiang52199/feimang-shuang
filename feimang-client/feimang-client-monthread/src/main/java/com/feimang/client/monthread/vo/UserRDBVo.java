@@ -1,6 +1,6 @@
 package com.feimang.client.monthread.vo;
 
-import com.feimang.month.pojo.UserAbstruct;
+import com.feimang.client.monthread.pojo.UserAbstruct;
 
 public class UserRDBVo {
     private int userRDBId;

@@ -1,12 +1,13 @@
 package com.feimang.client.monthread.controller;
 
+import com.feimang.client.monthread.VueVo.AnswerVueVo;
+import com.feimang.client.monthread.VueVo.EvaluationListVueVo;
+import com.feimang.client.monthread.VueVo.EvaluationVueVo;
+import com.feimang.client.monthread.VueVo.OptionVueVo;
 import com.feimang.client.monthread.common.ServerResponse;
 import com.feimang.client.monthread.config.WebSecurityConfig;
 
-import com.feimang.client.monthread.pojo.ResultVo;
-import com.feimang.client.monthread.pojo.UserAbstruct;
-import com.feimang.client.monthread.pojo.UserKlStruct;
-import com.feimang.client.monthread.pojo.UserStudy;
+import com.feimang.client.monthread.pojo.*;
 import com.feimang.client.monthread.service.EvaluationService;
 import com.feimang.client.monthread.service.MonthUserService;
 import com.feimang.client.monthread.vo.AssignmentVo;
@@ -38,6 +39,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.file.OpenOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +68,7 @@ public class EvaluationController {
      * @return
      */
     @RequestMapping("/")
-    public String evaluation(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String evaluation_index(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 //        WxMpOAuth2AccessToken accessToken;
 //        WxMpUser wxMpUser;
@@ -123,13 +126,18 @@ public class EvaluationController {
         session.setAttribute(WebSecurityConfig.SESSION_KEY,234);
 
             //model.addAttribute("wxMpUser",wxMpUser);
-            return "evaluation";
+            return "evaluation_index";
 //
 //        } catch (WxErrorException e) {
 //
 //            model.addAttribute("error", e.getMessage());
 //            return "error";
 //        }
+    }
+
+    @RequestMapping("/evaluation")
+    public String evaluation(Model model, HttpServletRequest request, HttpServletResponse response){
+        return "evaluation";
     }
 
     /**
@@ -140,13 +148,93 @@ public class EvaluationController {
      */
     @RequestMapping(value = "/getEvaluation",method = RequestMethod.GET)
     @ResponseBody
-    public EvaluationVo getEvaluation(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //保存到session中
+    public EvaluationListVueVo getEvaluation(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        session.setAttribute(WebSecurityConfig.SESSION_KEY,234);
+        String userid=session.getAttribute(WebSecurityConfig.SESSION_KEY).toString();
 
-        EvaluationVo evaluation= evaluationService.getTestQuestionsRandom(Long.parseLong("234")).getData();
-        return evaluation;
+        List<EvaluationVueVo> list = new ArrayList<>();
+        EvaluationVo evaluation= evaluationService.getTestQuestionsRandom(Long.parseLong(userid)).getData();
+
+        //region 转换识字题
+        EvaluationVueVo evaluationWord = new EvaluationVueVo();
+        evaluationWord.setId(Long.parseLong("0"));
+        evaluationWord.setTit("请选择下面你认识的字");
+        evaluationWord.setType(0);
+        evaluationWord.setFlag(0);
+        List<OptionVueVo> optionWords = new ArrayList<>();
+        for (Gbk2312 gbk2312:evaluation.getGbk2312s()) {
+            OptionVueVo optionVueVo = new OptionVueVo();
+            optionVueVo.setKey(gbk2312.getV());
+            optionVueVo.setVal(Integer.parseInt(gbk2312.getId().toString()));
+            optionWords.add(optionVueVo);
+        }
+        evaluationWord.setOption(optionWords);
+        list.add(evaluationWord);
+        //endregion
+
+        //region 转换问答题
+
+        for (Questions questions :evaluation.getQuestions()){
+            EvaluationVueVo evaluationQuestions = new EvaluationVueVo();
+            evaluationQuestions.setId(questions.getQuid());
+            evaluationQuestions.setType(0);
+            evaluationQuestions.setFlag(1);
+            evaluationQuestions.setTit(questions.getQuestions());
+            List<OptionVueVo> optionQuestions = new ArrayList<>();
+            for(int i=1;i<=6;i++){
+                //region 问答题选项
+                if(i==1){
+                    OptionVueVo option = new OptionVueVo();
+                    option.setKey(questions.getOption1());
+                    option.setVal(i);
+                    optionQuestions.add(option);
+                    continue;
+                }
+                if(i==2){
+                    OptionVueVo option = new OptionVueVo();
+                    option.setKey(questions.getOption2());
+                    option.setVal(i);
+                    optionQuestions.add(option);
+                    continue;
+                }
+                if(i==3){
+                    OptionVueVo option = new OptionVueVo();
+                    option.setKey(questions.getOption3());
+                    option.setVal(i);
+                    optionQuestions.add(option);
+                    continue;
+                }
+                if(i==4){
+                    OptionVueVo option = new OptionVueVo();
+                    option.setKey(questions.getOption4());
+                    option.setVal(i);
+                    optionQuestions.add(option);
+                    continue;
+                }
+                if(i==5){
+                    OptionVueVo option = new OptionVueVo();
+                    option.setKey(questions.getOption5());
+                    option.setVal(i);
+                    optionQuestions.add(option);
+                    continue;
+                }
+                if(i==6){
+                    OptionVueVo option = new OptionVueVo();
+                    option.setKey(questions.getOption6());
+                    option.setVal(i);
+                    optionQuestions.add(option);
+                    continue;
+                }
+                //endregion
+            }
+            evaluationQuestions.setOption(optionQuestions);
+            list.add(evaluationQuestions);
+        }
+        //endregion
+        EvaluationListVueVo evaluationListVueVo=new EvaluationListVueVo();
+        evaluationListVueVo.setList(list);
+        evaluationListVueVo.setToast(list.size());
+        return evaluationListVueVo;
     }
 
     /**
@@ -156,10 +244,12 @@ public class EvaluationController {
      */
     @RequestMapping(value = "/postAssignment",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse postAssignment(){
+    public List<AnswerVueVo> postAssignment(@RequestBody List<AnswerVueVo> answerVueVos){
 
-        AssignmentVo assignmentVo = new AssignmentVo();
-        return evaluationService.postAssignment(assignmentVo);
+        System.out.println(answerVueVos);
+        return answerVueVos;
+//        AssignmentVo assignmentVo = new AssignmentVo();
+//        return evaluationService.postAssignment(assignmentVo);
     }
 
     /**
@@ -169,7 +259,7 @@ public class EvaluationController {
      * @param response
      * @return  java.lang.String
      */
-    @RequestMapping(value = "/postAssignment")
+    @RequestMapping(value = "/evaluation_result")
     public String evaluation_result(Model model, HttpServletRequest request, HttpServletResponse response){
 
         return "evaluation_result";
@@ -180,7 +270,7 @@ public class EvaluationController {
      * @param response
      * @return  java.lang.String
      */
-    @RequestMapping(value = "/postAssignment",method = RequestMethod.GET)
+    @RequestMapping(value = "/getEvaluationResult",method = RequestMethod.GET)
     public  List<UserKlStruct> getEvaluationResult(HttpServletRequest request, HttpServletResponse response){
 
         HttpSession session = request.getSession();

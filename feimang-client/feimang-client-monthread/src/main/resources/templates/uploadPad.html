@@ -3,18 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <title>测评</title>
+    <title>发布书拍</title>
     <link rel="stylesheet" href="css/common.css">
-    <!-- <link rel="stylesheet" href="css/du.css"> -->
   </head>
-    <body>
-      <div id="app" v-cloak class="bgimg">
+    <body class="bgimg">
+      <div id="app" v-cloak>
         <section>
           <van-cell-group>
             <van-field
               v-model="message"
               type="textarea"
-              placeholder="写点对这本书的看法~"
+              placeholder="记录闪现的思想火花，写点对这本书的看法~~"
               rows="5"
               autosize
             />
@@ -40,7 +39,9 @@
 
         <div class="h50"></div>
         <div class="h50"></div>
-        <div class="btn_w2">发布</div>
+        <div style="margin: 0 .3rem">
+          <div class="btn_w2" >发布</div>
+        </div>
         
         
       </div>

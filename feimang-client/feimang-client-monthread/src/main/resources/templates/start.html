@@ -3,18 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <title>测评</title>
+    <title>飞芒卡订阅</title>
     <link rel="stylesheet" href="css/common.css">
   </head>
     <body>
-      <div id="app" v-cloak>
-        
-        <section class="s_cont">
-          <h2>2018飞芒月读计划</h2>
-          <p class="cont">人类进行传统阅读时，主要使用左脑的功能；而在采用“速读”方式阅读时，则充分调动了是左右脑的功能作用，各自发挥左右脑的优势共同进行文字信息的形象辨识、意义记忆和理解，所以“速读”又被称之为“全脑速读”。</p>
+      <div id="app" v-cloak class="start_box">
+        <img src="images/aa1.jpg"><img src="images/aa2.jpg"><img src="images/aa3.jpg"><img src="images/aa4.jpg"><img src="images/aa5.jpg"><img src="images/aa6.jpg"><img src="images/aa7.jpg"><img src="images/aa8.jpg">
+          <div style="height: .9rem;"></div>
 
-          <div class="btns1 postion" v-if="flag">查看我的知识结构</div>
-        </section>
+        <a href="my_evaluation.html" class="btns1 postion" v-if="flag">查看我的知识力结构</a>
+        <div class="btn_w3" @click="show=true">激活飞芒月读计划卡</div>
         <van-dialog v-model="show" close-on-click-overlay @confirm="onConfirm">
           <van-field
             v-model="acount"
@@ -23,13 +21,6 @@
           />
           
         </van-dialog>
-        <div class="h50"></div>
-        <div class="h50"></div>
-        <div class="h50"></div>
-        <div class="h50"></div>
-        <div class="h50"></div>
-        <div class="btn_w2" @click="show=true">飞芒卡订阅</div>
-        
         
       </div>
     </body>

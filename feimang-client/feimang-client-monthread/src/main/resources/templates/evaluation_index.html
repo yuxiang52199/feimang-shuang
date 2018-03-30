@@ -3,19 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <title>阅读学院</title>
+    <title>开始测评</title>
     <link rel="stylesheet" href="css/common.css">
   </head>
-    <body class="bgimg">
-      <div id='loading'> <div class='line-scale-pulse-out'> <i></i><i></i><i></i><i></i><i></i> </div></div>
-      
-      <div id="app" class="p30">
-          <div class="h20"></div>
-          <ul class="my_list" >
-            <li><a href="#"><span>阅读方法1</span></a></li>
-            <li><a href="#"><span>阅读方法2</span></a></li>
-          </ul>
-        </div>
+    <body >
+      <div id="app" v-cloak>
+        <section class="eva_index" :style="'background-image: url('+img+')'">
+          <a href="/evaluation" class="btn_w1" >开始测评</a>
+            
+        </section>
+        
       </div>
     </body>
   </html>
@@ -26,13 +23,11 @@
 <script src="plugins/moment-with-locales.min.js"></script>
 <script src="plugins/httpVueLoader.js"></script>
 <script src="plugins/lodash.min.js"></script>
-<script src="plugins/echarts.min.js"></script>
 <script src="js/fetch.js"></script>
 <script src="js/common.js"></script>
 
 <script>
-  Vue.use(vant.Lazyload);
-
+  // Vue.use(vant.Lazyload).use(vant.Loading).use(vant.Dialog);
   new Vue({
     
     el: '#app',
@@ -40,9 +35,11 @@
       
     },
     data: {
-      
+      img:"images/bg1.jpg",
     },
-    methods: {}
+    methods: {
+      
+
+    }
   })
 </script>
-

@@ -18,56 +18,105 @@
   .line-scale-pulse-out > i:nth-child(1), .line-scale-pulse-out > i:nth-child(5) {
             animation-delay: 0.4s !important; }
 
-/* 用户头部--dudu */
-.user_ico{
-  display: flex; align-items: center;
-  .pic{margin-right: .2rem;width: .8rem; height: .8rem; overflow: hidden; border-radius: 50%;
-  	img{width: 100%;}
-  }
-}
+
+body.bg{background: url(../images/bg.jpg); background-size: cover;}
 
 .du_user{
-	padding: .3rem;
-	.head{display: flex; align-items: center; justify-content: space-between;}
+	
+	.head{display: flex; align-items: center; justify-content: center; height: 1.68rem; flex-direction: column;
+		.pic{width: .76rem; height: .76rem; overflow: hidden; border-radius: 50%; margin-bottom: .08rem;
+			img{width: 100%;}
+		}
+		.name{font-size: .26rem;}
+	}
 	.cont{
-		display: flex; align-items: center; justify-content: space-around;
+		height: 1.32rem;
+		display: flex; align-items: center; justify-content: space-around; padding: 0 1.2rem;
 		.item{
 			text-align: center;
+			h2{font-size: .32rem;}
+			h3{ color: #aaa; font-size: .2rem;}
 		}
 	}
 }
 
-#tabs{
-	width: 100%; overflow: hidden; height: 0.8rem;
-	.swiper-slide{background-color: #ddd; height: 100%; display: flex; align-items: center; justify-content: center;
-		&.active{background-color: #b7ffff}
+.du_user_mini{
+	height: 1.68rem; padding: .3rem;
+	.head{height: 100%; display: flex; align-items: center; justify-content: space-between;  
+		.pic{width: .76rem; height: .76rem; overflow: hidden; border-radius: 50%; margin-bottom: .08rem;
+			img{width: 100%;}
+		}
+		.name{font-size: .26rem;}
 	}
 }
+
 
 .sec{
 	padding: .3rem;
 }
 
+/* ----------read_plan----------- */
+.nav{
+	text-align: center; 
+	.tit{font-size: .3rem; color: #999;}
+	.cont{
+		display: flex; justify-content: space-between; padding: 0 .3rem 0; flex-wrap: wrap;
+		a{width: .5rem; height: .5rem; background-color: #b9ddca; color: #fff; border-radius: 50%; line-height: .5rem; text-align: center;
+			margin: 0 0.2rem .3rem;
+			&.active{background-color: #33ad6c;}
+			&.disabled{background-color: #d1d1d1;}
+		}
+	}
+}
 .du_book{
-	&>div{display: flex; padding: .2rem;}
-	.pic{ width: 1.3rem; height: 1.5rem; background-color: #ddd; margin-right: .2rem; display: flex; align-items: center; justify-content: center; overflow: hidden;
+	border-bottom: 1px #f1f1f1 solid;
+	&>div{display: flex; padding: .2rem 0;}
+	.pic{ width: 1.73rem; height: 2.27rem; background-color: #eee; background-size: 100% auto; background-repeat: no-repeat; background-position: center center; margin-right: 0.3rem; display: flex; align-items: center; justify-content: center; overflow: hidden;
+		&.book_bg{background-image: url(../images/book_bg.png);}
 		img{width: 100%;}
 	}
-	.cont{flex: 1;
-		h4{text-align: right;}
+	.cont{flex: 1; display: flex; align-items: center; justify-content: flex-start;
+		&>div{width: 100%;}
+		h2{ font-size: .30rem; margin-bottom: .1rem;}
+		h3{ color: #b5b5b6;
+			&.green{color: #33a56a;}
+		}
+	}
+}
+.round_item{
+	.btn_gray{font-size: .28rem; display: inline-block; width: 2.7rem; background-color: #e6e6e6; padding: 0.2rem .4rem;  color: #33a56a; box-shadow: 0 1px 2px #ccc; border-radius: 3px;}
+	.btn{text-align: center; font-size: .26rem; display: inline-block; background-color: #33a56a; padding: 0.1rem .2rem; width: 1.64rem;  color: #fff; box-shadow: 0 1px 2px #ccc; border-radius: 3px;}
+	.btn_wide{font-size: .32rem; display: block; background-color: #33a56a; padding: 0.26rem .4rem; width: 100%; color: #fff; box-shadow: 0 1px 2px #ccc; border-radius: 3px;}
+	.btn_nobg{font-size: .28rem; padding: 0.2rem .4rem; display: inline-block; color: #33a56a; background-color: #fff;}
+
+	.tool{text-align: center; }
+}
+.jcsb{display: flex; justify-content: space-between;}
+.rate_cont{
+	text-align: center; 
+	.yd-rate{justify-content: center; margin: 0.2rem auto;
+		a{font-size: 0.6rem;}
+	}
+	h2{font-size: 0.3rem;}
+}
+
+.pop_comment{
+	padding: 0.4rem;
+	.btns{text-align: center;
+		.btn{margin: 0 .15rem;}
 	}
 }
 
-.btn{display: inline-block; background-color: #ddd; padding: .1rem .3rem; margin-bottom: .1rem;}
-.btn_wide{display: inline-block; background-color: #ddd; padding: .1rem; width: 100%;margin-bottom: .1rem;}
-.tool{text-align: center; padding: .3rem; border-top: 1px #ccc solid;}
+/* ----------read_plan 结束----------- */
 
+
+/* 分享页 */
 .wx_cont{
 	width:100%; height:100%; display: flex; align-items: center; justify-content: center; text-align: center;
 	h2{margin-bottom: .1rem; margin-top: -2rem;}
 }
 
-#chart{height: 6rem; padding: .2rem;}
+#chart{min-height: 5.6rem;}
 .van-uploader{
 	font-size: .4rem; width: 2rem; height: 2rem;
 	 background-color: #fff; position: relative; border: 1px #ccc solid;
@@ -79,15 +128,26 @@
 	}
 }
 
-.rate_cont{
-	text-align: center; 
-	.yd-rate{justify-content: center;
-		a{font-size: 0.6rem;}
+/* ----------du_btn_list相关---------- */
+
+.du_btn_list{
+	display: flex; flex-wrap: wrap; justify-content: center;
+	li{ width: 1.25rem; margin-right: .16rem; margin-bottom: .2rem; font-size: .23rem; line-height: .45rem; text-align: center; height: .45rem;   color: #fff; border-radius: 3px;
+		&:nth-child(4n),&:last-child{margin-right: 0;}
+		&.blank{height: 0;}
 	}
-	h2{font-size: 0.3rem;}
 }
 
-.pop_comment{
-	padding: 0.4rem;
-	.btns{text-align: center;}
-}
+.bgc1{background-color: #d1c0a5;}
+.bgc2{background-color: #79a9ab;}
+.bgc3{background-color: #d1a5be;}
+.bgc4{background-color: #c9a5d1;}
+.bgc5{background-color: #a8a5d1;}
+
+.bgc6{background-color: #a5ccd1;}
+.bgc7{background-color: #c3d1a5;}
+.bgc8{background-color: #d1a6a5;}
+.bgc9{background-color: #a5b3d1;}
+.bgc10{background-color: #a5d1a8;}
+
+

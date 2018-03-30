@@ -7,12 +7,13 @@ var option = {
     radar: {
         shape: 'circle',
         name: {
-            textStyle: {
-                color: '#fff',
-                backgroundColor: '#299',
-                borderRadius: 3,
-                padding: [3, 5]
-           }
+           textStyle: {
+               color: '#fff',
+               backgroundColor: '#299',
+               borderRadius: 3,
+               fontSize: "110%",
+               padding: [6,6]
+          }
         },
         indicator: [
            { name: '历史', max: 100},
@@ -26,7 +27,7 @@ var option = {
            { name: '励志', max: 100},
            { name: '休闲', max: 100}
         ],
-        radius: 80
+        radius: "60%"
     },
     series: [{
         name: '',
@@ -34,11 +35,24 @@ var option = {
         tooltip: {
             trigger: 'item'
         },
-        areaStyle: {normal: {}},
+        areaStyle: {normal: {
+          color : "rgba(100,0,0,0.2)"
+        }},
+        lineStyle: {normal: {
+          color : "rgba(100,0,0,0.4)"
+        }},
         data : [
             {
                 value : [],
-                name : ''
+                label: {  
+                    normal: {  
+                        show: true,  
+                        color: '#900',
+                        formatter:function(params) {  
+                            return params.value;  
+                        }  
+                    }  
+                } 
             }
         ]
     }]

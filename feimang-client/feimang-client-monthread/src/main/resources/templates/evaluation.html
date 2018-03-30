@@ -3,24 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <title>测评</title>
+    <title>测评答题</title>
     <link rel="stylesheet" href="css/common.css">
   </head>
     <body>
       <div id="app" v-cloak>
-        <section class="eva_index" v-if="!isStartQuestion" :style="'background-image: url('+img+')'">
-          <div class="btn_w1" @click="isStartQuestion=true">开始测评</div>
-            
-        </section>
-        <transition name="van-fade">
-          <section class="eva" v-if="isStartQuestion">
-            <div class="h50"></div>
-            <div class="h50"></div>
-            <div class="h50"></div>
-            <h2>{{current+1}}.{{list[current].tit}}</h2>
-
-            <template v-for="item in list">
-              <van-checkbox-group v-model="item.answer" @change="checkbox_change" :class="item.type?'bb':'aa'" v-if="item.flag==0&&current==item.id">
+        
+          <section class="eva " v-if="isStartQuestion">
+        
+            <template v-for="item in mydata.list">
+              <h2 v-if="current==item.id">{{item.id+1}}.{{item.tit}}</h2>
+              <van-checkbox-group v-model="item.answer"  :class="item.flag?'bb':'aa'" v-if="item.type==0&&current==item.id">
                 <van-checkbox shape="square"
                   v-for="qusC in item.option"
                   :key="qusC.val"
@@ -30,7 +23,7 @@
                 </van-checkbox>
               </van-checkbox-group>
 
-              <van-radio-group v-model="item.answer" v-if="item.flag==1&&current==item.id">
+              <van-radio-group v-model="item.answer" v-if="item.type==1&&current==item.id">
                 <van-cell-group>
                   <van-cell v-for="qusR in item.option" :key="qusR.val">
                     <van-radio :name="qusR.val">{{qusR.key}}</van-radio>
@@ -39,8 +32,8 @@
               </van-radio-group>
             </template>
             
-            <div class="h30"></div>
-            <div class="btn_w2" @click="submit">{{current&lt;(list.length-1)?'下一题':'完成测评'}} </div>
+            <div style="height: 1.15rem;"></div>
+            <div class="btn_w2" @click="submit">{{current&lt;(mydata.toast-1)?'下一题':'完成测评'}} </div>
             
           </section>
         </transition>
@@ -58,91 +51,41 @@
 <script src="js/common.js"></script>
 
 <script>
-  // Vue.use(vant.Lazyload).use(vant.Loading).use(vant.Dialog);
   new Vue({
-    components: {
-      'du_geo': 'url:component/du_geo.vue'
-    },
     el: '#app',
     mounted: function() {
-      this.list.map(function (item) {
-        Vue.set(item,'answer',[]);
+      var self = this;
+      get("/getEvaluation").then(function (res) {
+        self.mydata = res;
+        self.mydata.list.map(function (item) {
+          Vue.set(item,'answer',[]);
+        })
       })
     },
     data: {
-      checkbox_arr:[],
+      mydata:{},
       current:0,
-      isStartQuestion:false,
-      img:"images/bg1.jpg",
-      list:[
-        {
-          id:0,
-          type:0 ,flag:0 , tit:"请选择下面你认识的字",
-          option:[
-              {"key":"垚","val":1},
-              {"key":"姦","val":2},
-              {"key":"姦","val":3},
-              {"key":"鱻","val":4},
-              {"key":"猋","val":5},
-              {"key":"垚","val":6},
-              {"key":"垚","val":7},
-              {"key":"姦","val":8},
-              {"key":"姦","val":9},
-              {"key":"鱻","val":10},
-              {"key":"猋","val":11},
-              {"key":"垚","val":12}
-            ]
-        },
-        {
-          id:1,
-          type:1 ,flag:0 , tit:"每年读多少本书？多选",
-          option:[
-              {"key":"每年阅读5","val":1},
-              {"key":"每年阅读10","val":2},
-              {"key":"每年阅读20","val":3},
-              {"key":"每年阅读35本以上","val":4},
-              {"key":"每年阅读35本以上每年阅读35本以每年阅读35本以上每年阅读35本以","val":5},
-              {"key":"读35本以上每年阅读35本以上","val":6}
-            ]
-        },
-        {
-          id:2,
-          type:1 ,flag:1 , tit:"每月读多少本书？单选",
-          option:[
-              {"key":"每月阅读5","val":1},
-              {"key":"每月阅读10","val":2},
-              {"key":"每月阅读20","val":3},
-              {"key":"每月阅读35本以上","val":4},
-              {"key":"每月阅读35本以上每年阅读35本以","val":5},
-              {"key":"读35本以上每年阅读35本以上","val":6}
-            ]
-        }
-
-      ]
+      isStartQuestion:true,
+      
     },
     methods: {
-      geoH:function (posi) {
-        // console.log(posi);
-      },
-      checkbox_change:function (val) {
-        console.log(val);
-      },
+      
       // 下一题按钮，完成测评按钮
       submit:function () {
-        if (this.current<(this.list.length-1)) {
+        if (this.current<(this.mydata.toast-1)) {
           this.current++;
         } else {
           var params=[];
-          this.list.forEach(function (item) {
+          this.mydata.list.forEach(function (item) {
             params.push({id:item.id,answer:item.answer})
           })
           console.log(params);
 
-          alert(JSON.stringify(params));
-          window.location.href="/evaluation_result"
-          /*post("component",params).then(function () {
-            
-          })*/
+//          post("component",params).then(function (data) {
+//
+//           window.location.href="/evaluation_result"
+//
+//          })
         }
       }
 

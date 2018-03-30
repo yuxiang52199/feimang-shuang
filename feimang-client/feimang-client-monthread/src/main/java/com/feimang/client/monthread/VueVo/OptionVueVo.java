@@ -1,6 +1,6 @@
-package com.feimang.client.monthread.vo;
+package com.feimang.client.monthread.VueVo;
 
-public class Option {
+public class OptionVueVo {
 
     private String key;
 
@@ -24,7 +24,7 @@ public class Option {
 
     @Override
     public String toString() {
-        return "Option{" +
+        return "OptionVueVo{" +
                 "key='" + key + '\'' +
                 ", val=" + val +
                 '}';

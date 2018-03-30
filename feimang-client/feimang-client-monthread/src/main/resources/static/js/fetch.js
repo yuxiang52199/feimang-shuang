@@ -3,7 +3,7 @@ var NODE_ENV = "api"; //api是服务器实测环境，easy是mock环境
   baseURL: 'https://easy-mock.com/mock/5a29537670188c51fc72df8f/irh',
   timeout: 5000,
 });*/
-var ROOT = 'https://easy-mock.com/mock/5ab59c286702986d1b46a91b/api2018';
+var ROOT = '';
 /*var ROOT = 'http://m.test.cn-onsite.com/api/';*/
 
 

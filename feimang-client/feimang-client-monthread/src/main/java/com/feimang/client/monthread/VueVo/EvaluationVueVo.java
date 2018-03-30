@@ -1,20 +1,19 @@
-package com.feimang.client.monthread.vo;
+package com.feimang.client.monthread.VueVo;
 
 import java.util.List;
 
-public class Questions {
-    private Integer id;
+public class EvaluationVueVo {
+    private Long id ;
     private Integer type;
     private Integer flag;
-    private String  tit;
-    private List<Option> option;
+    private String tit;
+    private List<OptionVueVo> option;
 
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,18 +41,17 @@ public class Questions {
         this.tit = tit;
     }
 
-    public List<Option> getOption() {
+    public List<OptionVueVo> getOption() {
         return option;
     }
 
-    public void setOption(List<Option> option) {
+    public void setOption(List<OptionVueVo> option) {
         this.option = option;
     }
 
-
     @Override
     public String toString() {
-        return "Questions{" +
+        return "EvaluationVueVo{" +
                 "id=" + id +
                 ", type=" + type +
                 ", flag=" + flag +

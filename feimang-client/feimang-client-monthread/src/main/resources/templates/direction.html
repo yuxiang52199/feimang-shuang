@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name=viewport content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'>
-    <title>测评</title>
+    <title>飞芒阅读计划</title>
     <link rel="stylesheet" href="css/common.css">
   </head>
     <body class="bgimg">
@@ -22,8 +22,8 @@
                 </yd-radio-group>
             </yd-cell-item>
             <yd-cell-item arrow>
-                <span slot="left">Date：</span>
-                <yd-datetime type="date" v-model="datetime4" slot="right"></yd-datetime>
+                <span slot="left">出生日期：</span>
+                <yd-datetime type="date" v-model="datetime4" slot="right" start-date="1900-01-01" end-date="2019-01-01" ></yd-datetime>
             </yd-cell-item>
           </yd-cell-group>
 
@@ -72,11 +72,8 @@
             </van-checkbox-group>
           </li>
         </ul>
-
-        <div class="btn_w2" @click="submit">确定</div>
-
-        
-        
+        <div style="height: .9rem;"></div>
+        <div class="btn_w3" @click="submit" >确定</div>
         
       </div>
     </body>
@@ -111,7 +108,7 @@
       })
     },
     data: {
-      radio2:"",
+      radio2:"1",
       picked:"1",
       datetime4:"",
       sex:"",
